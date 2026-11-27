@@ -94,14 +94,17 @@
 
   function loop(t) { draw(t); requestAnimationFrame(loop); }
 
+  // Skor = rata-rata kedekatan tiap slider ke jawabannya (masing-masing 0–100%).
+  // Dulu skor dihitung dari selisih seluruh gelombang, sehingga bisa TURUN padahal
+  // slider makin dekat ke jawaban. Sekarang setiap langkah mendekat pasti menaikkan skor.
+  function closeness(p, key) {
+    const el = { A: amp, B: freq, C: phase }[key];
+    const maxGap = Math.max(TARGET[key] - +el.min, +el.max - TARGET[key]);
+    return 1 - Math.abs(p[key] - TARGET[key]) / maxGap;
+  }
   function score(p) {
-    let s = 0;
-    for (let i = 0; i <= 200; i++) {
-      const x = (XMAX * i) / 200, d = f(p, x) - f(TARGET, x);
-      s += d * d;
-    }
-    const rms = Math.sqrt(s / 201);
-    return Math.round(Math.max(0, 1 - rms / 2.2) * 100);
+    const avg = (closeness(p, "A") + closeness(p, "B") + closeness(p, "C")) / 3;
+    return Math.round(avg * 100);
   }
 
   function update(e) {
@@ -116,7 +119,6 @@
     const sc = score(p);
     $("#score").textContent = sc + "%";
     $("#score-bar").style.width = sc + "%";
-    $("#score-bar").style.backgroundPosition = -(300 - sc * 3) + "px 0";
     updateStatus(p);
 
     if (e) {

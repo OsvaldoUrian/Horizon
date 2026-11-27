@@ -23,6 +23,10 @@
 
 #params-ok { display: block; font-size: .82rem; }
 
+/* Bar kecocokan: satu warna hijau (menimpa gradasi merah-kuning-hijau di style.css) */
+#score-bar { background: #57cc99; }
+#score { color: #57cc99; }
+
 /* ---------- Bagian SDG 4 di beranda ---------- */
 #dampak sup { font-size: .7em; line-height: 0; }
 #dampak sup a { color: var(--yolk); text-decoration: none; padding: 0 1px; }
