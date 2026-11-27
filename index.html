@@ -11,6 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/dampak.css">
+  <link rel="stylesheet" href="css/akun.css">
+  <script src="js/config.js"></script>
+  <script src="js/akun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body data-page="home">
@@ -20,11 +24,12 @@
       <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
       <ul class="nav-links">
         <li><a href="#masalah">Masalah</a></li>
+        <li><a href="#dampak">Dampak</a></li>
         <li><a href="#cara-kerja">Cara Kerja</a></li>
-        <li><a href="#kasus">Papan Kasus</a></li>
+        <li><a href="#kasus">Coba Demo</a></li>
         <li><a href="#tim">Tim</a></li>
       </ul>
-      <a class="btn btn-primary btn-sm" href="#kasus">Mulai Investigasi</a>
+      <a class="btn btn-ghost btn-sm" href="masuk.html">Masuk</a>
     </nav>
   </header>
 
@@ -38,8 +43,8 @@
           <p class="slogan">"Every shell holds a secret. Every clue leads to the truth."</p>
           <p class="lead">Cluegg mengubah materi abstrak menjadi kasus misteri. Kamu bereksperimen dengan simulasi, mengumpulkan petunjuk, lalu memecahkan cangkangnya untuk menemukan konsep di dalamnya.</p>
           <div class="hero-cta">
-            <a class="btn btn-primary" href="#kasus">Buka Papan Kasus →</a>
-            <a class="btn btn-ghost" href="#cara-kerja">Lihat Cara Kerja</a>
+            <a class="btn btn-primary" href="masuk.html#daftar">Daftar Gratis →</a>
+            <a class="btn btn-ghost" href="#kasus">Coba Demo Dulu</a>
           </div>
           <div class="hero-meta">
             <div><strong>3</strong>kasus simulasi</div>
@@ -165,7 +170,7 @@
             </li>
             <li>
               <b>Akses merata.</b>
-              Gratis, tanpa akun, tanpa instalasi, dan bisa dibuka dari browser HP. Siswa tanpa laboratorium tetap bisa bereksperimen.
+              Gratis, tanpa instalasi, dan bisa dibuka dari browser HP. Satu kasus bisa langsung dicoba tanpa akun. Siswa tanpa laboratorium tetap bisa bereksperimen.
             </li>
             <li>
               <b>Bisa belajar mandiri.</b>
@@ -173,7 +178,7 @@
             </li>
             <li>
               <b>Aman untuk siswa.</b>
-              Progres hanya disimpan di browser masing-masing. Cluegg tidak meminta nama, email, atau data pribadi apa pun.
+              Akun hanya menyimpan email, nama panggilan, dan progres belajar. Setiap akun hanya bisa membaca datanya sendiri, dan akun bisa dihapus kapan saja. <a href="privasi.html">Kebijakan privasi</a>
             </li>
           </ul>
         </div>
@@ -218,12 +223,13 @@
       </div>
     </section>
 
-    <!-- ============ PAPAN KASUS ============ -->
+    <!-- ============ COBA DEMO ============
+         Tamu boleh memecahkan SATU kasus. Setelah itu kasus lain terkunci (lihat js/akun.js). -->
     <section class="section" id="kasus">
       <div class="container">
-        <p class="eyebrow">Papan Kasus</p>
-        <h2 class="section-title">Pilih kasus pertamamu, Detektif.</h2>
-        <p class="section-lead">Tiga kasus dari tiga bidang ilmu. Semuanya bisa langsung dimainkan, dan progresmu tersimpan otomatis di browser ini.</p>
+        <p class="eyebrow">Coba Demo</p>
+        <h2 class="section-title">Coba satu kasus. Gratis, tanpa daftar.</h2>
+        <p class="section-lead">Pilih bidang yang paling bikin penasaran. Sebagai tamu kamu bisa memecahkan satu kasus. Daftar gratis untuk membuka semuanya dan menyimpan progresmu.</p>
 
         <div class="board-wrap">
           <div class="cases">
@@ -234,7 +240,7 @@
               <blockquote>"Sudut berapa yang membuat bola meriam terbang paling jauh?"</blockquote>
               <div class="case-foot">
                 <span class="clue-count">Petunjuk <b>0</b>/3</span>
-                <a class="btn btn-primary btn-sm" href="kasus-parabola.html">Buka Berkas</a>
+                <a class="btn btn-primary btn-sm" href="kasus-parabola.html">Coba Gratis</a>
               </div>
               <span class="stamp">TERPECAHKAN</span>
             </article>
@@ -246,7 +252,7 @@
               <blockquote>"Sebuah sinyal rahasia tertangkap radar. Bisakah kamu meniru bentuknya?"</blockquote>
               <div class="case-foot">
                 <span class="clue-count">Petunjuk <b>0</b>/3</span>
-                <a class="btn btn-primary btn-sm" href="kasus-gelombang.html">Buka Berkas</a>
+                <a class="btn btn-primary btn-sm" href="kasus-gelombang.html">Coba Gratis</a>
               </div>
               <span class="stamp">TERPECAHKAN</span>
             </article>
@@ -258,25 +264,48 @@
               <blockquote>"Satu berkas disembunyikan di antara 100 laci. Temukan dengan langkah sesedikit mungkin."</blockquote>
               <div class="case-foot">
                 <span class="clue-count">Petunjuk <b>0</b>/3</span>
-                <a class="btn btn-primary btn-sm" href="kasus-arsip.html">Buka Berkas</a>
+                <a class="btn btn-primary btn-sm" href="kasus-arsip.html">Coba Gratis</a>
               </div>
               <span class="stamp">TERPECAHKAN</span>
             </article>
           </div>
         </div>
 
-        <div class="rank">
-          <div class="rank-head">
-            <h3>Pangkatmu: <span id="rank-name">Detektif Magang</span></h3>
-            <button class="link-reset" id="reset" type="button">Reset progres</button>
+        <p class="trial-note" id="trial-note">Satu kasus untuk tamu. Pilih dengan bijak, Detektif.</p>
+      </div>
+    </section>
+
+    <!-- ============ AKUN / DASHBOARD ============ -->
+    <section class="section" id="akun">
+      <div class="container">
+        <p class="eyebrow">Kartu Anggota</p>
+        <h2 class="section-title">Daftar gratis, buka dashboard detektifmu.</h2>
+        <p class="section-lead">Dengan akun, semua kasus terbuka dan setiap petunjuk tersimpan di cloud. Lanjutkan dari HP atau laptop, kapan saja.</p>
+        <div class="features">
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+            <h3>Level &amp; Pangkat</h3>
+            <p>Kumpulkan XP dari setiap petunjuk dan naik dari Detektif Magang sampai Master Detektif.</p>
           </div>
-          <div class="rank-bar"><i id="rank-bar"></i></div>
-          <div class="rank-levels">
-            <span class="on">Detektif Magang</span>
-            <span>Penyelidik Muda</span>
-            <span>Inspektur Konsep</span>
-            <span>Master Detektif</span>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2zM4 5v16"/></svg></div>
+            <h3>Kursus per Bidang</h3>
+            <p>Kasus dikelompokkan per mata pelajaran: Fisika, Matematika, dan Informatika.</p>
           </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></div>
+            <h3>Misi &amp; Lencana</h3>
+            <p>Misi tercentang otomatis saat kamu bermain, dan setiap misi memberi lencana.</p>
+          </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <h3>Riwayat &amp; Statistik</h3>
+            <p>Lihat kasus yang sudah dibuka, dipecahkan, dan berapa kali kamu mencoba.</p>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="masuk.html#daftar">Buat Akun Gratis →</a>
+          <a class="btn btn-ghost" href="masuk.html">Sudah punya akun? Masuk</a>
         </div>
       </div>
     </section>
@@ -355,9 +384,9 @@
       <div class="cta-band">
         <div>
           <h2>Setiap cangkang menyimpan rahasia.<br>Siap memecahkannya?</h2>
-          <p>Mulai dari Berkas #01. Butuh sekitar 5 menit.</p>
+          <p>Daftar gratis, atau coba satu kasus dulu sebagai tamu.</p>
         </div>
-        <a class="btn" href="kasus-parabola.html">Mulai Kasus Pertama →</a>
+        <a class="btn" href="masuk.html#daftar">Daftar Gratis →</a>
       </div>
     </section>
   </main>
@@ -366,6 +395,7 @@
     <div class="container footer-row">
       <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
       <span class="type">Crack the Egg · Platform Pembelajaran Digital Interaktif</span>
+      <a href="privasi.html">Kebijakan privasi</a>
       <span>© 2026 Tim Cluegg</span>
     </div>
   </footer>
