@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dampak.css">
   <script src="js/main.js" defer></script>
   <script src="js/gelombang.js" defer></script>
 </head>
@@ -62,19 +63,22 @@
           <div class="control">
             <label for="amp">A · Amplitudo <output id="amp-out">1</output></label>
             <input type="range" id="amp" min="0.5" max="3" step="0.5" value="1">
+            <p class="param-status" id="amp-status" aria-live="polite"></p>
           </div>
           <div class="control">
             <label for="freq">B · Frekuensi <output id="freq-out">1</output></label>
             <input type="range" id="freq" min="0.5" max="3" step="0.5" value="1">
+            <p class="param-status" id="freq-status" aria-live="polite"></p>
           </div>
           <div class="control">
             <label for="phase">C · Fase <output id="phase-out">0</output></label>
             <input type="range" id="phase" min="0" max="7" step="1" value="0">
+            <p class="param-status" id="phase-status" aria-live="polite"></p>
           </div>
         </div>
 
         <div class="meter">
-          <div class="meter-top"><span>Kecocokan dengan sinyal</span><b id="score">0%</b></div>
+          <div class="meter-top"><span>Kecocokan total <span id="params-ok">0 dari 3 parameter pas</span></span><b id="score">0%</b></div>
           <div class="meter-bar"><i id="score-bar"></i></div>
         </div>
 

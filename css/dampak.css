@@ -1,0 +1,24 @@
+/* =========================================================
+   CLUEGG — tambahan tampilan bagian "dampak & konten" (Nevan)
+   Memakai variabel warna dari css/style.css.
+   ========================================================= */
+
+/* ---------- Indikator A, B, C di kasus gelombang ---------- */
+.param-status {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px;
+  margin-top: 10px; font-size: .82rem; color: var(--muted); min-height: 1.6em;
+}
+.param-status .pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 2px 10px; border-radius: 999px; font-weight: 600; font-size: .78rem;
+  background: rgba(251, 133, 0, .15); color: var(--yolk-deep);
+  transition: background .2s, color .2s;
+}
+.param-status .pill::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+}
+.param-status[data-state="ok"] .pill { background: rgba(87, 204, 153, .15); color: #57cc99; }
+.param-status[data-state="ok"] .pill::before { display: none; }
+.param-status[data-state="ok"] { color: #57cc99; }
+
+#params-ok { display: block; font-size: .82rem; }

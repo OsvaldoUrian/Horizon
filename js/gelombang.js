@@ -13,6 +13,30 @@
   const piText = (n) => (num(n) === "1" ? "" : num(n)) + "π"; // "π", bukan "1π"
   let W = 0, H = 0;
 
+  // Indikator per parameter: bandingkan tiap slider dengan target secara terpisah,
+  // supaya A yang sudah benar tetap terlihat "Pas" walau B atau C masih salah.
+  // Hanya arah (terlalu besar/kecil) yang ditampilkan, angka jawabannya tidak.
+  const PARAMS = [
+    { key: "A", el: "#amp-status", high: "gelombang terlalu tinggi", low: "gelombang terlalu pendek" },
+    { key: "B", el: "#freq-status", high: "gelombang terlalu rapat", low: "gelombang terlalu renggang" },
+    { key: "C", el: "#phase-status", high: "gelombang terlalu ke kiri", low: "gelombang terlalu ke kanan" }
+  ];
+  const stateOf = (p, key) => (p[key] === TARGET[key] ? "ok" : p[key] > TARGET[key] ? "high" : "low");
+
+  function updateStatus(p) {
+    let ok = 0;
+    PARAMS.forEach((q) => {
+      const el = $(q.el), state = stateOf(p, q.key);
+      if (state === "ok") ok++;
+      if (el.dataset.state === state) return; // teks sama, jangan dibacakan ulang
+      el.dataset.state = state;
+      el.innerHTML = state === "ok"
+        ? '<span class="pill">✓ Pas</span> cocok dengan sinyal'
+        : `<span class="pill">${state === "high" ? "Terlalu besar" : "Terlalu kecil"}</span> ${q[state]}`;
+    });
+    $("#params-ok").textContent = `${ok} dari 3 parameter pas`;
+  }
+
   const val = () => ({ A: +amp.value, B: +freq.value, C: +phase.value });
   const f = (p, x) => p.A * Math.sin(p.B * x + (p.C * Math.PI) / 4);
 
@@ -93,6 +117,7 @@
     $("#score").textContent = sc + "%";
     $("#score-bar").style.width = sc + "%";
     $("#score-bar").style.backgroundPosition = -(300 - sc * 3) + "px 0";
+    updateStatus(p);
 
     if (e) {
       if (p.A !== START.A) game.unlock(0);
@@ -104,10 +129,8 @@
   $("#submit").addEventListener("click", () => {
     if (game.solved) return game.say("Kasus ini sudah terpecahkan. Kerja bagus!");
     if (document.getElementById("final").classList.contains("locked")) return;
-    const p = val(), off = [];
-    if (p.A !== TARGET.A) off.push(p.A > TARGET.A ? "terlalu tinggi" : "terlalu pendek");
-    if (p.B !== TARGET.B) off.push(p.B > TARGET.B ? "terlalu rapat" : "terlalu renggang");
-    if (p.C !== TARGET.C) off.push("posisinya masih bergeser");
+    const p = val();
+    const off = PARAMS.filter((q) => stateOf(p, q.key) !== "ok").map((q) => q[stateOf(p, q.key)].replace("gelombang ", ""));
     if (!off.length) {
       game.say("✔ Sinyal cocok 100%! Asal sinyal terbukti.");
       game.solve();
