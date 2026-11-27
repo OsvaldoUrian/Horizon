@@ -22,3 +22,73 @@
 .param-status[data-state="ok"] { color: #57cc99; }
 
 #params-ok { display: block; font-size: .82rem; }
+
+/* ---------- Bagian SDG 4 di beranda ---------- */
+#dampak sup { font-size: .7em; line-height: 0; }
+#dampak sup a { color: var(--yolk); text-decoration: none; padding: 0 1px; }
+#dampak sup a:hover { text-decoration: underline; }
+
+.impact-block { margin-top: 56px; }
+.impact-title { display: flex; align-items: center; gap: 14px; font-size: 1.3rem; letter-spacing: -0.02em; }
+.impact-no {
+  font-family: var(--font-type); font-size: .85rem; color: var(--bg); background: var(--yolk);
+  width: 36px; height: 44px; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%;
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.impact-text { color: var(--muted); max-width: 720px; margin-top: 12px; }
+
+/* Kartu statistik: batang Indonesia vs rata-rata OECD */
+.stats { display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 20px; margin-top: 28px; }
+.stat {
+  margin: 0; background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px;
+}
+.stat figcaption { font-size: .92rem; color: var(--muted); margin-bottom: 18px; }
+.stat figcaption b { color: var(--text); }
+.stat-row { display: grid; grid-template-columns: 96px 1fr 44px; align-items: center; gap: 10px; margin-top: 12px; }
+.stat-label { font-size: .82rem; color: var(--muted); }
+.stat-bar { height: 12px; border-radius: 99px; background: var(--bg-3); overflow: hidden; }
+.stat-bar i { display: block; height: 100%; border-radius: 99px; background: var(--yolk); }
+.stat-num { font-size: 1.15rem; text-align: right; font-variant-numeric: tabular-nums; color: var(--yolk); }
+.stat-row.is-avg .stat-bar i { background: rgba(255, 247, 232, .35); }
+.stat-row.is-avg .stat-num { color: var(--muted); font-size: 1rem; }
+.stat-note { background: var(--paper); color: var(--ink); border-color: transparent; }
+.stat-note .type { color: var(--red); font-size: .85rem; margin-bottom: 8px; }
+.stat-note p { font-size: .92rem; }
+.stat-note sup a { color: var(--yolk-deep) !important; }
+
+/* Siapa yang terbantu */
+.who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
+.who-card { background: var(--bg-2); border: 1px solid var(--line); border-left: 4px solid var(--yolk); border-radius: 12px; padding: 20px 22px; }
+.who-card h4 { font-size: 1.05rem; margin-bottom: 6px; }
+.who-card p { color: var(--muted); font-size: .93rem; }
+
+/* Bagaimana Cluegg membantu */
+.how { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; margin-top: 24px; counter-reset: how; }
+.how li { position: relative; padding-left: 34px; color: var(--muted); font-size: .95rem; }
+.how li::before {
+  counter-increment: how; content: counter(how);
+  position: absolute; left: 0; top: 2px; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(255, 183, 3, .15); color: var(--yolk); font-size: .78rem; font-weight: 700;
+  display: grid; place-items: center;
+}
+.how li b { display: block; color: var(--text); margin-bottom: 2px; }
+
+/* Daftar sumber */
+.sources {
+  margin-top: 48px; padding: 20px 22px 20px 44px; border-radius: 12px; border: 1px dashed var(--line);
+  font-size: .82rem; color: var(--muted); display: grid; gap: 8px;
+}
+.sources li { padding-left: 4px; scroll-margin-top: 96px; overflow-wrap: anywhere; }
+.sources li:target { color: var(--text); }
+.sources a { color: var(--yolk); }
+
+@media (max-width: 980px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stat-note { grid-column: 1 / -1; }
+  .who, .how { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .stats { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 84px 1fr 40px; }
+  .impact-block { margin-top: 44px; }
+}
