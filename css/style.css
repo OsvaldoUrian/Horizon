@@ -61,6 +61,7 @@ button { font: inherit; cursor: pointer; }
 .brand b { color: var(--yolk); font-weight: 700; }
 .nav-links { display: flex; gap: 28px; list-style: none; font-size: 0.95rem; color: var(--muted); }
 .nav-links a:hover { color: var(--text); }
+.nav-toggle { display: none; }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -414,7 +415,27 @@ button { font: inherit; cursor: pointer; }
   .clueboard { position: static; }
 }
 @media (max-width: 760px) {
+  .nav { gap: 10px; }
+  .nav .brand { margin-right: auto; }
+  .nav-toggle {
+    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+    flex: none; width: 42px; height: 42px; border-radius: 12px;
+    background: transparent; border: 2px solid var(--line); color: var(--text);
+  }
+  .nav-toggle span { width: 18px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .2s, opacity .2s; }
+  .nav-toggle[aria-expanded="true"] { border-color: var(--yolk); color: var(--yolk); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; gap: 0;
+    position: absolute; top: 100%; left: 0; right: 0; padding: 8px 16px 16px;
+    background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: var(--shadow);
+    max-height: calc(100vh - 68px); overflow-y: auto; font-size: 1.05rem;
+  }
+  .nav-links.open a { display: block; padding: 14px 4px; border-bottom: 1px solid var(--line); }
+  .nav-links.open li:last-child a { border-bottom: 0; }
   .section { padding: 64px 0; }
   .compare { grid-template-columns: 1fr; }
   .team { grid-template-columns: 1fr; max-width: 340px; margin-inline: auto; }
@@ -427,6 +448,7 @@ button { font: inherit; cursor: pointer; }
   .solved h2 { max-width: 100%; }
 }
 @media (max-width: 480px) {
+  .nav .btn-sm { padding: 8px 12px; font-size: .8rem; white-space: nowrap; }
   .features, .steps { grid-template-columns: 1fr; }
   .lockers { gap: 3px; }
   .lab { padding: 14px; }

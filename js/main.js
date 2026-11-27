@@ -219,9 +219,42 @@
     }
   }
 
+  /* ---------- Menu HP ---------- */
+  // Tombol dibuat lewat JavaScript supaya header di tiap file HTML tidak perlu diubah.
+  function initMenu() {
+    const nav = document.querySelector(".nav");
+    const links = nav && nav.querySelector(".nav-links");
+    if (!links) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "nav-toggle";
+    btn.setAttribute("aria-controls", "nav-menu");
+    btn.innerHTML = "<span></span><span></span><span></span>";
+    links.id = "nav-menu";
+    nav.appendChild(btn);
+
+    function setOpen(open) {
+      links.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+    }
+    const isOpen = () => links.classList.contains("open");
+
+    btn.addEventListener("click", () => setOpen(!isOpen()));
+    links.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
+    document.addEventListener("click", (e) => { if (isOpen() && !nav.contains(e.target)) setOpen(false); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) { setOpen(false); btn.focus(); }
+    });
+    window.matchMedia("(min-width: 761px)").addEventListener("change", () => setOpen(false));
+    setOpen(false);
+  }
+
   window.Cluegg = { mountEgg, setEgg, toast, initCase, load };
 
   document.addEventListener("DOMContentLoaded", () => {
+    initMenu();
     document.querySelectorAll(".egg").forEach(mountEgg);
     if (document.body.dataset.page === "home") initHome();
   });
