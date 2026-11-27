@@ -42,7 +42,9 @@ html.trial-locked main { display: none; }
 .trial-note a { color: var(--yolk); }
 
 /* ---------- Halaman masuk / daftar ---------- */
-.auth { padding: 56px 0 24px; }
+/* Minimal setinggi layar (dikurangi header), supaya footer SELALU di bawah layar,
+   baik di tab Masuk (pendek) maupun Daftar (panjang). Footer tidak ikut naik-turun. */
+.auth { padding: 56px 0 24px; min-height: calc(100vh - 68px); min-height: calc(100dvh - 68px); }
 /* Rata atas: saat kartu memanjang/memendek, teks di kiri tidak ikut bergeser */
 .auth-grid { display: grid; grid-template-columns: 1fr minmax(0, 440px); gap: 56px; align-items: start; }
 .auth-intro { padding-top: 20px; }
