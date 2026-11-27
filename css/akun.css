@@ -1,0 +1,97 @@
+/* =========================================================
+   CLUEGG — tampilan akun, mode tamu, dan halaman privasi
+   Memakai variabel warna dari css/style.css.
+   ========================================================= */
+
+/* ---------- Banner mode demo (tamu) ---------- */
+.guest-bar { background: rgba(255, 183, 3, .1); border-bottom: 1px solid rgba(255, 183, 3, .25); font-size: .88rem; }
+.guest-bar .container { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; padding: 10px 0; }
+.guest-bar span { color: var(--muted); }
+.guest-bar b { color: var(--text); }
+.guest-bar a { color: var(--yolk); font-weight: 600; white-space: nowrap; }
+
+/* ---------- Kasus terkunci untuk tamu ---------- */
+html.trial-locked main { display: none; }
+.trial-lock { padding: 72px 0 24px; }
+.trial-lock-card {
+  max-width: 620px; margin: 0 auto; text-align: center; background: var(--bg-2);
+  border: 1px solid var(--line); border-radius: 24px; padding: 48px 28px;
+}
+.lock-icon { font-size: 2.6rem; margin-bottom: 12px; }
+.trial-lock h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); letter-spacing: -0.03em; line-height: 1.15; }
+.trial-lock p { color: var(--muted); margin-top: 12px; }
+.trial-lock p b { color: var(--text); }
+.trial-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+.trial-back { display: inline-block; margin-top: 22px; color: var(--muted); font-size: .9rem; }
+.trial-back:hover { color: var(--yolk); }
+
+/* Ajakan daftar setelah demo selesai (di panel "Rahasia di dalam cangkang") */
+.trial-cta {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  margin-top: 22px; padding: 16px 18px; border-radius: 12px; background: var(--bg); color: var(--text);
+}
+.trial-cta b { color: var(--yolk); }
+.trial-cta .btn { box-shadow: none; }
+
+/* Kartu kasus terkunci di beranda */
+.case-card.is-locked { filter: saturate(.3); }
+.case-card.is-locked .egg { opacity: .45; }
+.case-card.is-locked .btn-primary { background: var(--ink-soft); }
+.trial-note { margin-top: 22px; color: var(--muted); font-size: .95rem; text-align: center; }
+.trial-note b { color: var(--text); }
+.trial-note a { color: var(--yolk); }
+
+/* ---------- Halaman masuk / daftar ---------- */
+.auth { padding: 56px 0 24px; }
+.auth-grid { display: grid; grid-template-columns: 1fr minmax(0, 440px); gap: 56px; align-items: center; }
+.auth-intro h1 { font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.08; letter-spacing: -0.035em; margin: 12px 0 14px; }
+.auth-intro p { color: var(--muted); max-width: 460px; }
+.auth-perks { list-style: none; display: grid; gap: 12px; margin-top: 26px; }
+.auth-perks li { display: flex; gap: 10px; color: var(--muted); }
+.auth-perks li::before { content: "✓"; color: var(--yolk); font-weight: 700; }
+.auth-egg { width: 92px; margin-bottom: 8px; }
+
+.auth-card { background: var(--paper); color: var(--ink); border-radius: 18px; padding: 28px; box-shadow: var(--shadow); }
+.auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px; background: var(--paper-2); border-radius: 999px; margin-bottom: 22px; }
+.auth-tabs button { border: 0; background: transparent; padding: 9px; border-radius: 999px; font-weight: 600; color: var(--ink-soft); }
+.auth-tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.auth-form { display: grid; gap: 16px; }
+.auth-form[hidden] { display: none; }
+.field label { display: block; font-size: .86rem; font-weight: 600; margin-bottom: 6px; }
+.field input {
+  width: 100%; padding: 12px 14px; border-radius: 10px; border: 1.5px solid rgba(42, 36, 28, .25);
+  background: #fffdf7; color: var(--ink); font: inherit;
+}
+.field input:focus { outline: none; border-color: var(--yolk-deep); box-shadow: 0 0 0 3px rgba(251, 133, 0, .2); }
+.field small { display: block; margin-top: 5px; color: var(--ink-soft); font-size: .8rem; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .86rem; color: var(--ink-soft); }
+.check input { margin-top: 3px; accent-color: var(--ink); width: 16px; height: 16px; flex-shrink: 0; }
+.check a { color: var(--ink); font-weight: 600; }
+.auth-form .btn-primary { justify-content: center; background: var(--ink); color: var(--paper); box-shadow: none; width: 100%; }
+.auth-form .btn-primary:hover { background: #000; }
+.form-msg { font-size: .88rem; min-height: 1.3em; }
+.form-msg.error { color: var(--red); }
+.form-msg.ok { color: var(--green); }
+.auth-alt { text-align: center; margin-top: 18px; font-size: .88rem; color: var(--ink-soft); }
+.auth-alt a { color: var(--ink); font-weight: 600; }
+.auth-off { background: rgba(229, 56, 59, .08); border: 1px solid rgba(229, 56, 59, .3); color: var(--ink); border-radius: 10px; padding: 12px 14px; font-size: .88rem; margin-bottom: 16px; }
+
+/* ---------- Halaman privasi ---------- */
+.prose { max-width: 760px; padding: 48px 0 24px; }
+.prose h1 { font-size: clamp(2rem, 4.4vw, 2.8rem); letter-spacing: -0.035em; line-height: 1.1; margin: 10px 0 8px; }
+.prose .updated { color: var(--muted); font-size: .9rem; }
+.prose h2 { font-size: 1.25rem; margin: 34px 0 10px; }
+.prose p, .prose li { color: var(--muted); }
+.prose ul { padding-left: 20px; display: grid; gap: 6px; }
+.prose b { color: var(--text); }
+.prose a { color: var(--yolk); }
+
+@media (max-width: 900px) {
+  .auth-grid { grid-template-columns: 1fr; gap: 32px; }
+  .auth-intro { text-align: left; }
+}
+@media (max-width: 480px) {
+  .auth-card { padding: 22px 18px; }
+  .trial-lock-card { padding: 36px 18px; }
+  .guest-bar { font-size: .82rem; }
+}

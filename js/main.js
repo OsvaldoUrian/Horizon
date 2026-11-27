@@ -148,6 +148,8 @@
       const p = load();
       p[id] = st;
       save(p);
+      // Diteruskan ke js/akun.js untuk disinkronkan ke akun (jika login)
+      document.dispatchEvent(new CustomEvent("cluegg:progress", { detail: { id, state: st } }));
     }
     function render() {
       clueEls.forEach((el, i) => el.classList.toggle("unlocked", st.clues.includes(i)));
@@ -304,7 +306,7 @@
     setOpen(false);
   }
 
-  window.Cluegg = { mountEgg, setEgg, toast, initCase, load };
+  window.Cluegg = { mountEgg, setEgg, toast, initCase, load, RANKS };
 
   document.addEventListener("DOMContentLoaded", () => {
     initMenu();
