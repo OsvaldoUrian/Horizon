@@ -44,6 +44,17 @@ bisa dibuka sebagai pratinjau dengan progres di browser.
 Catatan: project Supabase gratis bisa di-pause otomatis jika lama tidak dipakai. Buka website
 secara berkala selama masa penjurian. Demo tamu tetap jalan walaupun Supabase sedang mati.
 
+## Layar permainan & membuat kasus baru
+Halaman kasus tampil sebagai satu layar penuh tanpa scroll (`js/permainan.js` + `css/permainan.css`).
+Kasus baru otomatis ikut asalkan:
+- `<head>` memuat `css/permainan.css`, dan `<script src="js/permainan.js"></script>` diletakkan
+  tepat sebelum `</body>` (tanpa `defer`).
+- Struktur HTML sama dengan kasus yang ada: `.case-hero` (berisi `.back`, `.case-label`, `h1`, `.mystery`),
+  `#solved`, `.lab`, dan `.clueboard` (berisi `#final`).
+- Bagian simulasi yang harus selalu terlihat memakai `.canvas-box` / `.lockers`, atau diberi
+  atribut `data-game="visual"`. Sisanya di dalam `.lab` otomatis masuk ke panel Kontrol.
+- Simulasi canvas membaca ukuran dari `getBoundingClientRect()` dan mendengarkan event `resize`.
+
 ## Menambah foto tim
 Simpan foto di folder `img/` dengan nama `anggota-1.jpg`, `anggota-2.jpg`, dan `anggota-3.jpg`.
 Foto akan muncul otomatis. Ganti nama dan peran di bagian `TIM` pada `index.html`.

@@ -1,0 +1,238 @@
+/* =========================================================
+   CLUEGG — layar permainan tanpa scroll halaman
+   Dipakai bersama js/permainan.js. Memakai variabel dari css/style.css.
+   ========================================================= */
+
+/* ---------- Kerangka: tinggi tepat satu layar ---------- */
+body.game {
+  height: 100vh; height: 100dvh; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body.game .site-header, body.game .guest-bar { flex: none; }
+body.game .nav { height: 58px; }
+body.game .site-footer { display: none; }
+body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
+
+.game-shell {
+  --gap: 14px;
+  flex: 1; min-height: 0;
+  width: min(1440px, 100% - 32px); margin-inline: auto;
+  padding: 12px 0 16px;
+  display: grid; gap: var(--gap);
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 27vw, 380px);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "bar     bar"
+    "visual  side"
+    "kontrol side";
+}
+
+/* ---------- Bar atas ---------- */
+.game-bar { grid-area: bar; display: flex; align-items: center; gap: 10px 18px; min-width: 0; }
+.game-bar .back {
+  flex: none; display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+  border: 1px solid var(--line); font-size: .85rem; white-space: nowrap;
+}
+.game-bar .back:hover { border-color: var(--yolk); }
+.game-title { flex: 1; min-width: 0; }
+.game-title .case-label { margin: 0 0 2px; gap: 10px; flex-wrap: nowrap; }
+.game-title .case-label .eyebrow { font-size: .75rem; }
+.game-title .case-label .tag { font-size: .68rem; white-space: nowrap; }
+.game-title h1 {
+  font-size: clamp(1.1rem, 2vw, 1.55rem); line-height: 1.15; letter-spacing: -0.025em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.game-actions { flex: none; display: flex; gap: 8px; }
+.game-actions .btn { box-shadow: none; }
+.game-actions [hidden] { display: none; }
+
+/* ---------- Area simulasi ---------- */
+.game-visual {
+  grid-area: visual; min-height: 0; min-width: 0;
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px;
+}
+.game-visual .lab-head { margin: 0; flex: none; }
+.game-visual .lab-head h2 { font-size: .95rem; }
+.visual-fit { flex: 1; min-height: 0; container-type: size; display: grid; place-items: center; overflow: hidden; }
+.visual-fit .canvas-box { width: 100%; height: 100%; }
+.visual-fit .canvas-box canvas { width: 100%; height: 100%; aspect-ratio: auto; }
+/* Papan laci: selalu persegi dan muat di ruang yang ada (tidak pernah meluber) */
+.visual-fit .lockers { width: min(100cqw, 100cqh); grid-template-columns: repeat(10, minmax(0, 1fr)); }
+.visual-fit .locker { min-width: 0; min-height: 0; line-height: 1; padding: 0; font-size: clamp(.5rem, 2.6cqmin, .85rem); }
+.game-visual .legend { margin: 0; flex: none; font-size: .8rem; }
+.game-visual .range-bar { margin: 0; flex: none; }
+.game-visual .bs-status { margin: 0; flex: none; min-height: 0; padding: 10px 14px; font-size: .9rem; }
+
+/* ---------- Panel kontrol ---------- */
+.dock-panel { min-height: 0; min-width: 0; }
+.panel-dark { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.panel-paper { color: var(--ink); }
+/* Dibuat padat: slider + tombol satu baris, angka hasil + rumus/meter satu baris */
+#panel-kontrol {
+  grid-area: kontrol; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 12px 14px;
+}
+#panel-kontrol > * { margin: 0; }
+#panel-kontrol .controls { flex: 1 1 520px; gap: 8px 20px; }
+#panel-kontrol .control label { margin-bottom: 2px; font-size: .84rem; }
+#panel-kontrol .lab-actions { flex: none; }
+#panel-kontrol .readouts { flex: 1 1 340px; gap: 8px; }
+#panel-kontrol .readout { padding: 6px 10px; }
+#panel-kontrol .readout small { font-size: .72rem; }
+#panel-kontrol .readout b { font-size: 1rem; }
+#panel-kontrol .formula { flex: 1 1 300px; padding: 7px 12px; font-size: .82rem; }
+#panel-kontrol .meter { flex: 1 1 240px; }
+#panel-kontrol .meter-top { margin-bottom: 4px; font-size: .84rem; }
+#panel-kontrol .guess-log { flex: 1 1 100%; order: 5; max-height: 30px; overflow-y: auto; }
+#panel-kontrol .guess-log:empty { display: none; }
+#panel-kontrol .param-status { margin-top: 4px; min-height: 0; flex-wrap: nowrap; white-space: nowrap; font-size: .76rem; overflow: hidden; }
+#panel-kontrol .param-status .pill { flex: none; font-size: .72rem; padding: 1px 8px; }
+
+/* ---------- Kolom kanan: petunjuk + deduksi ---------- */
+.game-side {
+  grid-area: side; min-height: 0;
+  display: flex; flex-direction: column;
+  background: var(--paper); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden;
+}
+#panel-petunjuk { flex: 1 1 auto; overflow-y: auto; padding: 18px 18px 8px; }
+#panel-deduksi { flex: none; max-height: 55%; overflow-y: auto; padding: 0 18px 18px; }
+#panel-deduksi .final { margin-top: 6px; }
+/* Selama deduksi terkunci, cukup tampilkan judul + catatan agar petunjuk punya ruang */
+@media (min-width: 900px) {
+  #panel-deduksi .final.locked .final-body { display: none; }
+  #panel-deduksi .final.locked .locked-note { margin-bottom: 0; }
+}
+.game-side .clueboard-head .egg { width: 54px; }
+.game-side .clue-list { margin-top: 14px; gap: 8px; }
+.game-side .clue { padding: 10px 12px; }
+
+/* Notifikasi muncul di atas, supaya tidak menutupi tombol & panel di bawah */
+body.game .toast { bottom: auto; top: 70px; translate: -50% -220%; font-size: .9rem; padding: 10px 18px; }
+body.game .toast.show { translate: -50% 0; }
+
+/* Tab hanya untuk HP */
+.dock-tabs { display: none; }
+
+/* ---------- Jendela briefing misteri ---------- */
+.game-dialog {
+  border: 0; padding: 0; background: transparent; color: inherit;
+  width: min(560px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; overflow: visible;
+}
+.game-dialog::backdrop { background: rgba(10, 8, 6, .72); backdrop-filter: blur(3px); }
+.game-dialog[open] { animation: pop .35s; }
+.brief-card {
+  background: var(--paper); color: var(--ink); border-radius: 18px; padding: 26px;
+  max-height: calc(100dvh - 32px); overflow-y: auto; box-shadow: var(--shadow);
+}
+.brief-card .case-label { margin: 0 0 6px; }
+.brief-card .case-label .tag { background: var(--ink); color: var(--paper); }
+.brief-card h2 { font-size: clamp(1.4rem, 4vw, 1.9rem); letter-spacing: -0.03em; line-height: 1.15; }
+.brief-card .mystery { margin: 16px 0; padding: 16px 18px; box-shadow: none; background: #fff9ea; border: 1.5px dashed rgba(42, 36, 28, .3); font-size: .95rem; }
+.brief-steps { margin: 0 0 20px 20px; display: grid; gap: 6px; font-size: .93rem; color: var(--ink-soft); }
+.brief-steps b { color: var(--ink); }
+.brief-card .btn { width: 100%; justify-content: center; background: var(--ink); color: var(--paper); box-shadow: none; }
+
+/* ---------- Pop-up "Rahasia di dalam cangkang" ---------- */
+body.game .solved { margin: 0; }
+body.game .solved.show {
+  position: fixed; z-index: 90; inset: 0; margin: auto;
+  width: min(760px, calc(100% - 32px)); height: fit-content; max-height: calc(100dvh - 32px); overflow-y: auto;
+}
+body.game .solved.show.dismissed { display: none; }
+.solved-backdrop { display: none; position: fixed; inset: 0; z-index: 89; background: rgba(10, 8, 6, .72); backdrop-filter: blur(3px); }
+.solved-backdrop.on { display: block; }
+.solved .solved-close { border-color: var(--ink); color: var(--ink); }
+
+/* =========================================================
+   HP & tablet: simulasi di atas, tab di bawah
+   ========================================================= */
+@media (max-width: 899px) {
+  .game-shell {
+    --dock-h: min(40dvh, 360px);
+    width: calc(100% - 20px); padding: 8px 0 10px; gap: 8px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "bar" "visual" "tabs" "panel";
+  }
+  /* Kasus dengan papan laci butuh ruang simulasi lebih besar */
+  .game-shell:has(.lockers) { --dock-h: min(32dvh, 280px); }
+  .game-shell.dock-closed .dock-panel { display: none !important; }
+  .game-shell.dock-closed .dock-tab[aria-selected="true"] { background: transparent; color: var(--yolk); box-shadow: inset 0 0 0 1.5px var(--yolk); }
+  .visual-fit .lockers { gap: 3px; }
+
+  .game-bar { gap: 8px; }
+  /* Di HP tombol kembali hanya menampilkan panah (teks tetap terbaca pembaca layar) */
+  .game-bar .back { display: inline-block; font-size: 0; padding: 6px 12px; line-height: 1.4; }
+  .game-bar .back::first-letter { font-size: 1rem; }
+  .game-title .case-label .tag { display: none; }
+  .game-actions .btn { padding: 7px 10px; }
+  .game-actions .btn span { display: none; }
+
+  /* Simulasi mendapat ruang sebanyak mungkin */
+  .game-visual { padding: 8px; gap: 6px; border-radius: 14px; position: relative; }
+  .game-visual .lab-head h2 { display: none; }
+  .game-visual .lab-head:not(:has(input)) { display: none; }
+  .game-visual .lab-head label { font-size: .75rem !important; }
+  .game-visual .legend {
+    position: absolute; top: 14px; right: 14px; z-index: 1; gap: 10px;
+    background: rgba(15, 13, 10, .8); padding: 3px 8px; border-radius: 6px; font-size: .68rem;
+  }
+  .game-visual .legend span::before { width: 14px; margin-right: 5px; }
+  .game-visual .bs-status { font-size: .8rem; padding: 8px 10px; }
+
+  .dock-tabs {
+    grid-area: tabs; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+    background: var(--bg-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px;
+  }
+  .dock-tab {
+    border: 0; background: transparent; color: var(--muted); padding: 6px 4px; border-radius: 999px;
+    font-size: .8rem; font-weight: 600; white-space: nowrap; position: relative;
+  }
+  .dock-tab[aria-selected="true"] { background: var(--yolk); color: var(--bg); }
+  .dock-tab .tab-note { font-size: .72rem; opacity: .85; }
+  .dock-tab.ping::after {
+    content: ""; position: absolute; top: 4px; right: 10px; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--red); box-shadow: 0 0 0 0 rgba(229, 56, 59, .6); animation: ping 1.4s infinite;
+  }
+
+  .game-side { display: contents; }
+  .dock-panel, #panel-kontrol, #panel-petunjuk, #panel-deduksi { grid-area: panel; }
+  .dock-panel { display: none; overflow-y: auto; border-radius: 14px; }
+  .dock-panel:not(.active), #panel-kontrol:not(.active) { display: none; }
+  .dock-panel.active { display: block; height: var(--dock-h); }
+  #panel-kontrol.active { display: flex; align-content: flex-start; }
+  #panel-petunjuk, #panel-deduksi { background: var(--paper); padding: 14px; max-height: none; }
+  #panel-deduksi .final { margin-top: 0; border-top: 0; padding-top: 0; }
+
+  #panel-kontrol { padding: 12px; gap: 10px; }
+  #panel-kontrol .controls { grid-template-columns: 1fr; gap: 8px; }
+  #panel-kontrol .control { display: grid; grid-template-columns: minmax(118px, 40%) 1fr; align-items: center; gap: 2px 10px; }
+  #panel-kontrol .control label { margin: 0; font-size: .8rem; gap: 6px; }
+  #panel-kontrol .control .param-status { grid-column: 1 / -1; margin-top: 0; font-size: .75rem; }
+  #panel-kontrol .lab-actions { flex: 1 1 100%; }
+  #panel-kontrol .lab-actions .btn { flex: 1; justify-content: center; padding: 10px 12px; }
+  #panel-kontrol .readouts { flex: 1 1 100%; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  #panel-kontrol .readout { padding: 6px 8px; }
+  #panel-kontrol .readout small { font-size: .68rem; }
+  #panel-kontrol .readout b { font-size: .92rem; }
+  #panel-kontrol .formula { font-size: .78rem; }
+  #panel-kontrol .meter { flex: 1 1 100%; }
+
+  body.game .nav { height: 54px; }
+  body.game .guest-bar .container { flex-wrap: nowrap; padding: 6px 0; }
+  body.game .guest-bar span { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: .78rem; }
+}
+
+/* HP dalam posisi miring: simulasi di kiri, tab di kanan */
+@media (max-width: 899px) and (orientation: landscape) and (max-height: 520px) {
+  body.game .site-header { display: none; }
+  body.game .guest-bar { display: none; }
+  .game-shell {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-areas: "bar bar" "visual tabs" "visual panel";
+  }
+  .dock-panel.active { height: auto; }
+}
+
+@keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(229, 56, 59, 0); } 100% { box-shadow: 0 0 0 0 rgba(229, 56, 59, 0); } }
