@@ -10,6 +10,7 @@
   const M = { l: 34, r: 14, t: 14, b: 28 };
   const PHASE_LABEL = ["0", "π/4", "π/2", "3π/4", "π", "5π/4", "3π/2", "7π/4"];
   const num = (n, d = 2) => n.toLocaleString("id-ID", { maximumFractionDigits: d });
+  const piText = (n) => (num(n) === "1" ? "" : num(n)) + "π"; // "π", bukan "1π"
   let W = 0, H = 0;
 
   const val = () => ({ A: +amp.value, B: +freq.value, C: +phase.value });
@@ -86,8 +87,8 @@
     $("#phase-out").textContent = PHASE_LABEL[p.C];
     $("#eq").textContent = `y = ${num(p.A, 1)} · sin(${num(p.B, 1)}x + ${PHASE_LABEL[p.C]})`;
     $("#r-peak").textContent = "y = " + num(p.A, 1);
-    $("#r-period").textContent = num(2 / p.B) + "π";
-    $("#r-shift").textContent = p.C === 0 ? "0" : num(p.C / 4 / p.B) + "π";
+    $("#r-period").textContent = piText(2 / p.B);
+    $("#r-shift").textContent = p.C === 0 ? "0" : piText(p.C / 4 / p.B);
     const sc = score(p);
     $("#score").textContent = sc + "%";
     $("#score-bar").style.width = sc + "%";
