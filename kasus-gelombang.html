@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Berkas #02: Sinyal Gelombang Misterius · Cluegg</title>
+  <meta name="description" content="Simulasi fungsi sinus interaktif: tiru sinyal misterius dengan amplitudo, frekuensi, dan fase.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/gelombang.js" defer></script>
+</head>
+<body data-page="case">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <ul class="nav-links">
+        <li><a href="kasus-parabola.html">#01 Fisika</a></li>
+        <li><a href="kasus-gelombang.html" class="yolk">#02 Matematika</a></li>
+        <li><a href="kasus-arsip.html">#03 Informatika</a></li>
+      </ul>
+      <a class="btn btn-ghost btn-sm" href="index.html#kasus">Papan Kasus</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="case-hero">
+      <a class="back" href="index.html#kasus">← Kembali ke papan kasus</a>
+      <div class="case-label"><span class="eyebrow" style="margin:0">Berkas #02</span><span class="tag">MATEMATIKA · FUNGSI SINUS</span></div>
+      <h1>Sinyal Gelombang Misterius</h1>
+      <div class="mystery">
+        <strong>LAPORAN MISTERI</strong>
+        Radar menangkap sinyal asing (garis putus-putus merah). Untuk membuktikan asalnya, kamu harus membuat ulang sinyal itu dengan rumus y = A · sin(Bx + C). Apa arti A, B, dan C, dan berapa nilainya?
+      </div>
+    </section>
+
+    <section class="solved" id="solved">
+      <p class="eyebrow">Rahasia di dalam cangkang</p>
+      <h2>Tiga angka mengendalikan setiap gelombang sinus.</h2>
+      <p><b>A (amplitudo)</b> mengatur tinggi puncak. <b>B (frekuensi)</b> mengatur kerapatan gelombang, dengan periode = 2π / B. <b>C (fase)</b> menggeser gelombang ke kiri atau kanan sejauh C / B. Sinyal misterius itu adalah y = 2 · sin(1,5x + π/2). Gelombang suara, cahaya, dan arus listrik bolak-balik dijelaskan dengan pola yang sama.</p>
+      <span class="secret-formula">y = A · sin(Bx + C)   ·   T = 2π / B</span>
+      <div class="solved-actions">
+        <a class="btn btn-primary" href="kasus-arsip.html">Lanjut ke Berkas #03 →</a>
+        <a class="btn btn-ghost" href="index.html#kasus">Papan Kasus</a>
+      </div>
+    </section>
+
+    <div class="case-layout">
+      <section class="lab">
+        <div class="lab-head">
+          <h2><span class="live"></span>Ruang Analisis Sinyal</h2>
+          <span class="type" style="color:var(--muted);font-size:.85rem" id="eq">y = 1 · sin(1x + 0)</span>
+        </div>
+        <div class="canvas-box"><canvas id="sim" aria-label="Grafik gelombang sinus"></canvas></div>
+        <div class="legend"><span>Gelombangmu</span><span class="target">Sinyal misterius</span></div>
+
+        <div class="controls">
+          <div class="control">
+            <label for="amp">A · Amplitudo <output id="amp-out">1</output></label>
+            <input type="range" id="amp" min="0.5" max="3" step="0.5" value="1">
+          </div>
+          <div class="control">
+            <label for="freq">B · Frekuensi <output id="freq-out">1</output></label>
+            <input type="range" id="freq" min="0.5" max="3" step="0.5" value="1">
+          </div>
+          <div class="control">
+            <label for="phase">C · Fase <output id="phase-out">0</output></label>
+            <input type="range" id="phase" min="0" max="7" step="1" value="0">
+          </div>
+        </div>
+
+        <div class="meter">
+          <div class="meter-top"><span>Kecocokan dengan sinyal</span><b id="score">0%</b></div>
+          <div class="meter-bar"><i id="score-bar"></i></div>
+        </div>
+
+        <div class="readouts">
+          <div class="readout"><small>Puncak tertinggi</small><b id="r-peak">1</b></div>
+          <div class="readout"><small>Periode (T = 2π/B)</small><b id="r-period">2π</b></div>
+          <div class="readout"><small>Geser ke kiri (C/B)</small><b id="r-shift">0</b></div>
+        </div>
+      </section>
+
+      <aside class="clueboard">
+        <div class="clueboard-head">
+          <div class="egg" id="case-egg"></div>
+          <div>
+            <h2>Papan Petunjuk</h2>
+            <p id="clue-progress">0 dari 3 petunjuk ditemukan</p>
+          </div>
+        </div>
+        <ul class="clue-list">
+          <li class="clue">
+            <h4><span class="lock"></span>Si Pengatur Tinggi</h4>
+            <p class="hint">Selidiki apa yang terjadi saat A diubah.</p>
+            <p class="found">A menarik gelombang ke atas dan ke bawah. Puncaknya selalu tepat di y = A dan lembahnya di y = −A.</p>
+          </li>
+          <li class="clue">
+            <h4><span class="lock"></span>Si Pengatur Kerapatan</h4>
+            <p class="hint">Selidiki apa yang terjadi saat B diubah.</p>
+            <p class="found">B makin besar, gelombang makin rapat. Satu gelombang penuh panjangnya 2π / B.</p>
+          </li>
+          <li class="clue">
+            <h4><span class="lock"></span>Si Penggeser</h4>
+            <p class="hint">Selidiki apa yang terjadi saat C diubah.</p>
+            <p class="found">C tidak mengubah bentuk. Ia hanya menggeser seluruh gelombang ke kiri, seperti memutar jam lebih awal.</p>
+          </li>
+        </ul>
+
+        <div class="final locked" id="final">
+          <h3>⚖️ Deduksi Akhir</h3>
+          <p class="locked-note">Kumpulkan 3 petunjuk untuk membuka deduksi.</p>
+          <div class="final-body">
+            <p>Atur A, B, dan C sampai gelombangmu menimpa sinyal misterius, lalu ajukan buktinya.</p>
+            <button class="btn btn-primary" id="submit" type="button">Ajukan Bukti</button>
+            <p class="feedback" aria-live="polite"></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <span class="type">Every shell holds a secret. Every clue leads to the truth.</span>
+    </div>
+  </footer>
+</body>
+</html>

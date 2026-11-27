@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Berkas #01: Misteri Tembakan Terjauh · Cluegg</title>
+  <meta name="description" content="Simulasi gerak parabola interaktif: temukan sudut tembakan terjauh.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/parabola.js" defer></script>
+</head>
+<body data-page="case">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <ul class="nav-links">
+        <li><a href="kasus-parabola.html" class="yolk">#01 Fisika</a></li>
+        <li><a href="kasus-gelombang.html">#02 Matematika</a></li>
+        <li><a href="kasus-arsip.html">#03 Informatika</a></li>
+      </ul>
+      <a class="btn btn-ghost btn-sm" href="index.html#kasus">Papan Kasus</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="case-hero">
+      <a class="back" href="index.html#kasus">← Kembali ke papan kasus</a>
+      <div class="case-label"><span class="eyebrow" style="margin:0">Berkas #01</span><span class="tag">FISIKA · GERAK PARABOLA</span></div>
+      <h1>Misteri Tembakan Terjauh</h1>
+      <div class="mystery">
+        <strong>LAPORAN MISTERI</strong>
+        Seorang penjaga benteng ingin menembakkan bola meriam sejauh mungkin. Kecepatan meriamnya tetap, tetapi sudutnya bisa diubah. Sudut berapa yang membuat bola terbang paling jauh, dan mengapa?
+      </div>
+    </section>
+
+    <section class="solved" id="solved">
+      <p class="eyebrow">Rahasia di dalam cangkang</p>
+      <h2>Sudut 45° menghasilkan jarak terjauh.</h2>
+      <p>Jarak tembak ditentukan oleh rumus di bawah. Nilai <b>sin(2θ)</b> paling besar (= 1) saat 2θ = 90°, yaitu θ = 45°. Itu sebabnya sudut yang "berpasangan" (30° dan 60°) memberi jarak yang sama: sin(60°) = sin(120°). Gravitasi ada di penyebut, jadi di Bulan bola terbang sekitar 6 kali lebih jauh.</p>
+      <span class="secret-formula">R = v² · sin(2θ) / g</span>
+      <div class="solved-actions">
+        <a class="btn btn-primary" href="kasus-gelombang.html">Lanjut ke Berkas #02 →</a>
+        <a class="btn btn-ghost" href="index.html#kasus">Papan Kasus</a>
+      </div>
+    </section>
+
+    <div class="case-layout">
+      <section class="lab">
+        <div class="lab-head">
+          <h2><span class="live"></span>Laboratorium Balistik</h2>
+          <span class="type" style="color:var(--muted);font-size:.85rem">Menyimpan 6 jejak terakhir</span>
+        </div>
+        <div class="canvas-box"><canvas id="sim" aria-label="Simulasi lintasan bola meriam"></canvas></div>
+
+        <div class="controls">
+          <div class="control">
+            <label for="angle">Sudut tembak <output id="angle-out">45°</output></label>
+            <input type="range" id="angle" min="5" max="85" step="1" value="45">
+          </div>
+          <div class="control">
+            <label for="speed">Kecepatan awal <output id="speed-out">20 m/s</output></label>
+            <input type="range" id="speed" min="10" max="30" step="1" value="20">
+          </div>
+          <div class="control">
+            <label for="gravity">Lokasi (gravitasi)</label>
+            <select id="gravity">
+              <option value="9.8" data-name="Bumi">Bumi (9,8 m/s²)</option>
+              <option value="3.71" data-name="Mars">Mars (3,71 m/s²)</option>
+              <option value="1.62" data-name="Bulan">Bulan (1,62 m/s²)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="lab-actions">
+          <button class="btn btn-primary" id="fire" type="button">💥 Tembakkan</button>
+          <button class="btn btn-ghost" id="clear" type="button">Hapus jejak</button>
+        </div>
+
+        <div class="readouts">
+          <div class="readout"><small>Jarak tembak</small><b id="r-range">–</b></div>
+          <div class="readout"><small>Tinggi maksimum</small><b id="r-height">–</b></div>
+          <div class="readout"><small>Waktu terbang</small><b id="r-time">–</b></div>
+        </div>
+        <p class="formula" id="formula">Tembakkan bola untuk mulai mengumpulkan data.</p>
+      </section>
+
+      <aside class="clueboard">
+        <div class="clueboard-head">
+          <div class="egg" id="case-egg"></div>
+          <div>
+            <h2>Papan Petunjuk</h2>
+            <p id="clue-progress">0 dari 3 petunjuk ditemukan</p>
+          </div>
+        </div>
+        <ul class="clue-list">
+          <li class="clue">
+            <h4><span class="lock"></span>Jejak Lengkung</h4>
+            <p class="hint">Tembakkan bola pertamamu.</p>
+            <p class="found">Lintasannya melengkung (parabola). Bola bergerak mendatar dengan kecepatan tetap, sementara gravitasi terus menariknya ke bawah.</p>
+          </li>
+          <li class="clue">
+            <h4><span class="lock"></span>Sudut Kembar</h4>
+            <p class="hint">Tembak dua kali dengan kecepatan sama, pakai dua sudut yang jika dijumlahkan = 90°.</p>
+            <p class="found">Sudut 30° dan 60° (atau 20° dan 70°) mendarat di titik yang SAMA! Jarak terbesar pasti ada tepat di tengah-tengah pasangan itu…</p>
+          </li>
+          <li class="clue">
+            <h4><span class="lock"></span>Planet Lain</h4>
+            <p class="hint">Coba tembakkan bola di lokasi selain Bumi.</p>
+            <p class="found">Gravitasi lebih kecil membuat bola terbang jauh lebih jauh. Jarak berbanding terbalik dengan g.</p>
+          </li>
+        </ul>
+
+        <div class="final locked" id="final">
+          <h3>⚖️ Deduksi Akhir</h3>
+          <p class="locked-note">Kumpulkan 3 petunjuk untuk membuka deduksi.</p>
+          <div class="final-body">
+            <p>Dengan kecepatan dan gravitasi yang sama, sudut berapa yang menghasilkan jarak <b>terjauh</b>?</p>
+            <div class="choices">
+              <button class="choice" type="button" data-why="Sudut 30° punya kembaran 60° dengan jarak yang sama, jadi ini bukan yang terjauh.">30°</button>
+              <button class="choice" type="button" data-correct>45°</button>
+              <button class="choice" type="button" data-why="Sudut 60° mendarat sama jauh dengan 30°. Cari titik di tengah keduanya.">60°</button>
+              <button class="choice" type="button" data-why="Pada 90° bola hanya naik lalu jatuh di tempat yang sama. Jaraknya 0 m!">90°</button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <span class="type">Every shell holds a secret. Every clue leads to the truth.</span>
+    </div>
+  </footer>
+</body>
+</html>

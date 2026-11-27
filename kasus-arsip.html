@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Berkas #03: Berkas Hilang di Lemari Arsip · Cluegg</title>
+  <meta name="description" content="Simulasi binary search interaktif: temukan berkas di antara 100 laci dengan langkah paling sedikit.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/arsip.js" defer></script>
+</head>
+<body data-page="case">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <ul class="nav-links">
+        <li><a href="kasus-parabola.html">#01 Fisika</a></li>
+        <li><a href="kasus-gelombang.html">#02 Matematika</a></li>
+        <li><a href="kasus-arsip.html" class="yolk">#03 Informatika</a></li>
+      </ul>
+      <a class="btn btn-ghost btn-sm" href="index.html#kasus">Papan Kasus</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="case-hero">
+      <a class="back" href="index.html#kasus">← Kembali ke papan kasus</a>
+      <div class="case-label"><span class="eyebrow" style="margin:0">Berkas #03</span><span class="tag">INFORMATIKA · ALGORITMA PENCARIAN</span></div>
+      <h1>Berkas Hilang di Lemari Arsip</h1>
+      <div class="mystery">
+        <strong>LAPORAN MISTERI</strong>
+        Sebuah berkas penting disembunyikan di salah satu dari 100 laci bernomor urut. Setiap kali kamu membuka laci yang salah, penjaga arsip hanya berkata "lebih besar" atau "lebih kecil". Strategi apa yang selalu menemukan berkas itu dengan langkah paling sedikit?
+      </div>
+    </section>
+
+    <section class="solved" id="solved">
+      <p class="eyebrow">Rahasia di dalam cangkang</p>
+      <h2>Binary Search: selalu buka laci di tengah.</h2>
+      <p>Setiap tebakan di tengah membuang <b>setengah</b> kemungkinan. Dari 100 laci tersisa 50, lalu 25, 13, 7, 4, 2, dan 1, jadi paling banyak 7 langkah. Jika laci digandakan menjadi 1.000, langkahnya hanya bertambah menjadi 10. Itulah cara mesin pencari dan basis data menemukan data dalam sekejap. Syaratnya: datanya harus sudah <b>terurut</b>.</p>
+      <span class="secret-formula">langkah maksimum = ⌈log₂(n)⌉</span>
+      <div class="solved-actions">
+        <a class="btn btn-primary" href="index.html#kasus">Kembali ke Papan Kasus →</a>
+      </div>
+    </section>
+
+    <div class="case-layout">
+      <section class="lab">
+        <div class="lab-head">
+          <h2><span class="live"></span>Lemari Arsip · 100 Laci</h2>
+          <label class="type" style="color:var(--muted);font-size:.85rem;display:flex;gap:8px;align-items:center;cursor:pointer">
+            <input type="checkbox" id="show-mid" style="accent-color:var(--cyan)"> Tandai laci tengah
+          </label>
+        </div>
+        <div class="lockers" id="lockers" aria-label="Seratus laci arsip"></div>
+        <div class="range-bar"><i id="range-bar"></i></div>
+        <div class="bs-status" id="status" aria-live="polite">Berkas tersembunyi di salah satu laci 1–100. Pilih laci pertamamu!</div>
+
+        <div class="readouts">
+          <div class="readout"><small>Langkahmu</small><b id="r-steps">0</b></div>
+          <div class="readout"><small>Laci yang mungkin</small><b id="r-left">100</b></div>
+          <div class="readout"><small>Cara satu per satu (terburuk)</small><b>100 langkah</b></div>
+        </div>
+        <ul class="guess-log" id="log"></ul>
+        <div class="lab-actions">
+          <button class="btn btn-ghost" id="restart" type="button">🔄 Kasus baru (acak ulang)</button>
+        </div>
+      </section>
+
+      <aside class="clueboard">
+        <div class="clueboard-head">
+          <div class="egg" id="case-egg"></div>
+          <div>
+            <h2>Papan Petunjuk</h2>
+            <p id="clue-progress">0 dari 3 petunjuk ditemukan</p>
+          </div>
+        </div>
+        <ul class="clue-list">
+          <li class="clue">
+            <h4><span class="lock"></span>Laci yang Tersingkir</h4>
+            <p class="hint">Buka laci mana saja.</p>
+            <p class="found">Satu jawaban "lebih besar/lebih kecil" menyingkirkan BANYAK laci sekaligus, bukan cuma satu.</p>
+          </li>
+          <li class="clue">
+            <h4><span class="lock"></span>Jalan Tengah</h4>
+            <p class="hint">Setelah tebakan pertama, coba buka laci yang tepat di tengah sisa laci.</p>
+            <p class="found">Membuka laci tengah selalu membuang setengah kemungkinan, apa pun jawabannya. Tidak ada tebakan yang lebih aman.</p>
+          </li>
+          <li class="clue">
+            <h4><span class="lock"></span>Detektif Kilat</h4>
+            <p class="hint">Temukan berkasnya dalam 7 langkah atau kurang.</p>
+            <p class="found">100 → 50 → 25 → 13 → 7 → 4 → 2 → 1. Karena 2⁷ = 128 ≥ 100, tujuh langkah selalu cukup.</p>
+          </li>
+        </ul>
+
+        <div class="final locked" id="final">
+          <h3>⚖️ Deduksi Akhir</h3>
+          <p class="locked-note">Kumpulkan 3 petunjuk untuk membuka deduksi.</p>
+          <div class="final-body">
+            <p>Lemarinya diganti dengan <b>1.000 laci</b> terurut. Berapa langkah <b>maksimum</b> dengan strategi laci tengah?</p>
+            <div class="choices">
+              <button class="choice" type="button" data-correct>10</button>
+              <button class="choice" type="button" data-why="Itu terlalu banyak. Setiap langkah membagi dua, jadi hitung berapa kali 1.000 bisa dibagi dua.">100</button>
+              <button class="choice" type="button" data-why="500 adalah rata-rata cara satu per satu. Strategi tengah jauh lebih cepat!">500</button>
+              <button class="choice" type="button" data-why="1.000 langkah adalah kasus terburuk jika membuka laci satu per satu.">1.000</button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <span class="type">Every shell holds a secret. Every clue leads to the truth.</span>
+    </div>
+  </footer>
+</body>
+</html>

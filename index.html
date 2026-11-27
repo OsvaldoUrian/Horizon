@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cluegg — Crack the Egg</title>
+  <meta name="description" content="Cluegg: platform belajar interaktif bergaya investigasi. Pecahkan cangkang konsep abstrak lewat visualisasi dan simulasi.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body data-page="home">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <ul class="nav-links">
+        <li><a href="#masalah">Masalah</a></li>
+        <li><a href="#cara-kerja">Cara Kerja</a></li>
+        <li><a href="#kasus">Papan Kasus</a></li>
+        <li><a href="#tim">Tim</a></li>
+      </ul>
+      <a class="btn btn-primary btn-sm" href="#kasus">Mulai Investigasi</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge"><span class="dot"></span>Platform Belajar Interaktif</span>
+          <h1>Jangan hafalkan konsepnya. <span class="crack">Pecahkan.</span></h1>
+          <p class="slogan">"Every shell holds a secret. Every clue leads to the truth."</p>
+          <p class="lead">Cluegg mengubah materi abstrak menjadi kasus misteri. Kamu bereksperimen dengan simulasi, mengumpulkan petunjuk, lalu memecahkan cangkangnya untuk menemukan konsep di dalamnya.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#kasus">Buka Papan Kasus →</a>
+            <a class="btn btn-ghost" href="#cara-kerja">Lihat Cara Kerja</a>
+          </div>
+          <div class="hero-meta">
+            <div><strong>3</strong>kasus simulasi</div>
+            <div><strong>9</strong>petunjuk tersembunyi</div>
+            <div><strong>0</strong>instalasi, langsung di browser</div>
+          </div>
+        </div>
+
+        <div class="hero-egg-wrap">
+          <span class="floating-clue c1">Petunjuk #1: sin(2θ)</span>
+          <span class="floating-clue c2">⌈log₂ 100⌉ = 7</span>
+          <span class="floating-clue c3">y = A·sin(Bx + C)</span>
+          <div class="egg hero-egg" id="hero-egg" role="button" tabindex="0" aria-label="Ketuk telur untuk memecahkannya"></div>
+          <p class="egg-hint" id="egg-hint">Ketuk telurnya untuk mencari petunjuk…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MASALAH ============ -->
+    <section class="section" id="masalah">
+      <div class="container">
+        <p class="eyebrow">Berkas Masalah</p>
+        <h2 class="section-title">Konsep abstrak sulit dipahami kalau hanya dibaca.</h2>
+        <p class="section-lead">Gerak parabola, fungsi trigonometri, atau algoritma pencarian adalah hal yang <em>bergerak</em> dan <em>berubah</em>. Teks dan gambar diam tidak bisa menunjukkan perubahan itu.</p>
+
+        <div class="compare">
+          <div class="compare-card">
+            <h3><span class="tag">SEBELUM</span> Belajar dari teks statis</h3>
+            <ul>
+              <li>Rumus dihafal tanpa tahu dari mana asalnya.</li>
+              <li>Siswa tidak bisa bertanya "bagaimana kalau…?" lalu langsung melihat jawabannya.</li>
+              <li>Hanya ada satu contoh soal, jadi pola umumnya jarang terlihat.</li>
+              <li>Cepat bosan karena tidak ada tantangan atau rasa penasaran.</li>
+            </ul>
+          </div>
+          <div class="compare-card good">
+            <h3><span class="tag">SESUDAH</span> Belajar di Cluegg</h3>
+            <ul>
+              <li>Geser slider, lihat hasilnya saat itu juga.</li>
+              <li>Siswa menemukan sendiri polanya sebagai "petunjuk".</li>
+              <li>Rumus muncul di akhir sebagai jawaban dari misteri.</li>
+              <li>Progres, pangkat detektif, dan telur yang retak menjaga motivasi.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CARA KERJA ============ -->
+    <section class="section" id="cara-kerja">
+      <div class="container center">
+        <p class="eyebrow">Metode Investigasi</p>
+        <h2 class="section-title">Empat langkah memecahkan sebuah konsep</h2>
+        <p class="section-lead">Setiap materi dikemas sebagai kasus. Siswa bergerak dari rasa penasaran ke pemahaman, bukan dari rumus ke latihan soal.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-icon">1</div>
+            <h3>Buka Berkas</h3>
+            <p>Setiap kasus diawali satu pertanyaan misteri yang membuat penasaran.</p>
+          </div>
+          <div class="step">
+            <div class="step-icon">2</div>
+            <h3>Bereksperimen</h3>
+            <p>Mainkan simulasi visual: ubah sudut, gelombang, atau strategi pencarian.</p>
+          </div>
+          <div class="step">
+            <div class="step-icon">3</div>
+            <h3>Kumpulkan Petunjuk</h3>
+            <p>Eksperimen yang tepat membuka petunjuk, dan setiap petunjuk meretakkan cangkangnya.</p>
+          </div>
+          <div class="step">
+            <div class="step-icon">🥚</div>
+            <h3>Pecahkan Cangkang</h3>
+            <p>Lakukan deduksi akhir. Jika benar, cangkang pecah dan konsep utamanya terungkap.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAPAN KASUS ============ -->
+    <section class="section" id="kasus">
+      <div class="container">
+        <p class="eyebrow">Papan Kasus</p>
+        <h2 class="section-title">Pilih kasus pertamamu, Detektif.</h2>
+        <p class="section-lead">Tiga kasus dari tiga bidang ilmu. Semuanya bisa langsung dimainkan, dan progresmu tersimpan otomatis di browser ini.</p>
+
+        <div class="board-wrap">
+          <div class="cases">
+            <article class="case-card" data-case="parabola">
+              <div class="case-top"><span class="case-no">BERKAS #01</span><span class="case-subject">Fisika</span></div>
+              <div class="egg"></div>
+              <h3>Misteri Tembakan Terjauh</h3>
+              <blockquote>"Sudut berapa yang membuat bola meriam terbang paling jauh?"</blockquote>
+              <div class="case-foot">
+                <span class="clue-count">Petunjuk <b>0</b>/3</span>
+                <a class="btn btn-primary btn-sm" href="kasus-parabola.html">Buka Berkas</a>
+              </div>
+              <span class="stamp">TERPECAHKAN</span>
+            </article>
+
+            <article class="case-card" data-case="gelombang">
+              <div class="case-top"><span class="case-no">BERKAS #02</span><span class="case-subject">Matematika</span></div>
+              <div class="egg"></div>
+              <h3>Sinyal Gelombang Misterius</h3>
+              <blockquote>"Sebuah sinyal rahasia tertangkap radar. Bisakah kamu meniru bentuknya?"</blockquote>
+              <div class="case-foot">
+                <span class="clue-count">Petunjuk <b>0</b>/3</span>
+                <a class="btn btn-primary btn-sm" href="kasus-gelombang.html">Buka Berkas</a>
+              </div>
+              <span class="stamp">TERPECAHKAN</span>
+            </article>
+
+            <article class="case-card" data-case="arsip">
+              <div class="case-top"><span class="case-no">BERKAS #03</span><span class="case-subject">Informatika</span></div>
+              <div class="egg"></div>
+              <h3>Berkas Hilang di Lemari Arsip</h3>
+              <blockquote>"Satu berkas disembunyikan di antara 100 laci. Temukan dengan langkah sesedikit mungkin."</blockquote>
+              <div class="case-foot">
+                <span class="clue-count">Petunjuk <b>0</b>/3</span>
+                <a class="btn btn-primary btn-sm" href="kasus-arsip.html">Buka Berkas</a>
+              </div>
+              <span class="stamp">TERPECAHKAN</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="rank">
+          <div class="rank-head">
+            <h3>Pangkatmu: <span id="rank-name">Detektif Magang</span></h3>
+            <button class="link-reset" id="reset" type="button">Reset progres</button>
+          </div>
+          <div class="rank-bar"><i id="rank-bar"></i></div>
+          <div class="rank-levels">
+            <span class="on">Detektif Magang</span>
+            <span>Penyelidik Muda</span>
+            <span>Inspektur Konsep</span>
+            <span>Master Detektif</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FITUR ============ -->
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Kenapa Cluegg</p>
+        <h2 class="section-title">Dibuat untuk cara otak benar-benar belajar.</h2>
+        <div class="features">
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17c3-8 6-8 9 0s6 8 9 0"/></svg></div>
+            <h3>Visualisasi Langsung</h3>
+            <p>Setiap perubahan angka langsung terlihat sebagai grafik, lintasan, atau animasi.</p>
+          </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg></div>
+            <h3>Simulasi Eksperimen</h3>
+            <p>Siswa bebas mencoba, salah, dan mencoba lagi tanpa risiko, seperti di laboratorium.</p>
+          </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="10" r="6"/><path d="M15 15l6 6"/></svg></div>
+            <h3>Belajar Berbasis Penemuan</h3>
+            <p>Konsep tidak diberikan di awal. Siswa menemukannya sendiri lewat petunjuk.</p>
+          </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div>
+            <h3>Gamifikasi Detektif</h3>
+            <p>Telur retak, stempel "terpecahkan", dan pangkat detektif membuat siswa ingin terus maju.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TIM ============ -->
+    <section class="section" id="tim">
+      <div class="container center">
+        <p class="eyebrow">Tim Investigasi</p>
+        <h2 class="section-title">Orang-orang di balik Cluegg</h2>
+        <p class="section-lead">Kami percaya setiap siswa bisa memahami konsep sesulit apa pun, asalkan diberi cara yang tepat untuk melihatnya.</p>
+
+        <!-- CARA MENAMBAH FOTO:
+             Simpan foto di folder img/ dengan nama anggota-1.jpg, anggota-2.jpg, anggota-3.jpg.
+             Foto akan otomatis muncul. Ganti juga nama & peran di bawah ini. -->
+        <div class="team">
+          <div class="member">
+            <div class="photo">
+              <span><b>?</b>Foto Anggota 1</span>
+              <img src="img/anggota-1.jpg" alt="Foto Anggota 1" onerror="this.remove()">
+            </div>
+            <h3>Nama Anggota 1</h3>
+            <p>Ketua Tim · Konsep & Desain</p>
+          </div>
+          <div class="member">
+            <div class="photo">
+              <span><b>?</b>Foto Anggota 2</span>
+              <img src="img/anggota-2.jpg" alt="Foto Anggota 2" onerror="this.remove()">
+            </div>
+            <h3>Nama Anggota 2</h3>
+            <p>Pengembang Simulasi</p>
+          </div>
+          <div class="member">
+            <div class="photo">
+              <span><b>?</b>Foto Anggota 3</span>
+              <img src="img/anggota-3.jpg" alt="Foto Anggota 3" onerror="this.remove()">
+            </div>
+            <h3>Nama Anggota 3</h3>
+            <p>Materi & Pedagogi</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="container">
+      <div class="cta-band">
+        <div>
+          <h2>Setiap cangkang menyimpan rahasia.<br>Siap memecahkannya?</h2>
+          <p>Mulai dari Berkas #01. Butuh sekitar 5 menit.</p>
+        </div>
+        <a class="btn" href="kasus-parabola.html">Mulai Kasus Pertama →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <span class="type">Crack the Egg · Platform Pembelajaran Digital Interaktif</span>
+      <span>© 2026 Tim Cluegg</span>
+    </div>
+  </footer>
+</body>
+</html>
