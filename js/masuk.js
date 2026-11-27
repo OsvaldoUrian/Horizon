@@ -5,16 +5,59 @@
   const tabs = { masuk: $("#tab-masuk"), daftar: $("#tab-daftar") };
   const forms = { masuk: $("#form-masuk"), daftar: $("#form-daftar") };
 
-  function show(which) {
+  const tabBar = document.querySelector(".auth-tabs");
+  const stack = $("#auth-forms");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let current = null, settleTimer = 0;
+
+  // Ganti tab dengan mulus: pil tab bergeser, form lama pudar ke samping,
+  // form baru masuk dari arah tab-nya, dan tinggi kartu berubah perlahan.
+  function show(which, animate) {
+    if (which === current) return;
+    const from = stack.offsetHeight;
     Object.keys(tabs).forEach((k) => {
-      tabs[k].setAttribute("aria-selected", String(k === which));
-      forms[k].hidden = k !== which;
+      const on = k === which;
+      tabs[k].setAttribute("aria-selected", String(on));
+      tabs[k].tabIndex = on ? 0 : -1;
+      forms[k].classList.toggle("is-active", on);
+      forms[k].setAttribute("aria-hidden", String(!on));
+      forms[k].inert = !on; // form tersembunyi tidak bisa di-Tab
     });
+    tabBar.dataset.active = which;
+    current = which;
+
+    clearTimeout(settleTimer);
+    if (!animate || reduceMotion) { stack.style.height = ""; return; }
+    // Animasi tinggi: kunci tinggi lama -> ukur tinggi baru -> transisi -> lepas lagi (auto)
+    stack.style.height = "auto";
+    const to = stack.offsetHeight;
+    stack.style.height = from + "px";
+    void stack.offsetHeight;
+    stack.style.height = to + "px";
+    settleTimer = setTimeout(() => { stack.style.height = ""; }, 450);
   }
-  tabs.masuk.addEventListener("click", () => { show("masuk"); history.replaceState(null, "", "#masuk"); });
-  tabs.daftar.addEventListener("click", () => { show("daftar"); history.replaceState(null, "", "#daftar"); });
-  show(location.hash === "#daftar" ? "daftar" : "masuk");
-  window.addEventListener("hashchange", () => show(location.hash === "#daftar" ? "daftar" : "masuk"));
+  function choose(which) {
+    show(which, true);
+    history.replaceState(null, "", "#" + which);
+  }
+  tabs.masuk.addEventListener("click", () => choose("masuk"));
+  tabs.daftar.addEventListener("click", () => choose("daftar"));
+  // Panah kiri/kanan untuk pindah tab (pola standar tablist)
+  tabBar.addEventListener("keydown", (e) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    const next = e.key === "ArrowRight" ? "daftar" : "masuk";
+    choose(next);
+    tabs[next].focus();
+  });
+  // Posisi awal langsung tepat (tanpa animasi meluncur saat halaman baru dibuka)
+  tabBar.classList.add("instant");
+  stack.classList.add("instant");
+  show(location.hash === "#daftar" ? "daftar" : "masuk", false);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    tabBar.classList.remove("instant");
+    stack.classList.remove("instant");
+  }));
+  window.addEventListener("hashchange", () => show(location.hash === "#daftar" ? "daftar" : "masuk", true));
 
   // Telur di samping: setengah retak, menunggu dipecahkan
   Cluegg.setEgg(Cluegg.mountEgg(document.querySelector(".auth-egg")), 2, false);

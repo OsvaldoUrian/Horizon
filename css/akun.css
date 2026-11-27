@@ -43,7 +43,9 @@ html.trial-locked main { display: none; }
 
 /* ---------- Halaman masuk / daftar ---------- */
 .auth { padding: 56px 0 24px; }
-.auth-grid { display: grid; grid-template-columns: 1fr minmax(0, 440px); gap: 56px; align-items: center; }
+/* Rata atas: saat kartu memanjang/memendek, teks di kiri tidak ikut bergeser */
+.auth-grid { display: grid; grid-template-columns: 1fr minmax(0, 440px); gap: 56px; align-items: start; }
+.auth-intro { padding-top: 20px; }
 .auth-intro h1 { font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.08; letter-spacing: -0.035em; margin: 12px 0 14px; }
 .auth-intro p { color: var(--muted); max-width: 460px; }
 .auth-perks { list-style: none; display: grid; gap: 12px; margin-top: 26px; }
@@ -52,11 +54,42 @@ html.trial-locked main { display: none; }
 .auth-egg { width: 92px; margin-bottom: 8px; }
 
 .auth-card { background: var(--paper); color: var(--ink); border-radius: 18px; padding: 28px; box-shadow: var(--shadow); }
-.auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px; background: var(--paper-2); border-radius: 999px; margin-bottom: 22px; }
-.auth-tabs button { border: 0; background: transparent; padding: 9px; border-radius: 999px; font-weight: 600; color: var(--ink-soft); }
-.auth-tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); }
-.auth-form { display: grid; gap: 16px; }
-.auth-form[hidden] { display: none; }
+/* Tab dengan "pil" gelap yang bergeser halus di belakang tombol */
+.auth-tabs {
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px;
+  background: var(--paper-2); border-radius: 999px; margin-bottom: 22px;
+}
+.auth-tabs::before {
+  content: ""; position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc((100% - 16px) / 2);
+  border-radius: 999px; background: var(--ink); transition: transform .4s var(--ease);
+}
+.auth-tabs[data-active="daftar"]::before { transform: translateX(calc(100% + 6px)); }
+.auth-tabs button {
+  position: relative; z-index: 1; border: 0; background: transparent; padding: 9px; border-radius: 999px;
+  font-weight: 600; color: var(--ink-soft); transition: color .3s var(--ease);
+}
+.auth-tabs button[aria-selected="true"] { color: var(--paper); }
+
+/* Kedua form ditumpuk; yang aktif mengatur tinggi, yang lain melayang tak terlihat.
+   Tinggi wadah dianimasikan oleh js/masuk.js supaya kartu tidak melompat. */
+.auth-forms {
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  position: relative; transition: height .4s var(--ease);
+  /* ruang kecil agar bayangan fokus input tidak terpotong oleh overflow */
+  overflow: hidden; margin: -4px; padding: 4px;
+}
+.auth-form { display: grid; gap: 16px; transition: opacity .3s var(--ease), transform .4s var(--ease); }
+.auth-form:not(.is-active) {
+  position: absolute; top: 4px; left: 4px; right: 4px;
+  opacity: 0; pointer-events: none; visibility: hidden;
+  transition: opacity .2s var(--ease), transform .4s var(--ease), visibility 0s .4s;
+}
+.auth-tabs.instant::before, .auth-tabs.instant button,
+.auth-forms.instant, .auth-forms.instant .auth-form { transition: none !important; }
+/* Arah geser mengikuti posisi tab: Masuk "tinggal" di kiri, Daftar di kanan */
+#form-masuk:not(.is-active) { transform: translateX(-28px); }
+#form-daftar:not(.is-active) { transform: translateX(28px); }
 .field label { display: block; font-size: .86rem; font-weight: 600; margin-bottom: 6px; }
 .field input {
   width: 100%; padding: 12px 14px; border-radius: 10px; border: 1.5px solid rgba(42, 36, 28, .25);
