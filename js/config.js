@@ -8,6 +8,6 @@
    Kalau dikosongkan, website tetap jalan dalam mode tamu (demo).
    ========================================================= */
 window.CLUEGG_CONFIG = {
-  supabaseUrl: "",
-  supabaseKey: ""
+  supabaseUrl: "https://jagtteawyfzboiyvuuui.supabase.co",
+  supabaseKey: "sb_publishable_kQEdlKRw2-UWY5YJkaw19A_jZaLWfio"
 };
