@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masuk atau Daftar · Cluegg</title>
+  <meta name="description" content="Masuk atau daftar gratis ke Cluegg untuk membuka semua kasus dan menyimpan progres belajarmu.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/akun.css">
+  <script src="js/config.js"></script>
+  <script src="js/akun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/masuk.js" defer></script>
+</head>
+<body data-page="masuk">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="index.html#kasus">Coba Demo</a></li>
+        <li><a href="privasi.html">Privasi</a></li>
+      </ul>
+      <a class="btn btn-ghost btn-sm" href="index.html#kasus">Coba demo</a>
+    </nav>
+  </header>
+
+  <main class="container auth">
+    <div class="auth-grid">
+      <section class="auth-intro">
+        <div class="egg auth-egg" data-stage="2"></div>
+        <p class="eyebrow">Kartu Anggota Detektif</p>
+        <h1>Buka semua berkas. Simpan setiap petunjuk.</h1>
+        <p>Akun gratis membuka seluruh kasus dan menyimpan progresmu di cloud, jadi bisa dilanjutkan dari HP maupun laptop.</p>
+        <ul class="auth-perks">
+          <li>Semua kasus Fisika, Matematika, dan Informatika</li>
+          <li>Dashboard dengan level, pangkat, dan lencana detektif</li>
+          <li>Misi belajar dan riwayat investigasimu</li>
+          <li>Hasil demo sebagai tamu ikut tersimpan</li>
+        </ul>
+      </section>
+
+      <section class="auth-card" aria-label="Formulir akun">
+        <p class="auth-off" id="auth-off" hidden>Login belum aktif karena konfigurasi Supabase belum diisi. Kamu tetap bisa <a href="index.html#kasus">mencoba demo</a>.</p>
+
+        <div class="auth-tabs" role="tablist">
+          <button type="button" role="tab" id="tab-masuk" aria-controls="form-masuk" aria-selected="true">Masuk</button>
+          <button type="button" role="tab" id="tab-daftar" aria-controls="form-daftar" aria-selected="false">Daftar</button>
+        </div>
+
+        <form class="auth-form" id="form-masuk" role="tabpanel" aria-labelledby="tab-masuk" novalidate>
+          <div class="field">
+            <label for="masuk-email">Email</label>
+            <input type="email" id="masuk-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="masuk-sandi">Kata sandi</label>
+            <input type="password" id="masuk-sandi" name="password" autocomplete="current-password" required>
+          </div>
+          <p class="form-msg" role="alert"></p>
+          <button class="btn btn-primary" type="submit">Masuk</button>
+        </form>
+
+        <form class="auth-form" id="form-daftar" role="tabpanel" aria-labelledby="tab-daftar" novalidate hidden>
+          <div class="field">
+            <label for="daftar-nama">Nama detektif</label>
+            <input type="text" id="daftar-nama" name="name" minlength="2" maxlength="30" autocomplete="nickname" required>
+            <small>Boleh nama panggilan, tidak harus nama asli. Ditampilkan di dashboard.</small>
+          </div>
+          <div class="field">
+            <label for="daftar-email">Email</label>
+            <input type="email" id="daftar-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="daftar-sandi">Kata sandi</label>
+            <input type="password" id="daftar-sandi" name="password" minlength="8" autocomplete="new-password" required>
+            <small>Minimal 8 karakter.</small>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="daftar-setuju" required>
+            <span>Saya sudah membaca <a href="privasi.html" target="_blank">kebijakan privasi</a>. Jika saya di bawah 17 tahun, saya mendaftar dengan izin orang tua atau wali.</span>
+          </label>
+          <p class="form-msg" role="alert"></p>
+          <button class="btn btn-primary" type="submit">Buat akun gratis</button>
+        </form>
+
+        <p class="auth-alt">Belum mau daftar? <a href="index.html#kasus">Coba satu kasus sebagai tamu</a></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <a href="privasi.html">Kebijakan privasi</a>
+      <span>© 2026 Tim Cluegg</span>
+    </div>
+  </footer>
+</body>
+</html>

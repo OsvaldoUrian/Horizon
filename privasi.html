@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kebijakan Privasi · Cluegg</title>
+  <meta name="description" content="Data apa yang disimpan Cluegg, untuk apa, dan cara menghapusnya.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/akun.css">
+  <script src="js/config.js"></script>
+  <script src="js/akun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body data-page="privasi">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="index.html#kasus">Coba Demo</a></li>
+        <li><a href="privasi.html" class="yolk">Privasi</a></li>
+      </ul>
+      <a class="btn btn-ghost btn-sm" href="masuk.html">Masuk</a>
+    </nav>
+  </header>
+
+  <main class="container prose">
+    <p class="eyebrow">Berkas Privasi</p>
+    <h1>Kebijakan Privasi Cluegg</h1>
+    <p class="updated">Terakhir diperbarui: 27 November 2026</p>
+
+    <h2>Ringkasnya</h2>
+    <p>Kami hanya menyimpan data yang dibutuhkan agar progres belajarmu tidak hilang. Kami tidak menjual data, tidak memasang iklan, dan tidak memakai alat analitik atau pelacak.</p>
+    <p>Sebagai catatan, untuk menampilkan halaman, browsermu memuat huruf dari Google Fonts dan pustaka program dari jsDelivr. Seperti situs lain, layanan tersebut menerima alamat IP perangkatmu saat file diunduh.</p>
+
+    <h2>Data yang kami simpan</h2>
+    <ul>
+      <li><b>Tamu (tanpa akun):</b> progres demo disimpan hanya di browser perangkatmu (localStorage). Tidak ada yang dikirim ke server kami.</li>
+      <li><b>Email dan kata sandi:</b> dipakai untuk masuk. Dikelola oleh layanan Supabase Auth. Kata sandi disimpan dalam bentuk terenkripsi (hash), sehingga tim Cluegg tidak bisa melihatnya.</li>
+      <li><b>Nama detektif:</b> nama panggilan yang kamu pilih saat mendaftar. Tidak harus nama asli.</li>
+      <li><b>Progres belajar:</b> petunjuk yang ditemukan, kasus yang terpecahkan, jumlah jawaban deduksi yang salah, dan waktu terakhir membuka atau memecahkan kasus.</li>
+    </ul>
+
+    <h2>Untuk apa data dipakai</h2>
+    <ul>
+      <li>Menampilkan dashboard, level, misi, dan riwayatmu.</li>
+      <li>Menyimpan progres agar bisa dilanjutkan dari perangkat lain.</li>
+    </ul>
+    <p>Data tidak dipakai untuk tujuan lain dan tidak dibagikan ke pihak lain.</p>
+
+    <h2>Siapa yang bisa melihat datamu</h2>
+    <p>Database dilindungi aturan <b>Row Level Security</b>: setiap akun hanya bisa membaca dan mengubah datanya sendiri. Data disimpan di layanan basis data Supabase yang digunakan Cluegg.</p>
+
+    <h2>Menghapus data</h2>
+    <p>Kamu bisa menghapus akun kapan saja lewat tombol <b>Hapus akun</b> di bagian bawah dashboard. Email, nama detektif, dan seluruh progresmu akan terhapus permanen. Untuk data tamu, cukup hapus data situs di pengaturan browser.</p>
+
+    <h2>Pengguna di bawah umur</h2>
+    <p>Cluegg ditujukan untuk pelajar. Jika kamu berusia di bawah 17 tahun, mintalah izin orang tua atau wali sebelum membuat akun.</p>
+
+    <h2>Perubahan kebijakan</h2>
+    <p>Jika kebijakan ini berubah, tanggal di bagian atas halaman akan diperbarui.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <span class="type">Crack the Egg · Platform Pembelajaran Digital Interaktif</span>
+      <span>© 2026 Tim Cluegg</span>
+    </div>
+  </footer>
+</body>
+</html>
