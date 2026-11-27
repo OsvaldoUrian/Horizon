@@ -11,6 +11,9 @@ body.game {
 body.game .site-header, body.game .guest-bar { flex: none; }
 body.game .nav { height: 58px; }
 body.game .site-footer { display: none; }
+/* Fokus pada satu bidang: tidak ada menu untuk pindah ke kasus/bidang lain.
+   (Pengaman bila halaman kasus baru masih membawa menu .nav-links.) */
+body.game .nav-links, body.game .nav-toggle { display: none !important; }
 body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
 
 .game-shell {
