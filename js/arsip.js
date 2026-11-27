@@ -31,7 +31,8 @@
     $("#r-steps").textContent = steps;
     $("#r-left").textContent = left;
     const bar = $("#range-bar");
-    bar.style.left = ((lo - 1) / N) * 100 + "%";
+    const start = done ? secret : lo; // setelah ketemu, penanda ada di laci berkas
+    bar.style.left = ((start - 1) / N) * 100 + "%";
     bar.style.width = (left / N) * 100 + "%";
   }
 
