@@ -83,10 +83,30 @@ body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
 #panel-kontrol .formula { flex: 1 1 300px; padding: 7px 12px; font-size: .82rem; }
 #panel-kontrol .meter { flex: 1 1 240px; }
 #panel-kontrol .meter-top { margin-bottom: 4px; font-size: .84rem; }
-#panel-kontrol .guess-log { flex: 1 1 100%; order: 5; max-height: 30px; overflow-y: auto; }
-#panel-kontrol .guess-log:empty { display: none; }
-#panel-kontrol .param-status { margin-top: 4px; min-height: 0; flex-wrap: nowrap; white-space: nowrap; font-size: .76rem; overflow: hidden; }
-#panel-kontrol .param-status .pill { flex: none; font-size: .72rem; padding: 1px 8px; }
+#panel-kontrol .guess-log { flex: 1 1 100%; order: 5; overflow-y: auto; }
+#panel-kontrol .param-status { margin-top: 4px; flex-wrap: nowrap; white-space: nowrap; font-size: .76rem; overflow: hidden; }
+#panel-kontrol .param-status .pill { flex: none; font-size: .72rem; padding: 0 8px; }
+
+/* ---------- Anti-getar ----------
+   Teks yang berubah saat bermain (status, angka, rumus, pesan) tidak boleh mengubah
+   tinggi panel. Kalau tinggi berubah, area simulasi ikut berubah dan canvas digambar
+   ulang berkali-kali saat slider digeser = layar bergetar. Jadi semuanya diberi tinggi tetap. */
+#panel-kontrol > * { min-width: 0; }
+.param-status { height: 22px; min-height: 22px; align-items: center; }
+.param-status .pill { height: 20px; line-height: 20px; box-sizing: border-box; }
+@media (min-width: 900px) {
+  #panel-kontrol .readout b, #panel-kontrol .readout small,
+  #panel-kontrol .control label, #panel-kontrol .meter-top,
+  #panel-kontrol .formula, .game-visual .lab-head > * {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #panel-kontrol .guess-log { height: 30px; }
+}
+.game-visual .lab-head > * { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.game-visual .bs-status {
+  height: calc(2 * 1.45em + 20px); line-height: 1.45; overflow: hidden;
+  display: flex; align-items: center;
+}
 
 /* ---------- Kolom kanan: petunjuk + deduksi ---------- */
 .game-side {
@@ -107,8 +127,14 @@ body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
 .game-side .clue { padding: 10px 12px; }
 
 /* Notifikasi muncul di atas, supaya tidak menutupi tombol & panel di bawah */
-body.game .toast { bottom: auto; top: 70px; translate: -50% -220%; font-size: .9rem; padding: 10px 18px; }
-body.game .toast.show { translate: -50% 0; }
+/* Saat tersembunyi, notifikasi digeser SELURUHNYA ke luar layar dan dibuat transparan,
+   jadi tidak ada sisa yang mengintip di tepi atas. */
+body.game .toast {
+  bottom: auto; top: 14px; translate: -50% calc(-100% - 40px); opacity: 0; visibility: hidden;
+  transition: translate .4s cubic-bezier(.3, 1.4, .5, 1), opacity .25s, visibility 0s .4s;
+  font-size: .9rem; padding: 10px 18px;
+}
+body.game .toast.show { translate: -50% 0; opacity: 1; visibility: visible; transition: translate .4s cubic-bezier(.3, 1.4, .5, 1), opacity .2s; }
 
 /* Tab hanya untuk HP */
 .dock-tabs { display: none; }
