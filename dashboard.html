@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Detektif · Cluegg</title>
+  <meta name="description" content="Dashboard detektif Cluegg: level, kursus, misi, dan riwayat belajarmu.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/akun.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="js/config.js"></script>
+  <script src="js/akun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</head>
+<body data-page="dashboard">
+
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="dashboard.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <ul class="nav-links">
+        <li><a href="#ringkasan">Ringkasan</a></li>
+        <li><a href="#kursus">Kursus</a></li>
+        <li><a href="#misi">Misi</a></li>
+        <li><a href="#statistik">Statistik</a></li>
+      </ul>
+      <button class="btn btn-ghost btn-sm" type="button" id="logout">Keluar</button>
+    </nav>
+  </header>
+
+  <main class="container dash">
+
+    <!-- ============ RINGKASAN ============ -->
+    <section class="dash-hero" id="ringkasan">
+      <div class="dash-id">
+        <div class="egg dash-avatar" id="avatar-egg"></div>
+        <div>
+          <p class="eyebrow" id="greet">Selamat datang kembali</p>
+          <h1 id="detective-name">Detektif</h1>
+          <p class="rank-chip"><span id="level-no">Level 1</span> · <b id="rank-title">Detektif Magang</b></p>
+        </div>
+      </div>
+
+      <div class="xp-card">
+        <div class="xp-top"><span>Poin detektif (XP)</span><b><span id="xp-now">0</span> / <span id="xp-max">300</span> XP</b></div>
+        <div class="xp-bar"><i id="xp-bar"></i></div>
+        <p class="xp-next" id="xp-next">Pecahkan kasus pertamamu untuk naik pangkat.</p>
+        <a class="btn btn-primary" id="continue" href="kasus-parabola.html">Lanjutkan investigasi →</a>
+      </div>
+    </section>
+
+    <div class="quick-stats">
+      <div class="qs"><small>Petunjuk ditemukan</small><b id="qs-clues">0/9</b></div>
+      <div class="qs"><small>Kasus terpecahkan</small><b id="qs-solved">0/3</b></div>
+      <div class="qs"><small>Lencana</small><b id="qs-badges">0/6</b></div>
+      <div class="qs"><small>Bidang dicoba</small><b id="qs-fields">0/3</b></div>
+    </div>
+
+    <!-- ============ KURSUS ============ -->
+    <section class="dash-section" id="kursus">
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow">Kursus</p>
+          <h2>Pilih bidang investigasi</h2>
+        </div>
+        <p class="dash-sub">Kasus baru di setiap bidang akan segera ditambahkan.</p>
+      </div>
+      <div class="courses" id="courses"></div>
+    </section>
+
+    <!-- ============ MISI ============ -->
+    <section class="dash-section" id="misi">
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow">Misi &amp; Lencana</p>
+          <h2>Tugas detektif</h2>
+        </div>
+        <p class="dash-sub">Misi tercentang otomatis saat kamu bermain. Setiap misi memberi satu lencana.</p>
+      </div>
+      <ul class="missions" id="missions"></ul>
+    </section>
+
+    <!-- ============ STATISTIK ============ -->
+    <section class="dash-section" id="statistik">
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow">Riwayat &amp; Statistik</p>
+          <h2>Catatan investigasi</h2>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="panel">
+          <h3>Per kasus</h3>
+          <div class="case-table" id="case-table"></div>
+        </div>
+        <div class="panel">
+          <h3>Aktivitas terakhir</h3>
+          <ol class="timeline" id="timeline"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AKUN ============ -->
+    <section class="dash-section account" id="akun">
+      <div class="panel account-panel">
+        <div>
+          <h3>Akun</h3>
+          <p><span id="acc-email">–</span> · Bergabung <span id="acc-since">–</span></p>
+          <p class="sync" id="sync-status">Menyinkronkan progres…</p>
+        </div>
+        <div class="account-actions">
+          <a class="btn btn-ghost btn-sm" href="privasi.html">Kebijakan privasi</a>
+          <button class="btn btn-ghost btn-sm danger" type="button" id="delete-account">Hapus akun</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <a class="brand" href="dashboard.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <span class="type">Every shell holds a secret. Every clue leads to the truth.</span>
+      <span>© 2026 Tim Cluegg</span>
+    </div>
+  </footer>
+</body>
+</html>

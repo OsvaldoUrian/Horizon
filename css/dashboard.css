@@ -1,0 +1,125 @@
+/* =========================================================
+   CLUEGG — dashboard detektif
+   Memakai variabel warna dari css/style.css.
+   ========================================================= */
+.dash { padding: 40px 0 0; }
+.dash [id] { scroll-margin-top: 88px; }
+
+/* ---------- Ringkasan ---------- */
+.dash-hero { display: grid; grid-template-columns: 1fr minmax(0, 440px); gap: 28px; align-items: center; }
+.dash-id { display: flex; align-items: center; gap: 22px; }
+.dash-avatar { width: 96px; flex-shrink: 0; }
+.dash-id .eyebrow { margin-bottom: 4px; }
+.dash-id h1 { font-size: clamp(1.9rem, 4.6vw, 2.9rem); line-height: 1.05; letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.rank-chip { margin-top: 10px; color: var(--muted); }
+.rank-chip b { color: var(--yolk); }
+
+.xp-card { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+.xp-top { display: flex; justify-content: space-between; gap: 10px; font-size: .9rem; color: var(--muted); }
+.xp-top b { color: var(--text); font-variant-numeric: tabular-nums; }
+.xp-bar { height: 12px; border-radius: 99px; background: var(--bg-3); overflow: hidden; margin: 10px 0; }
+.xp-bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--yolk), var(--yolk-deep)); transition: width .8s ease; }
+.xp-next { font-size: .88rem; color: var(--muted); margin-bottom: 16px; }
+.xp-card .btn { width: 100%; justify-content: center; }
+
+.quick-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
+.qs { background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.qs small { display: block; color: var(--muted); font-size: .8rem; }
+.qs b { font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+
+/* ---------- Bagian umum ---------- */
+.dash-section { margin-top: 64px; }
+.dash-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 22px; }
+.dash-head .eyebrow { margin-bottom: 6px; }
+.dash-head h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.03em; }
+.dash-sub { color: var(--muted); font-size: .92rem; max-width: 420px; }
+.panel { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+.panel h3 { font-size: 1.05rem; margin-bottom: 14px; }
+
+/* ---------- Kursus ---------- */
+.courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.course { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 12px; align-content: start; }
+.course-head { display: flex; align-items: center; gap: 12px; }
+.course-ico { width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 183, 3, .12); color: var(--yolk); display: grid; place-items: center; flex-shrink: 0; }
+.course-ico svg { width: 24px; height: 24px; }
+.course-head h3 { font-size: 1.15rem; }
+.course-head p { font-size: .82rem; color: var(--muted); }
+.course-bar { height: 8px; border-radius: 99px; background: var(--bg-3); overflow: hidden; }
+.course-bar i { display: block; height: 100%; border-radius: 99px; background: var(--yolk); }
+
+.lesson {
+  display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px;
+  padding: 12px; border-radius: 12px; background: var(--paper); color: var(--ink); transition: transform .15s;
+}
+a.lesson:hover { transform: translateY(-2px); }
+.lesson-egg { width: 40px; }
+.lesson-body { display: grid; min-width: 0; }
+.lesson-body small { font-family: var(--font-type); font-size: .75rem; color: var(--ink-soft); }
+.lesson-body b { font-size: .95rem; line-height: 1.25; }
+.lesson-status { font-size: .78rem; color: var(--ink-soft); }
+.lesson-go { font-size: .8rem; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--ink); color: var(--paper); white-space: nowrap; }
+.lesson.is-solved .lesson-go { background: var(--green); }
+.lesson.is-soon { grid-template-columns: 44px 1fr; background: transparent; color: var(--muted); border: 1.5px dashed var(--line); }
+.lesson.is-soon small, .lesson.is-soon .lesson-status { color: var(--muted); }
+.soon-ico { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--bg-3); }
+
+/* ---------- Misi ---------- */
+.missions { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.mission { display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 14px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.badge-ico { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 1.4rem; background: var(--bg-3); filter: grayscale(1); opacity: .55; }
+.mission.done .badge-ico { filter: none; opacity: 1; background: rgba(255, 183, 3, .18); box-shadow: 0 0 0 2px var(--yolk); }
+.mission-body { display: grid; gap: 2px; min-width: 0; }
+.mission-body b { font-size: .98rem; }
+.mission-body > span:not(.mission-bar) { color: var(--muted); font-size: .85rem; }
+.mission-bar { height: 6px; border-radius: 99px; background: var(--bg-3); overflow: hidden; margin-top: 6px; }
+.mission-bar i { display: block; height: 100%; background: var(--yolk); border-radius: 99px; }
+.mission-state { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mission.done .mission-state { color: #57cc99; font-weight: 600; }
+.mission.done .mission-bar i { background: #57cc99; }
+
+/* ---------- Statistik ---------- */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.case-table { display: grid; font-size: .9rem; }
+.ct-row { display: grid; grid-template-columns: 1.4fr .8fr .6fr 1.2fr; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.ct-row:last-child { border-bottom: 0; }
+.ct-head { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; padding-top: 0; }
+.ct-row b { color: var(--yolk); }
+.st-solved { color: #57cc99; }
+.st-active { color: var(--yolk); }
+.st-new { color: var(--muted); }
+
+.timeline { list-style: none; display: grid; gap: 4px; }
+.timeline li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0 9px 18px; position: relative; font-size: .9rem; color: var(--muted); border-bottom: 1px solid var(--line); }
+.timeline li:last-child { border-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; left: 0; top: 15px; width: 8px; height: 8px; border-radius: 50%; background: var(--bg-3); }
+.timeline li.solved::before { background: #57cc99; }
+.timeline li.opened::before { background: var(--yolk); }
+.timeline li b { color: var(--text); }
+.timeline time { white-space: nowrap; font-size: .8rem; }
+.timeline li.empty { padding-left: 0; }
+.timeline li.empty::before { display: none; }
+
+/* ---------- Akun ---------- */
+.account-panel { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.account-panel p { color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
+.sync { margin-top: 4px; }
+.sync.warn { color: var(--yolk-deep) !important; }
+.account-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn.danger { border-color: rgba(229, 56, 59, .5); color: #ff8a8c; }
+.btn.danger:hover { border-color: var(--red); }
+
+@media (max-width: 980px) {
+  .dash-hero { grid-template-columns: 1fr; }
+  .courses { grid-template-columns: 1fr; max-width: 560px; }
+  .missions, .stats-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .quick-stats { grid-template-columns: 1fr 1fr; }
+  .dash-avatar { width: 72px; }
+  .dash-id { gap: 16px; }
+  .mission { grid-template-columns: 40px 1fr; }
+  .badge-ico { width: 40px; height: 40px; font-size: 1.15rem; }
+  .mission-state { grid-column: 2; }
+  .ct-row { grid-template-columns: 1.3fr .8fr .6fr 1.3fr; font-size: .82rem; }
+  .timeline li { flex-direction: column; gap: 2px; }
+}
