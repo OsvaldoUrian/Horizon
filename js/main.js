@@ -2,6 +2,7 @@
    CLUEGG — inti gamifikasi
    - Telur yang retak bertahap (1 petunjuk = 1 retakan)
    - Progres tersimpan di browser (localStorage)
+   - Petunjuk adaptif: makin sering salah, makin jelas bantuannya
    ========================================================= */
 (function () {
   const KEY = "cluegg-progress-v1";
@@ -91,6 +92,24 @@
     }, 2600);
   }
 
+  /* ---------- Petunjuk adaptif ---------- */
+  // Muncul bertahap saat deduksi akhir salah: kesalahan ke-2 membuka petunjuk pertama,
+  // kesalahan ke-3 membuka langkah konkret. Jawabannya tidak disebut langsung.
+  const HINTS = {
+    parabola: [
+      "Bandingkan pasangan sudut: 30° dan 60° sama jauh. Jarak naik, lalu turun lagi. Di mana titik baliknya?",
+      "Kembali ke laboratorium. Dengan kecepatan dan gravitasi tetap, tembakkan beberapa sudut antara 30° dan 60°, lalu cari angka Jarak tembak yang paling besar."
+    ],
+    gelombang: [
+      "Cocokkan satu per satu: tinggi puncak dulu (A), lalu kerapatan gelombang (B), terakhir pergeserannya (C).",
+      "Geser A sampai puncakmu setinggi garis merah. Hitung jumlah puncak garis merah, samakan lewat B. Lalu geser C selangkah demi selangkah sambil memperhatikan skor kecocokan."
+    ],
+    arsip: [
+      "Setiap tebakan di tengah membuang setengah laci. Yang perlu dihitung: berapa kali bisa dibagi dua, bukan berapa lacinya.",
+      "Tulis urutannya: 1.000 → 500 → 250 → … teruskan sampai tersisa 1, lalu hitung berapa langkahnya."
+    ]
+  };
+
   /* ---------- Mesin "kasus" ---------- */
   function initCase(id) {
     const all = load();
@@ -102,6 +121,28 @@
     const solvedEl = document.getElementById("solved");
     const countEl = document.getElementById("clue-progress");
     const feedback = finalEl ? finalEl.querySelector(".feedback") : null;
+    const hints = HINTS[id] || [];
+    let hintBox = null;
+    if (feedback) {
+      hintBox = document.createElement("div");
+      hintBox.className = "adaptive-hint";
+      hintBox.setAttribute("aria-live", "polite");
+      feedback.after(hintBox);
+    }
+
+    function renderHints() {
+      if (!hintBox) return;
+      const level = st.solved ? 0 : Math.max(0, Math.min(hints.length, (st.misses || 0) - 1));
+      // Hanya tambahkan yang baru, supaya pembaca layar tidak mengulang petunjuk lama
+      while (hintBox.children.length > level) hintBox.lastElementChild.remove();
+      for (let i = hintBox.children.length; i < level; i++) {
+        const p = document.createElement("p");
+        const label = document.createElement("strong");
+        label.textContent = i === 0 ? "💡 Petunjuk tambahan: " : "🧪 Coba langkah ini: ";
+        p.append(label, hints[i]);
+        hintBox.appendChild(p);
+      }
+    }
 
     function persist() {
       const p = load();
@@ -114,6 +155,7 @@
       if (finalEl) finalEl.classList.toggle("locked", st.clues.length < total && !st.solved);
       if (countEl) countEl.textContent = st.solved ? "Kasus terpecahkan!" : `${st.clues.length} dari ${total} petunjuk ditemukan`;
       if (solvedEl) solvedEl.classList.toggle("show", st.solved);
+      renderHints();
     }
 
     const api = {
@@ -156,6 +198,17 @@
           api.say(btn.dataset.why || "Bukan itu. Baca lagi petunjukmu.");
         }
       });
+    });
+
+    // Hitung jawaban salah. Dipasang di panel deduksi, jadi berjalan SETELAH tombolnya
+    // memeriksa jawaban: kalau saat itu kasus belum terpecahkan, berarti jawabannya salah.
+    // Berlaku untuk pilihan ganda (.choice) dan tombol "Ajukan Bukti" (#submit).
+    if (finalEl) finalEl.addEventListener("click", (e) => {
+      if (!e.target.closest(".choice, #submit")) return;
+      if (finalEl.classList.contains("locked") || st.solved) return;
+      st.misses = (st.misses || 0) + 1;
+      persist();
+      renderHints();
     });
 
     render();

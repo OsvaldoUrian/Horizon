@@ -346,6 +346,7 @@ button { font: inherit; cursor: pointer; }
 .choice.wrong { border-color: var(--red); color: var(--red); animation: shake .4s; }
 .choice.right { background: var(--green); border-color: var(--green); color: #fff; }
 .final .feedback { font-size: .86rem; margin-top: 10px; min-height: 1.2em; font-family: var(--font-type); }
+.final .adaptive-hint p { margin: 10px 0 0; padding: 10px 12px; border-radius: 8px; border-left: 4px solid var(--yolk-deep); background: var(--paper-2); color: var(--ink); }
 .final .btn-primary { width: 100%; justify-content: center; background: var(--ink); color: var(--paper); box-shadow: none; }
 
 /* Solved panel */
