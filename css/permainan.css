@@ -81,7 +81,9 @@ body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
 #panel-kontrol .readout small { font-size: .72rem; }
 #panel-kontrol .readout b { font-size: 1rem; }
 #panel-kontrol .formula { flex: 1 1 300px; padding: 7px 12px; font-size: .82rem; }
-#panel-kontrol .meter { flex: 1 1 240px; }
+/* Meter cukup lebar sehingga di layar sedang ia turun ke baris angka hasil,
+   memberi slider satu baris penuh (teks status tidak terpotong) */
+#panel-kontrol .meter { flex: 1 1 340px; }
 #panel-kontrol .meter-top { margin-bottom: 4px; font-size: .84rem; }
 #panel-kontrol .guess-log { flex: 1 1 100%; order: 5; overflow-y: auto; }
 #panel-kontrol .param-status { margin-top: 4px; flex-wrap: nowrap; white-space: nowrap; font-size: .76rem; overflow: hidden; }
@@ -92,6 +94,16 @@ body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
    tinggi panel. Kalau tinggi berubah, area simulasi ikut berubah dan canvas digambar
    ulang berkali-kali saat slider digeser = layar bergetar. Jadi semuanya diberi tinggi tetap. */
 #panel-kontrol > * { min-width: 0; }
+/* Kolom slider & angka hasil SELALU sama lebar, berapa pun jumlahnya, dan tidak ikut
+   melebar mengikuti panjang teks. Tanpa ini, teks status ("cocok dengan sinyal" vs
+   "gelombang terlalu ke kanan") mengubah lebar kolom, sehingga slider yang sedang
+   di-drag ikut bergeser/memanjang di bawah kursor = bergetar. */
+#panel-kontrol .controls, #panel-kontrol .readouts {
+  grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+}
+#panel-kontrol .control, #panel-kontrol .readout { min-width: 0; }
+#panel-kontrol .control input[type="range"], #panel-kontrol .control select { min-width: 0; max-width: 100%; }
+#panel-kontrol .param-status { text-overflow: ellipsis; }
 .param-status { height: 22px; min-height: 22px; align-items: center; }
 .param-status .pill { height: 20px; line-height: 20px; box-sizing: border-box; }
 @media (min-width: 900px) {
@@ -101,6 +113,9 @@ body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   #panel-kontrol .guess-log { height: 30px; }
+  /* Status satu baris dengan "…" bila kepanjangan (flex tidak mendukung ellipsis) */
+  #panel-kontrol .param-status { display: block; line-height: 22px; }
+  #panel-kontrol .param-status .pill { display: inline-flex; vertical-align: middle; margin-right: 6px; }
 }
 .game-visual .lab-head > * { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .game-visual .bs-status {
@@ -231,13 +246,13 @@ body.game .solved.show.dismissed { display: none; }
   #panel-deduksi .final { margin-top: 0; border-top: 0; padding-top: 0; }
 
   #panel-kontrol { padding: 12px; gap: 10px; }
-  #panel-kontrol .controls { grid-template-columns: 1fr; gap: 8px; }
-  #panel-kontrol .control { display: grid; grid-template-columns: minmax(118px, 40%) 1fr; align-items: center; gap: 2px 10px; }
+  #panel-kontrol .controls { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  #panel-kontrol .control { display: grid; grid-template-columns: minmax(118px, 40%) minmax(0, 1fr); align-items: center; gap: 2px 10px; }
   #panel-kontrol .control label { margin: 0; font-size: .8rem; gap: 6px; }
   #panel-kontrol .control .param-status { grid-column: 1 / -1; margin-top: 0; font-size: .75rem; }
   #panel-kontrol .lab-actions { flex: 1 1 100%; }
   #panel-kontrol .lab-actions .btn { flex: 1; justify-content: center; padding: 10px 12px; }
-  #panel-kontrol .readouts { flex: 1 1 100%; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  #panel-kontrol .readouts { flex: 1 1 100%; gap: 6px; }
   #panel-kontrol .readout { padding: 6px 8px; }
   #panel-kontrol .readout small { font-size: .68rem; }
   #panel-kontrol .readout b { font-size: .92rem; }

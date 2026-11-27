@@ -16,11 +16,13 @@
   // Indikator per parameter: bandingkan tiap slider dengan target secara terpisah,
   // supaya A yang sudah benar tetap terlihat "Pas" walau B atau C masih salah.
   // Hanya arah (terlalu besar/kecil) yang ditampilkan, angka jawabannya tidak.
+  // Teks dibuat pendek agar muat satu baris di kolom slider (lihat css/permainan.css).
   const PARAMS = [
-    { key: "A", el: "#amp-status", high: "gelombang terlalu tinggi", low: "gelombang terlalu pendek" },
-    { key: "B", el: "#freq-status", high: "gelombang terlalu rapat", low: "gelombang terlalu renggang" },
-    { key: "C", el: "#phase-status", high: "gelombang terlalu ke kiri", low: "gelombang terlalu ke kanan" }
+    { key: "A", el: "#amp-status", high: "terlalu tinggi", low: "terlalu pendek" },
+    { key: "B", el: "#freq-status", high: "terlalu rapat", low: "terlalu renggang" },
+    { key: "C", el: "#phase-status", high: "terlalu ke kiri", low: "terlalu ke kanan" }
   ];
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
   const stateOf = (p, key) => (p[key] === TARGET[key] ? "ok" : p[key] > TARGET[key] ? "high" : "low");
 
   function updateStatus(p) {
@@ -30,9 +32,15 @@
       if (state === "ok") ok++;
       if (el.dataset.state === state) return; // teks sama, jangan dibacakan ulang
       el.dataset.state = state;
+      // Kalimat lengkap untuk pembaca layar & tooltip; yang terlihat versi ringkas
+      const full = state === "ok"
+        ? `${q.key} pas, cocok dengan sinyal`
+        : `${q.key} ${state === "high" ? "terlalu besar" : "terlalu kecil"}: gelombang ${q[state]}`;
+      el.title = full;
+      el.setAttribute("aria-label", full);
       el.innerHTML = state === "ok"
-        ? '<span class="pill">✓ Pas</span> cocok dengan sinyal'
-        : `<span class="pill">${state === "high" ? "Terlalu besar" : "Terlalu kecil"}</span> ${q[state]}`;
+        ? '<span class="pill">✓ Pas</span> cocok'
+        : `<span class="pill">${cap(q[state])}</span> ${state === "high" ? "turunkan" : "naikkan"}`;
     });
     $("#params-ok").textContent = `${ok} dari 3 parameter pas`;
   }
@@ -132,7 +140,7 @@
     if (game.solved) return game.say("Kasus ini sudah terpecahkan. Kerja bagus!");
     if (document.getElementById("final").classList.contains("locked")) return;
     const p = val();
-    const off = PARAMS.filter((q) => stateOf(p, q.key) !== "ok").map((q) => q[stateOf(p, q.key)].replace("gelombang ", ""));
+    const off = PARAMS.filter((q) => stateOf(p, q.key) !== "ok").map((q) => q[stateOf(p, q.key)]);
     if (!off.length) {
       game.say("✔ Sinyal cocok 100%! Asal sinyal terbukti.");
       game.solve();
