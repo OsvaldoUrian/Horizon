@@ -13,9 +13,10 @@
   const XP_MAX = CASE_IDS.length * (3 * XP.clue + XP.solve + XP.perfect);
 
   const COURSES = [
-    { subject: "Fisika", id: "parabola", icon: '<path d="M3 20c4-14 14-14 18 0"/><circle cx="12" cy="9.5" r="2"/>' },
-    { subject: "Matematika", id: "gelombang", icon: '<path d="M2 12c2.5-6 5-6 7.5 0s5 6 7.5 0 3-4 5-2"/>' },
-    { subject: "Informatika", id: "arsip", icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' }
+    // acc = warna aksen bidang (ikon, bar progres, garis atas kartu)
+    { subject: "Fisika", id: "parabola", acc: "#4cc9f0", icon: '<path d="M3 20c4-14 14-14 18 0"/><circle cx="12" cy="9.5" r="2"/>' },
+    { subject: "Matematika", id: "gelombang", acc: "#ffb703", icon: '<path d="M2 12c2.5-6 5-6 7.5 0s5 6 7.5 0 3-4 5-2"/>' },
+    { subject: "Informatika", id: "arsip", acc: "#c77dff", icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' }
   ];
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -67,10 +68,16 @@
       : "Semua kasus terpecahkan. Kasus baru akan segera hadir!";
     Cluegg.setEgg(Cluegg.mountEgg($("#avatar-egg")), Math.min(3, solvedCount), solvedCount === CASE_IDS.length);
 
-    // Profil kecil di sidebar (layar PC)
-    if (name) $("#side-name").textContent = name;
+    // Jalur pangkat di Kartu Detektif
+    document.querySelectorAll("#rank-track li").forEach((li, i) => {
+      li.className = i < solvedCount ? "done" : i === solvedCount ? "current" : "";
+    });
+
+    // Kartu pengguna kecil di sidebar (inisial, tanpa telur agar tidak dobel)
+    const shownName = name || $("#detective-name").textContent;
+    $("#side-name").textContent = shownName;
+    $("#side-avatar").textContent = (shownName.trim()[0] || "D").toUpperCase();
     $("#side-rank").textContent = `Level ${solvedCount + 1} · ${RANKS[solvedCount]}`;
-    Cluegg.setEgg(Cluegg.mountEgg($("#side-egg")), Math.min(3, solvedCount), solvedCount === CASE_IDS.length);
 
     // Tombol "lanjutkan": kasus yang sedang diselidiki, lalu yang belum dibuka
     const next = cases.find((c) => c.status === "active") || cases.find((c) => c.status === "new");
@@ -88,6 +95,11 @@
     $("#qs-solved").textContent = `${solvedCount}/3`;
     $("#qs-badges").textContent = `${earned}/${missions.length}`;
     $("#qs-fields").textContent = `${cases.filter((c) => c.opened).length}/3`;
+    const bar = (id, n, max) => { $(id).style.width = (Math.min(n, max) / max) * 100 + "%"; };
+    bar("#qs-clues-bar", clueCount, 9);
+    bar("#qs-solved-bar", solvedCount, 3);
+    bar("#qs-badges-bar", earned, missions.length);
+    bar("#qs-fields-bar", cases.filter((c) => c.opened).length, 3);
 
     // Kursus
     const statusText = { solved: "Terpecahkan", active: "Sedang diselidiki", new: "Belum dibuka" };
@@ -95,7 +107,7 @@
     $("#courses").innerHTML = COURSES.map((co) => {
       const c = cases.find((x) => x.id === co.id);
       return `
-      <article class="course">
+      <article class="course" style="--acc:${co.acc}">
         <div class="course-head">
           <span class="course-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${co.icon}</svg></span>
           <div><h3>${co.subject}</h3><p>${c.solved ? 1 : 0} dari 1 kasus terpecahkan</p></div>

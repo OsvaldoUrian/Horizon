@@ -27,11 +27,6 @@
   <header class="site-header">
     <nav class="nav container">
       <a class="brand" href="dashboard.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
-      <!-- Profil kecil: hanya tampil saat header menjadi sidebar (layar PC) -->
-      <div class="side-profile">
-        <span class="egg side-egg" id="side-egg"></span>
-        <div><b id="side-name">Detektif</b><small id="side-rank">Detektif Magang</small></div>
-      </div>
       <ul class="nav-links">
         <li><a href="#ringkasan"><span class="nl-ico" aria-hidden="true">🏠</span>Ringkasan</a></li>
         <li><a href="#kursus"><span class="nl-ico" aria-hidden="true">📚</span>Kursus</a></li>
@@ -39,6 +34,11 @@
         <li><a href="#statistik"><span class="nl-ico" aria-hidden="true">📊</span>Statistik</a></li>
         <li><a href="#akun"><span class="nl-ico" aria-hidden="true">👤</span>Akun</a></li>
       </ul>
+      <!-- Kartu pengguna kecil di bawah sidebar (layar PC). Telur hanya ada di Kartu Detektif. -->
+      <div class="side-user">
+        <span class="side-avatar" id="side-avatar" aria-hidden="true">D</span>
+        <div><b id="side-name">Detektif</b><small id="side-rank">Level 1</small></div>
+      </div>
       <button class="btn btn-ghost btn-sm" type="button" id="logout">Keluar</button>
     </nav>
   </header>
@@ -46,29 +46,37 @@
   <main id="konten" class="container dash">
 
     <!-- ============ RINGKASAN ============ -->
-    <section class="dash-hero" id="ringkasan">
-      <div class="dash-id">
-        <div class="egg dash-avatar" id="avatar-egg"></div>
-        <div>
+    <!-- Kartu Detektif: satu-satunya tempat telur, nama, pangkat, dan XP -->
+    <section class="id-card" id="ringkasan">
+      <span class="id-stamp" aria-hidden="true">KARTU DETEKTIF · CLUEGG</span>
+      <div class="id-main">
+        <div class="id-egg"><div class="egg dash-avatar" id="avatar-egg"></div></div>
+        <div class="id-info">
           <p class="eyebrow" id="greet">Selamat datang kembali</p>
           <h1 id="detective-name">Detektif</h1>
-          <p class="rank-chip"><span id="level-no">Level 1</span> · <b id="rank-title">Detektif Magang</b></p>
+          <div class="id-chips">
+            <span class="chip chip-level" id="level-no">Level 1</span>
+            <span class="chip chip-rank" id="rank-title">Detektif Magang</span>
+          </div>
         </div>
       </div>
 
-      <div class="xp-card">
-        <div class="xp-top"><span>Poin detektif (XP)</span><b><span id="xp-now">0</span> / <span id="xp-max">300</span> XP</b></div>
+      <div class="id-xp">
+        <div class="xp-top"><span>Poin detektif</span><b><span id="xp-now">0</span><small> / <span id="xp-max">300</span> XP</small></b></div>
         <div class="xp-bar"><i id="xp-bar"></i></div>
+        <ol class="rank-track" id="rank-track" aria-label="Jalur pangkat">
+          <li>Magang</li><li>Penyelidik</li><li>Inspektur</li><li>Master</li>
+        </ol>
         <p class="xp-next" id="xp-next">Pecahkan kasus pertamamu untuk naik pangkat.</p>
         <a class="btn btn-primary" id="continue" href="kasus-parabola.html">Lanjutkan investigasi →</a>
       </div>
     </section>
 
     <div class="quick-stats">
-      <div class="qs"><small>Petunjuk ditemukan</small><b id="qs-clues">0/9</b></div>
-      <div class="qs"><small>Kasus terpecahkan</small><b id="qs-solved">0/3</b></div>
-      <div class="qs"><small>Lencana</small><b id="qs-badges">0/6</b></div>
-      <div class="qs"><small>Bidang dicoba</small><b id="qs-fields">0/3</b></div>
+      <div class="qs" style="--acc:#ffb703"><span class="qs-ico" aria-hidden="true">🔍</span><div class="qs-txt"><small>Petunjuk ditemukan</small><b id="qs-clues">0/9</b></div><span class="qs-bar"><i id="qs-clues-bar"></i></span></div>
+      <div class="qs" style="--acc:#57cc99"><span class="qs-ico" aria-hidden="true">🥚</span><div class="qs-txt"><small>Kasus terpecahkan</small><b id="qs-solved">0/3</b></div><span class="qs-bar"><i id="qs-solved-bar"></i></span></div>
+      <div class="qs" style="--acc:#4cc9f0"><span class="qs-ico" aria-hidden="true">🏅</span><div class="qs-txt"><small>Lencana</small><b id="qs-badges">0/6</b></div><span class="qs-bar"><i id="qs-badges-bar"></i></span></div>
+      <div class="qs" style="--acc:#c77dff"><span class="qs-ico" aria-hidden="true">🧭</span><div class="qs-txt"><small>Bidang dicoba</small><b id="qs-fields">0/3</b></div><span class="qs-bar"><i id="qs-fields-bar"></i></span></div>
     </div>
 
     <!-- ============ KURSUS ============ -->
