@@ -29,9 +29,8 @@
   font-family: var(--font-type); font-size: .8rem; color: var(--shell); letter-spacing: .08em;
   padding: 3px 10px; border-radius: 999px; background: rgba(0, 0, 0, .25); transition: background .3s, color .3s;
 }
-.cp-egg { width: clamp(46px, 8vh, 80px); transition: transform .3s; }
 /* Yang sedang bicara menyala */
-.court-person.speaking .cp-ico, .court-person.speaking .cp-egg { transform: scale(1.1); filter: drop-shadow(0 0 18px rgba(255, 183, 3, .75)); }
+.court-person.speaking .cp-ico { transform: scale(1.1); filter: drop-shadow(0 0 18px rgba(255, 183, 3, .75)); }
 .court-person.speaking .cp-name { background: var(--yolk); color: var(--bg); }
 /* Meja hakim lebih tinggi */
 .court-person.hakim {
@@ -168,7 +167,6 @@
   .court-choices { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
   .court-choice { padding: 10px 12px; font-size: .88rem; }
   .cp-name { display: none; }
-  .court-person.saksi .cp-egg { width: 40px; }
   .court-result.show { grid-template-columns: auto 1fr; }
   .court-result .btn { grid-column: 1 / -1; justify-content: center; }
   .court-verdict { padding: 20px 16px; }

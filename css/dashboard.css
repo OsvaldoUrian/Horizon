@@ -3,6 +3,13 @@
    Memakai variabel warna dari css/style.css.
    ========================================================= */
 .dash { padding: 40px 0 0; }
+
+/* ---------- Ikon detektif (sprite SVG buatan sendiri di dashboard.html) ---------- */
+.ic-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ic {
+  width: 1em; height: 1em; flex-shrink: 0; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
 .dash [id] { scroll-margin-top: 88px; }
 
 /* ---------- Kartu Detektif (ringkasan) ----------
@@ -35,6 +42,21 @@
   box-shadow: 0 0 0 2px rgba(255, 183, 3, .35), 0 0 40px -6px rgba(255, 183, 3, .45);
 }
 .dash-avatar { width: 92px; }
+.id-egg { position: relative; }
+/* Kaca pembesar menempel di sudut lingkaran telur */
+.id-lens {
+  position: absolute; right: -4px; bottom: 2px; width: 42px; height: 42px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.3rem; color: var(--bg);
+  background: linear-gradient(135deg, var(--yolk), var(--yolk-deep));
+  box-shadow: 0 0 0 4px #221b12, 0 6px 16px -4px rgba(0, 0, 0, .6);
+  rotate: -12deg;
+}
+.id-lens .ic { stroke-width: 2.4; }
+/* Sidik jari samar di latar kartu */
+.id-print {
+  position: absolute; z-index: -1; left: 34%; bottom: -60px; font-size: 260px;
+  color: rgba(255, 183, 3, .06); stroke-width: 1.1; rotate: -14deg; pointer-events: none;
+}
 .id-info { min-width: 0; }
 .id-info .eyebrow { margin-bottom: 6px; }
 .id-info h1 { font-size: clamp(2.2rem, 4.8vw, 3.4rem); line-height: 1.02; letter-spacing: -0.04em; overflow-wrap: anywhere; }
@@ -75,8 +97,8 @@
 }
 .qs:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--acc) 55%, transparent); }
 .qs-ico {
-  width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; font-size: 1.35rem;
-  background: color-mix(in srgb, var(--acc) 18%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--acc) 35%, transparent);
+  width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; font-size: 1.4rem;
+  color: var(--acc); background: color-mix(in srgb, var(--acc) 18%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--acc) 35%, transparent);
 }
 .qs-txt small { display: block; color: var(--muted); font-size: .8rem; }
 .qs-txt b { font-size: 1.75rem; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--text); }
@@ -84,13 +106,24 @@
 .qs-bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--acc); box-shadow: 0 0 10px color-mix(in srgb, var(--acc) 60%, transparent); transition: width .8s ease; }
 
 /* ---------- Bagian umum ---------- */
-.dash-section { margin-top: 64px; }
+.dash-section { margin-top: 34px; }
+/* Jejak kaki detektif sebagai pemisah antarbagian */
+.dash-section::before {
+  content: ""; display: block; height: 24px; margin-bottom: 30px; opacity: .9;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='24'%3E%3Cg fill='%23ffb703' fill-opacity='.3'%3E%3Cellipse cx='15' cy='6' rx='6' ry='3.4'/%3E%3Cellipse cx='5.5' cy='6' rx='2.6' ry='2.3'/%3E%3Cellipse cx='51' cy='18' rx='6' ry='3.4'/%3E%3Cellipse cx='41.5' cy='18' rx='2.6' ry='2.3'/%3E%3C/g%3E%3C/svg%3E") left center / 72px 24px repeat-x;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+}
 .dash-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 22px; }
 .dash-head .eyebrow { margin-bottom: 6px; }
 .dash-head h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.03em; }
 .dash-sub { color: var(--muted); font-size: .92rem; max-width: 420px; }
 .panel { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
-.panel h3 { font-size: 1.05rem; margin-bottom: 14px; }
+.panel h3 { font-size: 1.05rem; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.h-ico {
+  width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; font-size: 1.05rem;
+  color: var(--yolk); background: rgba(255, 183, 3, .12); box-shadow: inset 0 0 0 1px rgba(255, 183, 3, .3);
+}
 
 /* ---------- Kursus ---------- */
 .courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -130,13 +163,21 @@ a.lesson:hover { transform: translateY(-2px); }
 .lesson.is-solved .lesson-go { background: var(--green); }
 .lesson.is-soon { grid-template-columns: 44px 1fr; background: transparent; color: var(--muted); border: 1.5px dashed var(--line); }
 .lesson.is-soon small, .lesson.is-soon .lesson-status { color: var(--muted); }
-.soon-ico { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--bg-3); }
+.soon-ico { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--bg-3); font-size: 1.15rem; color: var(--muted); }
 
 /* ---------- Misi ---------- */
 .missions { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .mission { display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 14px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
-.badge-ico { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 1.4rem; background: var(--bg-3); filter: grayscale(1); opacity: .55; }
-.mission.done .badge-ico { filter: none; opacity: 1; background: rgba(255, 183, 3, .18); box-shadow: 0 0 0 2px var(--yolk); }
+/* Lencana: belum didapat = garis putus-putus redup; didapat = medali kuning */
+.badge-ico {
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 1.4rem;
+  color: var(--muted); background: var(--bg-3); border: 2px dashed var(--line);
+}
+.mission.done .badge-ico {
+  color: var(--bg); border: 0; background: linear-gradient(135deg, var(--yolk), var(--yolk-deep));
+  box-shadow: 0 0 0 3px var(--bg-2), 0 0 0 5px rgba(255, 183, 3, .45), 0 6px 18px -6px rgba(255, 183, 3, .6);
+}
+.mission.done .badge-ico .ic { stroke-width: 2.3; }
 .mission-body { display: grid; gap: 2px; min-width: 0; }
 .mission-body b { font-size: .98rem; }
 .mission-body > span:not(.mission-bar) { color: var(--muted); font-size: .85rem; }
@@ -221,7 +262,8 @@ a.lesson:hover { transform: translateY(-2px); }
   body[data-page="dashboard"] .nav-links a[aria-current="true"] {
     background: rgba(255, 183, 3, .12); color: var(--text); border-left-color: var(--yolk);
   }
-  .nl-ico { display: inline-grid; place-items: center; width: 22px; }
+  .nl-ico { display: inline-grid; place-items: center; width: 22px; font-size: 1.2rem; }
+  body[data-page="dashboard"] .nav-links a[aria-current="true"] .nl-ico { color: var(--yolk); }
   body[data-page="dashboard"] #logout { margin-top: -12px; justify-content: center; }
 
   body[data-page="dashboard"] main.dash { width: auto; margin: 0 0 0 var(--side); padding: 36px clamp(24px, 3vw, 48px) 0; }
@@ -244,6 +286,8 @@ a.lesson:hover { transform: translateY(-2px); }
   .id-card { padding: 22px 18px; border-radius: 20px; gap: 20px; }
   .id-main { gap: 16px; }
   .id-egg { width: 96px; height: 96px; }
+  .id-lens { width: 34px; height: 34px; font-size: 1.05rem; right: -6px; }
+  .id-print { font-size: 200px; left: auto; right: -40px; bottom: auto; top: 10px; }
   .dash-avatar { width: 66px; }
   .id-info h1 { font-size: 2rem; }
   .chip { font-size: .78rem; padding: 5px 11px; }

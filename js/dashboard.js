@@ -45,13 +45,13 @@
     const clueCount = cases.reduce((s, c) => s + c.clues, 0);
     const xp = cases.reduce((s, c) => s + c.clues * XP.clue + (c.solved ? XP.solve + (c.misses === 0 ? XP.perfect : 0) : 0) + (c.court ? c.court.best * XP.court : 0), 0);
     const missions = [
-      { title: "Mata Elang", desc: "Temukan petunjuk pertamamu.", now: Math.min(1, clueCount), goal: 1, icon: "🔍" },
-      { title: "Cangkang Pertama", desc: "Pecahkan satu kasus.", now: Math.min(1, solvedCount), goal: 1, icon: "🥚" },
-      { title: "Deduksi Sempurna", desc: "Pecahkan kasus tanpa sekali pun salah deduksi.", now: cases.some((c) => c.solved && c.misses === 0) ? 1 : 0, goal: 1, icon: "🎯" },
-      { title: "Penjelajah Bidang", desc: "Buka kasus di ketiga bidang.", now: cases.filter((c) => c.opened).length, goal: 3, icon: "🧭" },
-      { title: "Pengumpul Bukti", desc: "Kumpulkan semua 9 petunjuk.", now: clueCount, goal: 9, icon: "🗂️" },
-      { title: "Master Detektif", desc: "Pecahkan semua kasus.", now: solvedCount, goal: 3, icon: "🏆" },
-      { title: "Saksi Ahli", desc: "Raih nilai sempurna 3/3 di sidang salah satu kasus.", now: cases.some((c) => c.court && c.court.best === c.court.total) ? 1 : 0, goal: 1, icon: "⚖️" }
+      { title: "Mata Elang", desc: "Temukan petunjuk pertamamu.", now: Math.min(1, clueCount), goal: 1, icon: "magnifier" },
+      { title: "Cangkang Pertama", desc: "Pecahkan satu kasus.", now: Math.min(1, solvedCount), goal: 1, icon: "key" },
+      { title: "Deduksi Sempurna", desc: "Pecahkan kasus tanpa sekali pun salah deduksi.", now: cases.some((c) => c.solved && c.misses === 0) ? 1 : 0, goal: 1, icon: "fingerprint" },
+      { title: "Penjelajah Bidang", desc: "Buka kasus di ketiga bidang.", now: cases.filter((c) => c.opened).length, goal: 3, icon: "binoculars" },
+      { title: "Pengumpul Bukti", desc: "Kumpulkan semua 9 petunjuk.", now: clueCount, goal: 9, icon: "camera" },
+      { title: "Master Detektif", desc: "Pecahkan semua kasus.", now: solvedCount, goal: 3, icon: "badge" },
+      { title: "Saksi Ahli", desc: "Raih nilai sempurna 3/3 di sidang salah satu kasus.", now: cases.some((c) => c.court && c.court.best === c.court.total) ? 1 : 0, goal: 1, icon: "scale" }
     ];
     return { cases, solvedCount, clueCount, xp, missions };
   }
@@ -105,6 +105,9 @@
     bar("#qs-badges-bar", earned, missions.length);
     bar("#qs-fields-bar", cases.filter((c) => c.opened).length, 3);
 
+    // Ikon detektif dari sprite SVG di dashboard.html
+    const ic = (id) => `<svg class="ic"><use href="#i-${id}"/></svg>`;
+
     // Kursus
     const statusText = { solved: "Terpecahkan", active: "Sedang diselidiki", new: "Belum dibuka" };
     const btnText = { solved: "Buka lagi", active: "Lanjutkan", new: "Mulai" };
@@ -127,7 +130,7 @@
           <span class="lesson-go">${btnText[c.status]}</span>
         </a>
         <div class="lesson is-soon" aria-disabled="true">
-          <span class="soon-ico" aria-hidden="true">🔒</span>
+          <span class="soon-ico" aria-hidden="true">${ic("lock")}</span>
           <span class="lesson-body">
             <small>Kasus berikutnya</small>
             <b>Segera hadir</b>
@@ -146,7 +149,7 @@
       const done = ms.now >= ms.goal;
       return `
       <li class="mission${done ? " done" : ""}">
-        <span class="badge-ico" aria-hidden="true">${ms.icon}</span>
+        <span class="badge-ico" aria-hidden="true">${ic(ms.icon)}</span>
         <span class="mission-body">
           <b>${ms.title}</b>
           <span>${ms.desc}</span>

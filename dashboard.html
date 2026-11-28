@@ -22,17 +22,33 @@
   <script src="js/dashboard.js" defer></script>
 </head>
 <body data-page="dashboard">
+  <!-- Ikon detektif buatan tim (garis SVG, warna mengikuti teks). Dipakai lewat <use href="#i-..."> -->
+  <svg class="ic-sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="i-magnifier" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 21 21"/><path d="M7.6 9.2a3.4 3.4 0 0 1 2.6-2.4"/></symbol>
+    <symbol id="i-fingerprint" viewBox="0 0 24 24"><path d="M4.6 13.5V11a7.4 7.4 0 0 1 12.8-5"/><path d="M19.2 9a7.4 7.4 0 0 1 .2 2v2"/><path d="M8.3 20a14 14 0 0 1-.9-5v-4a4.6 4.6 0 0 1 9.2 0v1.5"/><path d="M12 11v3.5a13 13 0 0 0 1.6 6"/><path d="M16.6 16a15 15 0 0 1-.7 4"/><path d="M5 17a16 16 0 0 0 .8 2.4"/></symbol>
+    <symbol id="i-hat" viewBox="0 0 24 24"><path d="M2.5 16c2.2 1.9 5.6 2.6 9.5 2.6s7.3-.7 9.5-2.6"/><path d="m6 16.4 1.6-7.8C8 7 9.3 6.1 10.8 6.6L12 7l1.2-.4c1.5-.5 2.8.4 3.2 2l1.6 7.8"/><path d="M6.7 13.2c3.6 1 7 1 10.6 0"/></symbol>
+    <symbol id="i-badge" viewBox="0 0 24 24"><path d="M12 2.8 19 5.6v5.2c0 4.5-2.9 8-7 10.2-4.1-2.2-7-5.7-7-10.2V5.6z"/><path d="m12 7.8 1.2 2.5 2.7.3-2 1.9.5 2.7-2.4-1.3-2.4 1.3.5-2.7-2-1.9 2.7-.3z"/></symbol>
+    <symbol id="i-casefile" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M7 12.5h6M7 16h9"/></symbol>
+    <symbol id="i-notebook" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18"/><path d="M12.5 8H16M12.5 11.5H16"/><path d="M3.5 7H6M3.5 11H6M3.5 15H6"/></symbol>
+    <symbol id="i-binoculars" viewBox="0 0 24 24"><circle cx="6.5" cy="16" r="3.5"/><circle cx="17.5" cy="16" r="3.5"/><path d="M10 15.5h4"/><path d="M3.3 14.5 5.6 5.5h3.2L10 15"/><path d="M20.7 14.5 18.4 5.5h-3.2L14 15"/></symbol>
+    <symbol id="i-watch" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7"/><path d="M12 3v4M10 3h4"/><path d="M12 10.5V14l2.5 1.6"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2.2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.2" r="3.4"/><path d="M6.2 10.8h.01"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="16.5" r="4"/><path d="m10.4 13.6 9.1-9.1"/><path d="m16.2 7.8 2.6 2.6M13.6 10.4l1.8 1.8"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7.5 20h9M5 7h14"/><path d="M5 7 2.5 13a2.5 2.5 0 0 0 5 0z"/><path d="m19 7-2.5 6a2.5 2.5 0 0 0 5 0z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></symbol>
+    <symbol id="i-footprints" viewBox="0 0 24 24"><path d="M7 3c1.7 0 2.6 1.8 2.6 4.2S8.8 11 7.3 11 4.5 9.6 4.5 7.2 5.3 3 7 3z"/><path d="M5.3 13.4h3.9l-.3 2.1a1.7 1.7 0 0 1-3.3 0z"/><path d="M17 8.5c1.7 0 2.6 1.8 2.6 4.2s-.8 3.8-2.3 3.8-2.8-1.4-2.8-3.8.8-4.2 2.5-4.2z"/><path d="M15.3 18.9h3.9l-.3 2.1a1.7 1.7 0 0 1-3.3 0z"/></symbol>
+  </svg>
   <a class="skip-link" href="#konten">Lewati ke konten utama</a>
 
   <header class="site-header">
     <nav class="nav container">
       <a class="brand" href="dashboard.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
       <ul class="nav-links">
-        <li><a href="#ringkasan"><span class="nl-ico" aria-hidden="true">🏠</span>Ringkasan</a></li>
-        <li><a href="#kursus"><span class="nl-ico" aria-hidden="true">📚</span>Kursus</a></li>
-        <li><a href="#misi"><span class="nl-ico" aria-hidden="true">🎯</span>Misi</a></li>
-        <li><a href="#statistik"><span class="nl-ico" aria-hidden="true">📊</span>Statistik</a></li>
-        <li><a href="#akun"><span class="nl-ico" aria-hidden="true">👤</span>Akun</a></li>
+        <li><a href="#ringkasan"><span class="nl-ico" aria-hidden="true"><svg class="ic"><use href="#i-hat"/></svg></span>Ringkasan</a></li>
+        <li><a href="#kursus"><span class="nl-ico" aria-hidden="true"><svg class="ic"><use href="#i-casefile"/></svg></span>Kursus</a></li>
+        <li><a href="#misi"><span class="nl-ico" aria-hidden="true"><svg class="ic"><use href="#i-badge"/></svg></span>Misi</a></li>
+        <li><a href="#statistik"><span class="nl-ico" aria-hidden="true"><svg class="ic"><use href="#i-notebook"/></svg></span>Statistik</a></li>
+        <li><a href="#akun"><span class="nl-ico" aria-hidden="true"><svg class="ic"><use href="#i-fingerprint"/></svg></span>Akun</a></li>
       </ul>
       <!-- Kartu pengguna kecil di bawah sidebar (layar PC). Telur hanya ada di Kartu Detektif. -->
       <div class="side-user">
@@ -49,8 +65,9 @@
     <!-- Kartu Detektif: satu-satunya tempat telur, nama, pangkat, dan XP -->
     <section class="id-card" id="ringkasan">
       <span class="id-stamp" aria-hidden="true">KARTU DETEKTIF · CLUEGG</span>
+      <svg class="ic id-print" aria-hidden="true"><use href="#i-fingerprint"/></svg>
       <div class="id-main">
-        <div class="id-egg"><div class="egg dash-avatar" id="avatar-egg"></div></div>
+        <div class="id-egg"><div class="egg dash-avatar" id="avatar-egg"></div><span class="id-lens" aria-hidden="true"><svg class="ic"><use href="#i-magnifier"/></svg></span></div>
         <div class="id-info">
           <p class="eyebrow" id="greet">Selamat datang kembali</p>
           <h1 id="detective-name">Detektif</h1>
@@ -73,10 +90,10 @@
     </section>
 
     <div class="quick-stats">
-      <div class="qs" style="--acc:#ffb703"><span class="qs-ico" aria-hidden="true">🔍</span><div class="qs-txt"><small>Petunjuk ditemukan</small><b id="qs-clues">0/9</b></div><span class="qs-bar"><i id="qs-clues-bar"></i></span></div>
-      <div class="qs" style="--acc:#57cc99"><span class="qs-ico" aria-hidden="true">🥚</span><div class="qs-txt"><small>Kasus terpecahkan</small><b id="qs-solved">0/3</b></div><span class="qs-bar"><i id="qs-solved-bar"></i></span></div>
-      <div class="qs" style="--acc:#4cc9f0"><span class="qs-ico" aria-hidden="true">🏅</span><div class="qs-txt"><small>Lencana</small><b id="qs-badges">0/7</b></div><span class="qs-bar"><i id="qs-badges-bar"></i></span></div>
-      <div class="qs" style="--acc:#c77dff"><span class="qs-ico" aria-hidden="true">🧭</span><div class="qs-txt"><small>Bidang dicoba</small><b id="qs-fields">0/3</b></div><span class="qs-bar"><i id="qs-fields-bar"></i></span></div>
+      <div class="qs" style="--acc:#ffb703"><span class="qs-ico" aria-hidden="true"><svg class="ic"><use href="#i-magnifier"/></svg></span><div class="qs-txt"><small>Petunjuk ditemukan</small><b id="qs-clues">0/9</b></div><span class="qs-bar"><i id="qs-clues-bar"></i></span></div>
+      <div class="qs" style="--acc:#57cc99"><span class="qs-ico" aria-hidden="true"><svg class="ic"><use href="#i-key"/></svg></span><div class="qs-txt"><small>Kasus terpecahkan</small><b id="qs-solved">0/3</b></div><span class="qs-bar"><i id="qs-solved-bar"></i></span></div>
+      <div class="qs" style="--acc:#4cc9f0"><span class="qs-ico" aria-hidden="true"><svg class="ic"><use href="#i-badge"/></svg></span><div class="qs-txt"><small>Lencana</small><b id="qs-badges">0/7</b></div><span class="qs-bar"><i id="qs-badges-bar"></i></span></div>
+      <div class="qs" style="--acc:#c77dff"><span class="qs-ico" aria-hidden="true"><svg class="ic"><use href="#i-binoculars"/></svg></span><div class="qs-txt"><small>Bidang dicoba</small><b id="qs-fields">0/3</b></div><span class="qs-bar"><i id="qs-fields-bar"></i></span></div>
     </div>
 
     <!-- ============ KURSUS ============ -->
@@ -113,11 +130,11 @@
       </div>
       <div class="stats-grid">
         <div class="panel">
-          <h3>Per kasus</h3>
+          <h3><span class="h-ico" aria-hidden="true"><svg class="ic"><use href="#i-casefile"/></svg></span>Berkas per kasus</h3>
           <div class="case-table" id="case-table"></div>
         </div>
         <div class="panel">
-          <h3>Aktivitas terakhir</h3>
+          <h3><span class="h-ico" aria-hidden="true"><svg class="ic"><use href="#i-watch"/></svg></span>Aktivitas terakhir</h3>
           <ol class="timeline" id="timeline"></ol>
         </div>
       </div>
@@ -127,7 +144,7 @@
     <section class="dash-section account" id="akun">
       <div class="panel account-panel">
         <div>
-          <h3>Akun</h3>
+          <h3><span class="h-ico" aria-hidden="true"><svg class="ic"><use href="#i-fingerprint"/></svg></span>Akun</h3>
           <p><span id="acc-email">–</span> · Bergabung <span id="acc-since">–</span></p>
           <p class="sync" id="sync-status">Menyinkronkan progres…</p>
         </div>

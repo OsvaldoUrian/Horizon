@@ -30,6 +30,7 @@ Halaman kasus (layar permainan) diukur: tinggi dokumen = tinggi layar di semua u
 |---|---|---|
 | Header selebar layar | Posisi logo & tombol di 7 halaman (375–1920 px) | ✅ Logo di pojok kiri (16–40 px dari tepi), tombol di pojok kanan, header tidak meluber |
 | Dashboard dengan sidebar | 375×667, 768×1024, 1024×768, 1520×940, 1920×1080 (mode pratinjau, data contoh) | ✅ ≥ 1024 px: sidebar tetap di kiri, konten mengisi sisa layar; < 1024 px: header atas + menu ☰; tidak ada yang meluber |
+| Ikon detektif di dashboard | 320, 375, 768, 1100, 1880 px (mode pratinjau, data contoh) | ✅ 13 ikon SVG buatan sendiri tampil semua (tidak ada `<use>` yang rusak), kaca pembesar tetap di dalam Kartu Detektif, tidak ada yang meluber |
 | Menu aktif di sidebar | Klik kelima menu & gulir halaman | ✅ Menu yang sesuai menyala, termasuk "Akun" saat halaman mentok di bawah |
 | Kartu Detektif & statistik | 375×812, 768×1024, 1024×768, 1280×720, 1440×900, 1883×950 dengan data contoh (2 kasus terpecahkan) | ✅ XP 190 sesuai rumus, jalur pangkat menandai Inspektur; kartu 2 kolom di ≥ 1240 px dan bertumpuk di bawahnya; tidak ada yang meluber |
 
@@ -88,6 +89,8 @@ dan simulasi binary search pada semua nomor: tebakan terburuk 100 laci = 7, 500 
 | HP 375×667 | ✅ Pertanyaan + pilihan muat tanpa gulir; setelah menjawab, hasil otomatis tergulir ke tampilan |
 | Dashboard | ✅ XP 390/390 (termasuk 90 XP sidang), lencana 7/7 dengan misi "Saksi Ahli", skor sidang di kursus & tabel, riwayat "Bersaksi di sidang" |
 | Tata letak sidang di 1893×935 | ✅ Panel "Berkas Persidangan" di kanan (status tiap pertanyaan + bukti kunci dari rahasia kasus), tokoh yang sedang bicara menyala, isi tidak meluber; di bawah 1100 px panel disembunyikan |
+
+| Tokoh saksi | ✅ Orang acak (pelajar/mahasiswa) setiap masuk sidang, ukuran sama dengan jaksa |
 
 ### Navigasi tahap (Briefing · TKP · Deduksi · Sidang)
 

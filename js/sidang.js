@@ -34,6 +34,8 @@
     { min: 0, title: "Kesaksian Diragukan", icon: "🔁", text: "Pengadilan belum yakin. Buka lagi Ruang Briefing dan coba TKP sekali lagi sebelum bersaksi ulang." }
   ];
 
+  const WITNESS = ["🧑‍🎓", "👩‍🎓", "👨‍🎓", "🧑", "👩", "👨", "🧑‍🦱", "👩‍🦱", "👨‍🦱", "👩‍🦰", "🧑‍💻", "👩‍🔬", "🧑‍🔬"];
+
   /* ---------- Kerangka ruang sidang ---------- */
   const root = el("section", "sidang");
   root.setAttribute("aria-label", "Ruang sidang");
@@ -43,7 +45,7 @@
     <div class="court-scene" aria-hidden="true">
       <div class="court-person jaksa"><span class="cp-ico">🕵️</span><span class="cp-name">Jaksa</span></div>
       <div class="court-person hakim"><span class="cp-ico">👩‍⚖️</span><span class="cp-name">Hakim</span><span class="gavel">🔨</span></div>
-      <div class="court-person saksi"><span class="egg cp-egg"></span><span class="cp-name">Kamu · Saksi</span></div>
+      <div class="court-person saksi"><span class="cp-ico"></span><span class="cp-name">Kamu · Saksi</span></div>
     </div>
     <div class="court-main">
       <div class="court-body"></div>
@@ -216,7 +218,8 @@
     if (solvedEl) solvedEl.classList.add("dismissed");
     main.classList.remove("stage-briefing");
     main.classList.add("stage-sidang");
-    if (window.Cluegg) Cluegg.setEgg(Cluegg.mountEgg(root.querySelector(".cp-egg")), 3, true);
+    // Saksi digambarkan sebagai orang acak (pelajar/mahasiswa) setiap kali masuk sidang
+    root.querySelector(".saksi .cp-ico").textContent = WITNESS[Math.floor(Math.random() * WITNESS.length)];
     renderIntro();
     document.dispatchEvent(new Event("cluegg:stage"));
   }
