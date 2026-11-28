@@ -135,6 +135,9 @@ body.game .trial-lock { flex: 1; overflow: auto; padding-top: 40px; }
 #panel-petunjuk { flex: 1 1 auto; overflow-y: auto; padding: 18px 18px 8px; }
 #panel-deduksi { flex: none; max-height: 55%; overflow-y: auto; padding: 0 18px 18px; }
 #panel-deduksi .final { margin-top: 6px; }
+/* Sorotan singkat saat pemain menekan tahap "Deduksi" */
+#panel-deduksi.flash { animation: ded-flash 1.2s ease; }
+@keyframes ded-flash { 0%, 100% { box-shadow: none; } 25%, 60% { box-shadow: inset 0 0 0 3px var(--yolk); } }
 /* Selama deduksi terkunci, cukup tampilkan judul + catatan agar petunjuk punya ruang */
 @media (min-width: 900px) {
   #panel-deduksi .final.locked .final-body { display: none; }

@@ -87,6 +87,20 @@ dan simulasi binary search pada semua nomor: tebakan terburuk 100 laci = 7, 500 
 | Ketiga kasus dengan kunci jawaban | ✅ Semua "DITERIMA", vonis Saksi Ahli, halaman pas satu layar |
 | HP 375×667 | ✅ Pertanyaan + pilihan muat tanpa gulir; setelah menjawab, hasil otomatis tergulir ke tampilan |
 | Dashboard | ✅ XP 390/390 (termasuk 90 XP sidang), lencana 7/7 dengan misi "Saksi Ahli", skor sidang di kursus & tabel, riwayat "Bersaksi di sidang" |
+| Tata letak sidang di 1893×935 | ✅ Panel "Berkas Persidangan" di kanan (status tiap pertanyaan + bukti kunci dari rahasia kasus), tokoh yang sedang bicara menyala, isi tidak meluber; di bawah 1100 px panel disembunyikan |
+
+### Navigasi tahap (Briefing · TKP · Deduksi · Sidang)
+
+Penanda tahap di bilah atas sekarang sekaligus tombol untuk berpindah tahap, sehingga tombol "Sidang"/"Briefing" terpisah dihapus.
+
+| Uji | Hasil |
+|---|---|
+| Briefing belum selesai | ✅ TKP, Deduksi, Sidang terkunci (🔒) |
+| Klik Briefing ↔ TKP | ✅ Berpindah, ukuran canvas simulasi kembali benar |
+| Klik Deduksi sebelum kasus terpecahkan | ✅ Panel deduksi dibuka dan disorot, fokus ke isian pertama |
+| Klik Deduksi setelah terpecahkan | ✅ Pop-up rahasia terbuka lagi |
+| Sidang sebelum / sesudah kasus terpecahkan | ✅ Terkunci / bisa dibuka; dari sidang ke TKP, Briefing, Deduksi semuanya benar |
+| 320, 375, 768, 1280, 1893 px (3 kasus) | ✅ Bilah tidak meluber, tombol lama tidak tampil, halaman pas satu layar; di ≤600 px judul disembunyikan dan tahap tampil sebagai nomor bulat 30×30 px |
 
 ## 5. Akun, keamanan data, dan mode tamu
 

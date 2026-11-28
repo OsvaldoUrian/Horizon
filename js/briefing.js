@@ -199,50 +199,102 @@
 
   /* ---------- Pindah tahap ---------- */
   let started = false;
+  let briefDone = alreadyDone;
   function enterBriefing(at) {
+    main.classList.remove("stage-sidang");
     main.classList.add("stage-briefing");
     go(at);
     started = true;
-    updateStepper();
+    document.dispatchEvent(new Event("cluegg:stage"));
   }
   function finish() {
     const done = read(KEY);
     done[data.id] = true;
     write(KEY, done);
+    briefDone = true;
     if (cleanup) { try { cleanup(); } catch (e) {} cleanup = null; }
-    main.classList.remove("stage-briefing");
+    main.classList.remove("stage-briefing", "stage-sidang");
     main.classList.add("entering-tkp");
     setTimeout(() => main.classList.remove("entering-tkp"), 700);
     window.dispatchEvent(new Event("resize")); // simulasi mengukur ulang canvas
-    updateStepper();
+    document.dispatchEvent(new Event("cluegg:stage"));
     const h = document.querySelector(".game-title h1");
     if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); }
     if (window.Cluegg) Cluegg.toast("🔦 Selamat datang di TKP. Kumpulkan 3 petunjuk!");
   }
 
-  /* ---------- Penanda tahap di bar atas + tombol buka briefing ---------- */
+  /* ---------- Navigasi tahap di bar atas ----------
+     Penanda tahap sekaligus tombol untuk berpindah tahap (tidak ada tombol duplikat):
+       1 Briefing → buka Ruang Briefing (laporan misteri ada di layar pembukanya)
+       2 TKP      → kembali ke simulasi
+       3 Deduksi  → buka panel deduksi; bila kasus terpecahkan, buka "Rahasia"
+       4 Sidang   → ditambahkan oleh js/sidang.js
+     TKP & Deduksi terkunci sampai briefing pertama selesai. */
   const stepper = el("ol", "game-stepper");
   stepper.setAttribute("aria-label", "Tahap kasus");
-  stepper.innerHTML = '<li data-s="briefing"><span>1</span> Briefing</li><li data-s="tkp"><span>2</span> TKP</li><li data-s="deduksi"><span>3</span> Deduksi</li>';
+  const STEPS = [
+    { s: "briefing", n: 1, label: "Briefing", hint: "Buka Ruang Briefing & laporan misteri" },
+    { s: "tkp", n: 2, label: "TKP", hint: "Kembali ke TKP (simulasi)" },
+    { s: "deduksi", n: 3, label: "Deduksi", hint: "Buka deduksi akhir" }
+  ];
+  const stepBtn = {};
+  STEPS.forEach((st) => {
+    const li = el("li");
+    li.dataset.s = st.s;
+    const b = el("button", "step-btn", `<span class="step-n">${st.n}</span><span class="step-lbl">${st.label}</span>`);
+    b.type = "button";
+    b.title = st.hint;
+    b.setAttribute("aria-label", `${st.n}. ${st.label}: ${st.hint}`);
+    li.append(b);
+    stepper.append(li);
+    stepBtn[st.s] = b;
+  });
   const bar = document.querySelector(".game-bar");
   const actions = document.querySelector(".game-actions");
   if (bar && actions) bar.insertBefore(stepper, actions);
-  const reopen = el("button", "btn btn-ghost btn-sm", "🔍 <span>Briefing</span>");
-  reopen.type = "button";
-  reopen.setAttribute("aria-label", "Buka lagi Ruang Briefing");
-  reopen.addEventListener("click", () => enterBriefing(0));
-  if (actions) actions.prepend(reopen);
+
+  function toTKP() {
+    if (main.classList.contains("stage-briefing")) { finish(); return; }
+    if (main.classList.contains("stage-sidang")) {
+      main.classList.remove("stage-sidang");
+      window.dispatchEvent(new Event("resize"));
+    }
+    document.dispatchEvent(new Event("cluegg:stage"));
+  }
+  stepBtn.briefing.addEventListener("click", () => enterBriefing(0));
+  stepBtn.tkp.addEventListener("click", toTKP);
+  stepBtn.deduksi.addEventListener("click", () => {
+    toTKP();
+    const G = window.ClueggGame;
+    if (!G) return;
+    if (G.isSolved()) G.openSecret(); else G.focusDeduksi();
+  });
 
   const final = document.getElementById("final");
   function updateStepper() {
     const inBrief = main.classList.contains("stage-briefing");
+    const inCourt = main.classList.contains("stage-sidang");
     const dedOpen = final && !final.classList.contains("locked");
     const solved = document.getElementById("solved")?.classList.contains("show");
-    const state = { briefing: inBrief ? "current" : "done", tkp: inBrief ? "" : dedOpen ? "done" : "current", deduksi: inBrief ? "" : solved ? "done" : dedOpen ? "current" : "" };
+    const state = {
+      briefing: inBrief ? "current" : "done",
+      tkp: inBrief || inCourt ? (briefDone ? "done" : "") : dedOpen ? "done" : "current",
+      deduksi: inBrief ? (solved ? "done" : "") : inCourt ? "done" : solved ? "done" : dedOpen ? "current" : ""
+    };
     // Hanya langkah milik briefing; langkah lain (mis. Sidang) diatur file masing-masing
-    stepper.querySelectorAll("li").forEach((li) => { if (li.dataset.s in state) li.className = state[li.dataset.s]; });
-    reopen.hidden = inBrief;
+    stepper.querySelectorAll("li").forEach((li) => {
+      if (!(li.dataset.s in state)) return;
+      li.className = state[li.dataset.s];
+      const b = li.querySelector(".step-btn");
+      if (li.className === "current") b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+    });
+    // Sebelum briefing pertama selesai, TKP & Deduksi belum bisa dibuka
+    stepBtn.tkp.disabled = !briefDone;
+    stepBtn.deduksi.disabled = !briefDone;
+    stepBtn.tkp.title = briefDone ? "Kembali ke TKP (simulasi)" : "Selesaikan briefing dulu";
+    stepBtn.deduksi.title = briefDone ? "Buka deduksi akhir" : "Selesaikan briefing dulu";
   }
+  document.addEventListener("cluegg:stage", updateStepper);
   if (final) new MutationObserver(updateStepper).observe(final, { attributes: true, attributeFilter: ["class"] });
   const solvedEl = document.getElementById("solved");
   if (solvedEl) new MutationObserver(updateStepper).observe(solvedEl, { attributes: true, attributeFilter: ["class"] });

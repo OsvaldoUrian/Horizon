@@ -16,14 +16,26 @@
 .game-shell.entering-tkp .game-side { animation: brief-in .5s cubic-bezier(.2, .8, .2, 1); }
 @keyframes brief-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-/* ---------- Penanda tahap di bar atas ---------- */
-.game-stepper { display: flex; gap: 6px; list-style: none; flex: none; font-size: .8rem; color: var(--muted); }
-.game-stepper li { display: flex; align-items: center; gap: 6px; padding: 5px 10px 5px 6px; border-radius: 999px; border: 1px solid var(--line); white-space: nowrap; }
-.game-stepper li span { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--bg-3); font-weight: 700; font-size: .72rem; }
-.game-stepper li.current { color: var(--text); border-color: var(--yolk); }
-.game-stepper li.current span { background: var(--yolk); color: var(--bg); }
-.game-stepper li.done { color: #57cc99; }
-.game-stepper li.done span { background: rgba(87, 204, 153, .18); color: #57cc99; }
+/* ---------- Navigasi tahap di bar atas ----------
+   Penanda tahap sekaligus tombol pindah tahap. Tombol lama (Briefing/Misteri/
+   Rahasia/Sidang) disembunyikan agar tidak ada duplikat. */
+.game-bar:has(.game-stepper) .game-actions { display: none; }
+.game-stepper { display: flex; gap: 6px; list-style: none; flex: none; }
+.step-btn {
+  display: flex; align-items: center; gap: 7px; padding: 6px 14px 6px 6px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--bg-2); color: var(--muted);
+  font-size: .85rem; font-weight: 600; white-space: nowrap; transition: border-color .2s, background .2s, color .2s, transform .15s;
+}
+.step-btn:hover:not(:disabled) { border-color: var(--yolk); color: var(--text); transform: translateY(-1px); }
+.step-n { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--bg-3); font-weight: 700; font-size: .75rem; }
+.game-stepper li.current .step-btn { color: var(--bg); background: var(--yolk); border-color: var(--yolk); box-shadow: 0 6px 18px -8px rgba(255, 183, 3, .8); }
+.game-stepper li.current .step-n { background: var(--bg); color: var(--yolk); }
+.game-stepper li.done .step-btn { color: #57cc99; border-color: rgba(87, 204, 153, .35); }
+.game-stepper li.done .step-n { background: rgba(87, 204, 153, .18); color: #57cc99; font-size: 0; }
+.game-stepper li.done .step-n::before { content: "✓"; font-size: .8rem; }
+.step-btn:disabled { opacity: .5; cursor: not-allowed; }
+.step-btn:disabled .step-n { font-size: 0; }
+.step-btn:disabled .step-n::before { content: "🔒"; font-size: .7rem; }
 .game-actions [hidden] { display: none; }
 
 /* ---------- Daftar langkah (kiri) ---------- */
@@ -213,7 +225,10 @@ button.bw-box:hover:not(:disabled) { border-color: var(--yolk); }
    HP & tablet
    ========================================================= */
 @media (max-width: 899px) {
-  .game-stepper { display: none; }
+  /* Navigasi tahap tetap tampil di HP sebagai baris ringkas */
+  .game-stepper { flex: 1 1 auto; min-width: 0; justify-content: flex-end; gap: 4px; }
+  .step-btn { padding: 4px 9px 4px 4px; font-size: .72rem; gap: 5px; }
+  .step-n { width: 20px; height: 20px; font-size: .68rem; }
   .game-shell.stage-briefing .briefing { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 8px; }
   /* Daftar langkah jadi barisan ikon kecil */
   .brief-rail { padding: 6px; border-radius: 999px; overflow: visible; }
@@ -232,6 +247,16 @@ button.bw-box:hover:not(:disabled) { border-color: var(--yolk); }
   .brief-nav .btn { padding: 8px 12px; }
   .brief-dots { display: none; }
   .brief-skip { order: 5; width: 100%; text-align: center; }
+}
+/* HP: judul kasus disembunyikan (sudah ada di layar briefing & sidang) agar navigasi
+   tahap muat sebaris dengan tombol kembali; label hanya untuk tahap yang aktif */
+@media (max-width: 600px) {
+  .game-bar:has(.game-stepper) .game-title { display: none; }
+  .game-stepper { justify-content: space-between; }
+}
+@media (max-width: 400px) {
+  .game-stepper li:not(.current) .step-lbl { display: none; }
+  .game-stepper li:not(.current) .step-btn { padding: 4px; }
 }
 @media (max-width: 899px) and (orientation: landscape) and (max-height: 520px) {
   .brief-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }

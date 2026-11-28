@@ -172,6 +172,7 @@
   /* ---------- 6. Pop-up "Rahasia di dalam cangkang" ---------- */
   const progress = read("cluegg-progress-v1")[caseId] || {};
   let ready = false;
+  let openSecretFn = () => {};
   if (solved) {
     const backdrop = el("div", "solved-backdrop");
     // Menutup pop-up dan kembali menyelidik di TKP (kasus tidak diulang dari awal)
@@ -202,6 +203,7 @@
       setTimeout(() => { closeBtn.focus({ preventScroll: true }); solved.scrollTop = 0; }, 100);
     }
     btnSecret.addEventListener("click", openSecret);
+    openSecretFn = openSecret;
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && solved.classList.contains("show") && !solved.classList.contains("dismissed")) dismiss();
     });
@@ -235,7 +237,28 @@
     }).observe(fit);
   }
 
-  /* ---------- 9. Setelah semua skrip siap ---------- */
+  /* ---------- 9. Dipakai navigasi tahap (js/briefing.js, js/sidang.js) ---------- */
+  // Bila penanda tahap ada, tombol Misteri/Rahasia di bar atas disembunyikan lewat CSS
+  // dan semua perpindahan dilakukan dari penanda tahap.
+  window.ClueggGame = {
+    main,
+    showTab,
+    openSecret: () => openSecretFn(),
+    isSolved: () => !!(solved && solved.classList.contains("show")),
+    focusDeduksi() {
+      const p = document.getElementById("panel-deduksi");
+      if (!p) return;
+      // Buka tab Deduksi (HP) tanpa melipatnya bila sudah terbuka
+      if (!p.classList.contains("active") || main.classList.contains("dock-closed")) showTab("deduksi");
+      p.classList.remove("flash");
+      void p.offsetWidth;
+      p.classList.add("flash");
+      const first = p.querySelector("button:not([disabled]), input, select");
+      if (first) first.focus({ preventScroll: true });
+    }
+  };
+
+  /* ---------- 10. Setelah semua skrip siap ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     ready = true;
     last = updateNotes();
