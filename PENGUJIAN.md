@@ -44,7 +44,7 @@ berubah posisi/lebar **27 kali** (lebar 176–264 px) karena lebar kolom mengiku
 | Skor kecocokan gelombang: setiap langkah slider ke arah jawaban | ✅ 732 dari 732 langkah menaikkan skor; 100% hanya pada jawaban yang benar |
 | Indikator A, B, C | ✅ Menampilkan Pas / terlalu besar / terlalu kecil tanpa angka jawaban |
 | Kasus arsip dengan strategi tengah | ✅ Berkas ditemukan ≤ 7 langkah; petunjuk "Detektif Kilat" terbuka |
-| Pop-up "Rahasia di dalam cangkang" | ✅ Muncul saat kasus terpecahkan, bisa ditutup (tombol "Kembali ke lab", Esc) dan dibuka lagi lewat tombol 🥚 |
+| Pop-up "Rahasia di dalam cangkang" | ✅ Muncul saat kasus terpecahkan, bisa ditutup (tombol "Keliling TKP lagi", Esc) dan dibuka lagi lewat tombol 🥚 |
 
 ## 4. Ruang Briefing (materi sebelum TKP)
 
@@ -62,6 +62,7 @@ Ketiga kasus dimainkan dari laporan misteri sampai masuk TKP, termasuk mencoba j
 | Semua | Jawaban salah → penjelasan; jawaban benar → bukti berikutnya terbuka | ✅ |
 | Semua | Masuk TKP → ukuran canvas | ✅ Ukuran tampilan = ukuran gambar canvas (mis. 982 × 463) |
 | Semua | Buka ulang halaman → langsung TKP; tombol Briefing & "Lewati ke TKP" | ✅ |
+| Semua | Kartu bukti mengisi layar tanpa isi meluber: 3 kasus × 3 bukti × 7 ukuran layar (1280×720, 1366×768, 1440×900, 1536×864, 1600×850, 1686×927, 1920×1080) | ✅ 63 dari 63 tanpa luber; panel percobaan mengisi tinggi kartu (sisa bawah 8–16 px) |
 
 ## 5. Akun, keamanan data, dan mode tamu
 
@@ -112,6 +113,9 @@ Kontras warna diukur dengan rumus WCAG 2.1 (minimal 4,5 : 1 untuk teks biasa).
 | Telur menampilkan garis retak sebelum retak | Sambungan dua potongan gambar | Potongan atas sedikit tumpang-tindih |
 | Membuka kasus terkunci tercatat sebagai "dibuka" | Waktu dicatat sebelum cek kunci | Dicatat hanya jika tidak terkunci |
 | Laci tetap menyala setelah berkas ditemukan | Rentang tidak diperbarui | Semua laci selain jawaban diredupkan |
+| Kartu briefing menyisakan banyak ruang kosong | Isi menempel di atas kartu | Panel percobaan mengisi tinggi kartu, teks di tengah, ukuran menyesuaikan tinggi layar |
+| Baris "Memecahkan…" di Aktivitas terakhir tidak terbaca | Nama class `solved` bentrok dengan gaya pop-up rahasia | Class diganti `ev-solved` / `ev-opened` |
+| Tombol "Kembali ke lab" ambigu | Kata "lab" tidak sesuai alur | Diganti "Keliling TKP lagi" |
 
 ## 8. Console
 

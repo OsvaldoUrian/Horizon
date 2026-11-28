@@ -151,6 +151,65 @@ button.bw-box:hover:not(:disabled) { border-color: var(--yolk); }
 .brief-summary li { display: grid; grid-template-columns: 28px 1fr; gap: 8px; background: #fff9ea; border-radius: 10px; padding: 10px 12px; font-size: .92rem; }
 
 /* =========================================================
+   Mengisi ruang kartu (desktop)
+   Isi kartu tidak lagi menempel di atas dengan ruang kosong di bawah:
+   panel percobaan mengisi tinggi kartu, teks & pertanyaan di tengah,
+   dan di layar tinggi ukuran huruf/tombol ikut membesar.
+   Pemusatan memakai margin auto, jadi bila isi lebih panjang dari kartu,
+   bagian atas tidak terpotong (kartu tetap bisa digulir).
+   ========================================================= */
+@media (min-width: 900px) {
+  .brief-card.evidence .brief-body { flex: 1 0 auto; align-items: stretch; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .brief-widget { align-content: center; padding: 18px; container-type: inline-size; }
+  /* Kotak laci/berkas ikut membesar mengisi panel (dibatasi agar tetap muat) */
+  .brief-widget .bw-boxes { width: min(100%, 560px); justify-self: center; gap: 8px; }
+  .brief-widget .bw-boxes[style*="--n:10"] { grid-template-columns: repeat(5, minmax(0, 1fr)); width: min(100%, 460px); }
+  .brief-widget .bw-box { font-size: clamp(.85rem, 3.2cqi, 1.5rem); border-radius: 10px; }
+  .brief-widget .bw-shelf { width: min(100%, 560px); justify-self: center; }
+  .brief-widget .bw-readout, .brief-widget .bw-row, .brief-widget .bw-hint { justify-self: center; text-align: center; }
+  .brief-text { display: flex; flex-direction: column; }
+  .brief-text > :first-child { margin-top: auto; }
+  .brief-text > :last-child { margin-bottom: auto; }
+  .brief-card.intro > :first-child, .brief-card.outro > :first-child { margin-top: auto; }
+  .brief-card.intro > :last-child, .brief-card.outro > :last-child { margin-bottom: auto; }
+  .brief-card.intro, .brief-card.outro { padding-left: clamp(28px, 6vw, 96px); padding-right: clamp(28px, 6vw, 96px); }
+}
+/* Layar pendek (mis. laptop 1280×720): kolom teks lebih lebar & jarak lebih rapat
+   supaya penjelasan + pertanyaan muat tanpa menggulir kartu */
+@media (min-width: 900px) and (max-height: 820px) {
+  .brief-card { padding: 16px 24px 8px; gap: 10px; }
+  .brief-card h2 { font-size: 1.35rem; }
+  .brief-card.evidence .brief-body { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 18px; }
+  .brief-widget { padding: 12px; gap: 8px; }
+  .brief-explain p { font-size: .88rem; line-height: 1.5; }
+  .brief-explain p + p { margin-top: 6px; }
+  .brief-q { margin-top: 10px; padding-top: 10px; }
+  .brief-q-prompt { font-size: .88rem; margin-bottom: 8px; }
+  .brief-choice { padding: 7px 10px; font-size: .85rem; }
+  .brief-feedback { margin-top: 4px; font-size: .82rem; }
+  .brief-takeaway { margin-top: 2px; padding: 8px 10px; font-size: .84rem; }
+  .bw-svg { max-height: 34vh; }
+  .brief-nav { padding: 8px 24px 10px; }
+}
+/* Layar tinggi: huruf & tombol lebih besar (batas tidak tumpang-tindih dengan aturan layar pendek di atas) */
+@media (min-width: 900px) and (min-height: 880px) {
+  .brief-card { padding: 30px 36px 16px; gap: 18px; }
+  .brief-card h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+  .brief-explain p { font-size: 1.05rem; line-height: 1.65; }
+  .brief-q-prompt { font-size: 1.02rem; }
+  .brief-choice { padding: 14px 16px; font-size: 1rem; }
+  .brief-feedback { font-size: .95rem; }
+  .brief-takeaway { font-size: 1rem; padding: 12px 14px; }
+  .brief-lead { font-size: 1.1rem; max-width: 760px; }
+  .brief-report { font-size: 1.05rem; padding: 18px 20px; }
+  .brief-summary li { font-size: 1rem; padding: 14px 16px; }
+  .bw-control, .bw-readout { font-size: .95rem; }
+  .bw-btn { padding: 10px 18px; font-size: .95rem; }
+  .bw-box { font-size: 1rem; }
+  .brief-widget { gap: 14px; }
+}
+
+/* =========================================================
    HP & tablet
    ========================================================= */
 @media (max-width: 899px) {

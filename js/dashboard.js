@@ -149,8 +149,8 @@
     // Riwayat: dari waktu membuka & memecahkan kasus
     const events = [];
     cases.forEach((c) => {
-      if (c.meta.solved_at) events.push({ t: c.meta.solved_at, txt: `Memecahkan <b>Kasus ${c.no}</b> · ${c.subject}`, kind: "solved" });
-      if (c.meta.opened_at) events.push({ t: c.meta.opened_at, txt: `Membuka <b>Kasus ${c.no}</b> · ${c.subject}`, kind: "opened" });
+      if (c.meta.solved_at) events.push({ t: c.meta.solved_at, txt: `Memecahkan <b>Kasus ${c.no}</b> · ${c.subject}`, kind: "ev-solved" });
+      if (c.meta.opened_at) events.push({ t: c.meta.opened_at, txt: `Membuka <b>Kasus ${c.no}</b> · ${c.subject}`, kind: "ev-opened" });
     });
     events.sort((a, b) => (a.t < b.t ? 1 : -1));
     $("#timeline").innerHTML = events.length

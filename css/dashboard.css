@@ -92,8 +92,8 @@ a.lesson:hover { transform: translateY(-2px); }
 .timeline li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0 9px 18px; position: relative; font-size: .9rem; color: var(--muted); border-bottom: 1px solid var(--line); }
 .timeline li:last-child { border-bottom: 0; }
 .timeline li::before { content: ""; position: absolute; left: 0; top: 15px; width: 8px; height: 8px; border-radius: 50%; background: var(--bg-3); }
-.timeline li.solved::before { background: #57cc99; }
-.timeline li.opened::before { background: var(--yolk); }
+.timeline li.ev-solved::before { background: #57cc99; }
+.timeline li.ev-opened::before { background: var(--yolk); }
 .timeline li b { color: var(--text); }
 .timeline time { white-space: nowrap; font-size: .8rem; }
 .timeline li.empty { padding-left: 0; }

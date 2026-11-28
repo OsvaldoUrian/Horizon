@@ -174,7 +174,8 @@
   let ready = false;
   if (solved) {
     const backdrop = el("div", "solved-backdrop");
-    const closeBtn = button("btn btn-ghost solved-close", "Kembali ke lab");
+    // Menutup pop-up dan kembali menyelidik di TKP (kasus tidak diulang dari awal)
+    const closeBtn = button("btn btn-ghost solved-close", "🔦 Keliling TKP lagi");
     const dismiss = () => solved.classList.add("dismissed");
     closeBtn.addEventListener("click", dismiss);
     backdrop.addEventListener("click", dismiss);
