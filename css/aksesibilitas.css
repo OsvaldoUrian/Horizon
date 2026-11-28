@@ -1,0 +1,39 @@
+/* =========================================================
+   CLUEGG — aksesibilitas (dipasang di semua halaman, paling akhir)
+   Standar acuan: WCAG 2.1 — kontras teks minimal 4,5:1 dan fokus
+   keyboard yang terlihat. Hasil pengukuran kontras dicatat di PENGUJIAN.md.
+   ========================================================= */
+
+/* ---------- 1. Fokus keyboard yang terlihat ----------
+   Cincin dua warna (kuning + gelap) agar terlihat di latar gelap maupun kertas.
+   :focus-visible hanya muncul saat memakai keyboard, tidak saat klik mouse. */
+:focus-visible {
+  outline: 3px solid var(--yolk);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(21, 18, 14, .9);
+}
+input[type="range"]:focus-visible { outline-offset: 4px; box-shadow: none; }
+/* Kolom isian sudah punya gaya fokus sendiri */
+.field input:focus-visible { outline: none; }
+/* Kotak laci di dalam area terpotong: cincin di sisi dalam */
+.locker:focus-visible, .bw-box:focus-visible { outline-offset: -3px; box-shadow: none; }
+/* Judul yang difokuskan lewat kode (bukan oleh pengguna) tidak perlu cincin */
+[tabindex="-1"]:focus { outline: none; box-shadow: none; }
+.auth-forms { padding: 8px; margin: -8px; }
+
+/* ---------- 2. Kontras warna di latar kertas ----------
+   Diukur: oranye #fb8500 = 2,08 : 1, hijau #2d9d6a = 2,86 : 1, merah #e5383b = 3,54 : 1
+   di atas kertas #f3ead7 (gagal untuk teks biasa). Diganti versi lebih gelap. */
+:root { --green: #196a43; } /* 5,52 : 1 di kertas; teks putih di atasnya 6,60 : 1 */
+.brief-card .eyebrow, .solved .eyebrow, .stat-note sup a { color: #a34700 !important; } /* 5,08 : 1 */
+.mystery strong, .brief-report strong, .final .locked-note, .form-msg.error,
+.brief-feedback.no, .choice.wrong, .brief-choice.wrong, .stat-note .type { color: #b3261e; } /* 5,47 : 1 */
+.choice.wrong, .brief-choice.wrong { border-color: #b3261e; }
+
+/* ---------- 3. Tautan "Lewati ke konten utama" ---------- */
+.skip-link {
+  position: absolute; left: 16px; top: -80px; z-index: 300;
+  background: var(--yolk); color: var(--bg); padding: 10px 18px; border-radius: 999px;
+  font-weight: 700; transition: top .2s;
+}
+.skip-link:focus { top: 12px; }
