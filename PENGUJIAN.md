@@ -71,6 +71,23 @@ Ketiga kasus dimainkan dari laporan misteri sampai masuk TKP, termasuk mencoba j
 | Semua | Buka ulang halaman → langsung TKP; tombol Briefing & "Lewati ke TKP" | ✅ |
 | Semua | Kartu bukti mengisi layar tanpa isi meluber: 3 kasus × 3 bukti × 7 ukuran layar (1280×720, 1366×768, 1440×900, 1536×864, 1600×850, 1686×927, 1920×1080) | ✅ 63 dari 63 tanpa luber; panel percobaan mengisi tinggi kartu (sisa bawah 8–16 px) |
 
+## 4b. Sidang (tes akhir setelah kasus terpecahkan)
+
+Kunci jawaban diverifikasi dengan perhitungan sebelum dipasang: sin 40° = sin 140° = 0,6428 (20° & 70° sama jauh);
+jarak ×4 saat kecepatan ×2; jarak ×½ saat gravitasi ×2; puncak 3·sin(x) = 3; sin(2x) berulang setiap π;
+dan simulasi binary search pada semua nomor: tebakan terburuk 100 laci = 7, 500 laci = 9, 1.000 laci = 10.
+
+| Uji | Hasil |
+|---|---|
+| Pop-up rahasia → "Maju ke Sidang" → layar sidang | ✅ Penanda tahap menjadi 4 langkah, Sidang aktif |
+| Urutan pilihan jawaban | ✅ Diacak tiap pertanyaan (jawaban benar muncul di posisi berbeda-beda); pengacakan juga diterapkan di briefing |
+| Jawaban salah | ✅ Cap "KEBERATAN!", jawaban benar ditandai, penjelasan tampil |
+| Vonis 3/3, 2/3, 0/3 | ✅ Saksi Ahli / Saksi Terpercaya / Kesaksian Diragukan (+ tombol buka briefing) |
+| Penyimpanan | ✅ `cluegg-quiz-v1` menyimpan nilai terbaik, terakhir, dan jumlah percobaan; nilai terbaik tidak turun |
+| Ketiga kasus dengan kunci jawaban | ✅ Semua "DITERIMA", vonis Saksi Ahli, halaman pas satu layar |
+| HP 375×667 | ✅ Pertanyaan + pilihan muat tanpa gulir; setelah menjawab, hasil otomatis tergulir ke tampilan |
+| Dashboard | ✅ XP 390/390 (termasuk 90 XP sidang), lencana 7/7 dengan misi "Saksi Ahli", skor sidang di kursus & tabel, riwayat "Bersaksi di sidang" |
+
 ## 5. Akun, keamanan data, dan mode tamu
 
 | Uji | Hasil |

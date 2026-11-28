@@ -1,7 +1,8 @@
 /* =========================================================
    CLUEGG — dashboard detektif
    Semua angka dihitung dari progres pengguna (tidak ada data contoh):
-   - XP: 10 per petunjuk, 50 per kasus terpecahkan, +20 jika tanpa salah deduksi
+   - XP: 10 per petunjuk, 50 per kasus terpecahkan, +20 jika tanpa salah deduksi,
+     +10 per kesaksian yang diterima di sidang (nilai terbaik)
    - Pangkat: sama dengan main.js, naik setiap satu kasus terpecahkan
    ========================================================= */
 (function () {
@@ -9,8 +10,9 @@
   const RANKS = Cluegg.RANKS;
   const $ = (s) => document.querySelector(s);
   const CASE_IDS = Object.keys(A.CASES);
-  const XP = { clue: 10, solve: 50, perfect: 20 };
-  const XP_MAX = CASE_IDS.length * (3 * XP.clue + XP.solve + XP.perfect);
+  // sidang: 10 XP per kesaksian yang diterima (nilai terbaik, maks 3 per kasus)
+  const XP = { clue: 10, solve: 50, perfect: 20, court: 10 };
+  const XP_MAX = CASE_IDS.length * (3 * XP.clue + XP.solve + XP.perfect + 3 * XP.court);
 
   const COURSES = [
     // acc = warna aksen bidang (ikon, bar progres, garis atas kartu)
@@ -29,25 +31,27 @@
   };
 
   function compute() {
-    const p = A.readProgress(), m = A.readMeta();
+    const p = A.readProgress(), m = A.readMeta(), quiz = A.readQuiz();
     const cases = CASE_IDS.map((id) => {
       const st = p[id] || {}, meta = m[id] || {};
       const clues = (st.clues || []).length;
       const solved = !!st.solved, misses = st.misses || 0;
       const opened = !!meta.opened_at || clues > 0 || solved;
       const status = solved ? "solved" : clues > 0 || opened ? "active" : "new";
-      return { id, ...A.CASES[id], clues, solved, misses, opened, status, meta };
+      const court = (quiz[id] && quiz[id].total) ? quiz[id] : null; // hasil sidang (js/sidang.js)
+      return { id, ...A.CASES[id], clues, solved, misses, opened, status, meta, court };
     });
     const solvedCount = cases.filter((c) => c.solved).length;
     const clueCount = cases.reduce((s, c) => s + c.clues, 0);
-    const xp = cases.reduce((s, c) => s + c.clues * XP.clue + (c.solved ? XP.solve + (c.misses === 0 ? XP.perfect : 0) : 0), 0);
+    const xp = cases.reduce((s, c) => s + c.clues * XP.clue + (c.solved ? XP.solve + (c.misses === 0 ? XP.perfect : 0) : 0) + (c.court ? c.court.best * XP.court : 0), 0);
     const missions = [
       { title: "Mata Elang", desc: "Temukan petunjuk pertamamu.", now: Math.min(1, clueCount), goal: 1, icon: "🔍" },
       { title: "Cangkang Pertama", desc: "Pecahkan satu kasus.", now: Math.min(1, solvedCount), goal: 1, icon: "🥚" },
       { title: "Deduksi Sempurna", desc: "Pecahkan kasus tanpa sekali pun salah deduksi.", now: cases.some((c) => c.solved && c.misses === 0) ? 1 : 0, goal: 1, icon: "🎯" },
       { title: "Penjelajah Bidang", desc: "Buka kasus di ketiga bidang.", now: cases.filter((c) => c.opened).length, goal: 3, icon: "🧭" },
       { title: "Pengumpul Bukti", desc: "Kumpulkan semua 9 petunjuk.", now: clueCount, goal: 9, icon: "🗂️" },
-      { title: "Master Detektif", desc: "Pecahkan semua kasus.", now: solvedCount, goal: 3, icon: "🏆" }
+      { title: "Master Detektif", desc: "Pecahkan semua kasus.", now: solvedCount, goal: 3, icon: "🏆" },
+      { title: "Saksi Ahli", desc: "Raih nilai sempurna 3/3 di sidang salah satu kasus.", now: cases.some((c) => c.court && c.court.best === c.court.total) ? 1 : 0, goal: 1, icon: "⚖️" }
     ];
     return { cases, solvedCount, clueCount, xp, missions };
   }
@@ -118,7 +122,7 @@
           <span class="lesson-body">
             <small>Kasus ${c.no}</small>
             <b>${esc(c.title)}</b>
-            <span class="lesson-status">${statusText[c.status]} · ${c.clues}/3 petunjuk</span>
+            <span class="lesson-status">${statusText[c.status]} · ${c.clues}/3 petunjuk${c.court ? ` · ⚖️ Sidang ${c.court.best}/${c.court.total}` : ""}</span>
           </span>
           <span class="lesson-go">${btnText[c.status]}</span>
         </a>
@@ -160,12 +164,13 @@
         <span><b>${c.no}</b> ${c.subject}</span>
         <span>${c.clues}/3</span>
         <span>${c.misses}</span>
-        <span class="st-${c.status}">${statusText[c.status]}</span>
+        <span class="st-${c.status}">${statusText[c.status]}${c.court ? `<small class="ct-court">⚖️ Sidang ${c.court.best}/${c.court.total}</small>` : ""}</span>
       </div>`).join("");
 
     // Riwayat: dari waktu membuka & memecahkan kasus
     const events = [];
     cases.forEach((c) => {
+      if (c.court && c.court.at) events.push({ t: c.court.at, txt: `Bersaksi di sidang <b>Kasus ${c.no}</b> · ${c.court.last}/${c.court.total}`, kind: "ev-court" });
       if (c.meta.solved_at) events.push({ t: c.meta.solved_at, txt: `Memecahkan <b>Kasus ${c.no}</b> · ${c.subject}`, kind: "ev-solved" });
       if (c.meta.opened_at) events.push({ t: c.meta.opened_at, txt: `Membuka <b>Kasus ${c.no}</b> · ${c.subject}`, kind: "ev-opened" });
     });

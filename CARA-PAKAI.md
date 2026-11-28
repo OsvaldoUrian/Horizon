@@ -54,6 +54,11 @@ Kasus baru otomatis ikut asalkan:
 - Bagian simulasi yang harus selalu terlihat memakai `.canvas-box` / `.lockers`, atau diberi
   atribut `data-game="visual"`. Sisanya di dalam `.lab` otomatis masuk ke panel Kontrol.
 - Simulasi canvas membaca ukuran dari `getBoundingClientRect()` dan mendengarkan event `resize`.
+- Ruang Briefing: isi `js/briefing-<kasus>.js`, lalu muat `css/briefing.css`, `js/briefing-<kasus>.js`,
+  dan `js/briefing.js` setelah `js/permainan.js`.
+- Sidang (tes akhir): isi 3 soal di `js/sidang-<kasus>.js` (tandai jawaban benar dengan `ok: true`; urutan
+  diacak otomatis), lalu muat `css/sidang.css`, `js/sidang-<kasus>.js`, dan `js/sidang.js` setelah briefing.
+  Hasil tersimpan di `cluegg-quiz-v1` dan tampil di dashboard.
 - Jangan beri menu atau tombol ke kasus/bidang lain di halaman kasus. Pemain fokus pada satu bidang;
   jalan keluar hanya "Kembali ke papan kasus" (otomatis ke dashboard untuk member).
 

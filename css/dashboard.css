@@ -163,6 +163,8 @@ a.lesson:hover { transform: translateY(-2px); }
 .timeline li::before { content: ""; position: absolute; left: 0; top: 15px; width: 8px; height: 8px; border-radius: 50%; background: var(--bg-3); }
 .timeline li.ev-solved::before { background: #57cc99; }
 .timeline li.ev-opened::before { background: var(--yolk); }
+.timeline li.ev-court::before { background: var(--cyan); }
+.ct-court { display: block; color: var(--cyan); font-size: .78rem; }
 .timeline li b { color: var(--text); }
 .timeline time { white-space: nowrap; font-size: .8rem; }
 .timeline li.empty { padding-left: 0; }

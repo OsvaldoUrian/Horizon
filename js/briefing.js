@@ -143,7 +143,10 @@
     const take = el("div", "brief-takeaway", `<b>🧩 Bukti tercatat:</b> ${e.takeaway}`);
     take.hidden = !answered.has(k);
 
-    e.question.choices.forEach((c) => {
+    // Urutan pilihan diacak agar jawaban benar tidak selalu di posisi yang sama
+    const shuffled = e.question.choices.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+    shuffled.forEach((c) => {
       const b = el("button", "brief-choice", c.t);
       b.type = "button";
       if (answered.has(k) && c.ok) b.classList.add("right");
@@ -236,7 +239,8 @@
     const dedOpen = final && !final.classList.contains("locked");
     const solved = document.getElementById("solved")?.classList.contains("show");
     const state = { briefing: inBrief ? "current" : "done", tkp: inBrief ? "" : dedOpen ? "done" : "current", deduksi: inBrief ? "" : solved ? "done" : dedOpen ? "current" : "" };
-    stepper.querySelectorAll("li").forEach((li) => { li.className = state[li.dataset.s]; });
+    // Hanya langkah milik briefing; langkah lain (mis. Sidang) diatur file masing-masing
+    stepper.querySelectorAll("li").forEach((li) => { if (li.dataset.s in state) li.className = state[li.dataset.s]; });
     reopen.hidden = inBrief;
   }
   if (final) new MutationObserver(updateStepper).observe(final, { attributes: true, attributeFilter: ["class"] });
