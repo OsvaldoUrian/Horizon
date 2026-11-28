@@ -26,6 +26,12 @@ termasuk bug yang ditemukan dan perbaikannya. Bagian terakhir mencatat apa yang 
 
 Halaman kasus (layar permainan) diukur: tinggi dokumen = tinggi layar di semua ukuran di atas, artinya tidak ada scroll halaman.
 
+| Tata letak | Cara | Hasil |
+|---|---|---|
+| Header selebar layar | Posisi logo & tombol di 7 halaman (375–1920 px) | ✅ Logo di pojok kiri (16–40 px dari tepi), tombol di pojok kanan, header tidak meluber |
+| Dashboard dengan sidebar | 375×667, 768×1024, 1024×768, 1520×940, 1920×1080 (mode pratinjau, data contoh) | ✅ ≥ 1024 px: sidebar tetap di kiri, konten mengisi sisa layar; < 1024 px: header atas + menu ☰; tidak ada yang meluber |
+| Menu aktif di sidebar | Klik kelima menu & gulir halaman | ✅ Menu yang sesuai menyala, termasuk "Akun" saat halaman mentok di bawah |
+
 ## 2. Stabilitas simulasi (anti-getar)
 
 Masalah awal: saat slider kasus gelombang digeser, layar "bergetar". Pengukuran menemukan slider C

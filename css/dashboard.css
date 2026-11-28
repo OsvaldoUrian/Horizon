@@ -108,6 +108,51 @@ a.lesson:hover { transform: translateY(-2px); }
 .btn.danger { border-color: rgba(229, 56, 59, .5); color: #ff8a8c; }
 .btn.danger:hover { border-color: var(--red); }
 
+/* =========================================================
+   Tata letak aplikasi: sidebar tetap di kiri (layar PC)
+   Header yang sama berubah menjadi sidebar lewat CSS, jadi HTML tetap satu.
+   Di layar kecil kembali menjadi header atas + menu ☰.
+   ========================================================= */
+.side-profile, .nl-ico { display: none; }
+
+@media (min-width: 1024px) {
+  body[data-page="dashboard"] { --side: 248px; }
+  body[data-page="dashboard"] .site-header {
+    position: fixed; top: 0; bottom: 0; left: 0; width: var(--side);
+    background: var(--bg-2); border-bottom: 0; border-right: 1px solid var(--line);
+    backdrop-filter: none; z-index: 60;
+  }
+  body[data-page="dashboard"] .site-header .nav {
+    height: 100%; flex-direction: column; align-items: stretch; justify-content: flex-start;
+    gap: 22px; padding: 22px 16px 20px;
+  }
+  body[data-page="dashboard"] .brand { padding: 0 6px; }
+
+  .side-profile {
+    display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px;
+    background: var(--bg-3); border: 1px solid var(--line);
+  }
+  .side-egg { width: 40px; flex-shrink: 0; }
+  .side-profile b { display: block; font-size: .95rem; overflow-wrap: anywhere; }
+  .side-profile small { color: var(--yolk); font-size: .78rem; }
+
+  body[data-page="dashboard"] .nav-links { flex-direction: column; gap: 4px; font-size: .95rem; }
+  body[data-page="dashboard"] .nav-links a {
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px;
+    color: var(--muted); border-left: 3px solid transparent; transition: background .2s, color .2s;
+  }
+  body[data-page="dashboard"] .nav-links a:hover { background: var(--bg-3); color: var(--text); }
+  body[data-page="dashboard"] .nav-links a[aria-current="true"] {
+    background: rgba(255, 183, 3, .12); color: var(--text); border-left-color: var(--yolk);
+  }
+  .nl-ico { display: inline-grid; place-items: center; width: 22px; }
+  body[data-page="dashboard"] #logout { margin-top: auto; justify-content: center; }
+
+  body[data-page="dashboard"] main.dash { width: auto; margin: 0 0 0 var(--side); padding: 36px clamp(24px, 3vw, 48px) 0; }
+  body[data-page="dashboard"] .site-footer { margin-left: var(--side); }
+  body[data-page="dashboard"] .dash [id] { scroll-margin-top: 24px; }
+}
+
 @media (max-width: 980px) {
   .dash-hero { grid-template-columns: 1fr; }
   .courses { grid-template-columns: 1fr; max-width: 560px; }

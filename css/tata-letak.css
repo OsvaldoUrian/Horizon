@@ -1,0 +1,20 @@
+/* =========================================================
+   CLUEGG — tata letak selebar layar (dipasang di semua halaman)
+   Header, bilah mode demo, dan footer memenuhi lebar layar sehingga
+   logo Cluegg berada di pojok kiri dan tombol di pojok kanan, seperti
+   aplikasi web pada umumnya. Isi bacaan (beranda, privasi) tetap
+   memakai lebar .container agar nyaman dibaca.
+   ========================================================= */
+.site-header .nav,
+.guest-bar .container,
+.site-footer .container {
+  width: auto;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: clamp(16px, 3vw, 40px);
+}
+
+/* Layar permainan ikut memakai lebar penuh (sejajar dengan header) */
+@media (min-width: 900px) {
+  body.game .game-shell { width: auto; margin-inline: clamp(16px, 3vw, 40px); }
+}

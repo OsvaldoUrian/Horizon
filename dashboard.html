@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/akun.css">
   <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/tata-letak.css">
   <link rel="stylesheet" href="css/aksesibilitas.css">
   <script src="js/config.js"></script>
   <script src="js/akun.js"></script>
@@ -26,11 +27,17 @@
   <header class="site-header">
     <nav class="nav container">
       <a class="brand" href="dashboard.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
+      <!-- Profil kecil: hanya tampil saat header menjadi sidebar (layar PC) -->
+      <div class="side-profile">
+        <span class="egg side-egg" id="side-egg"></span>
+        <div><b id="side-name">Detektif</b><small id="side-rank">Detektif Magang</small></div>
+      </div>
       <ul class="nav-links">
-        <li><a href="#ringkasan">Ringkasan</a></li>
-        <li><a href="#kursus">Kursus</a></li>
-        <li><a href="#misi">Misi</a></li>
-        <li><a href="#statistik">Statistik</a></li>
+        <li><a href="#ringkasan"><span class="nl-ico" aria-hidden="true">🏠</span>Ringkasan</a></li>
+        <li><a href="#kursus"><span class="nl-ico" aria-hidden="true">📚</span>Kursus</a></li>
+        <li><a href="#misi"><span class="nl-ico" aria-hidden="true">🎯</span>Misi</a></li>
+        <li><a href="#statistik"><span class="nl-ico" aria-hidden="true">📊</span>Statistik</a></li>
+        <li><a href="#akun"><span class="nl-ico" aria-hidden="true">👤</span>Akun</a></li>
       </ul>
       <button class="btn btn-ghost btn-sm" type="button" id="logout">Keluar</button>
     </nav>

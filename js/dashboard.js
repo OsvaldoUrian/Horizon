@@ -67,6 +67,11 @@
       : "Semua kasus terpecahkan. Kasus baru akan segera hadir!";
     Cluegg.setEgg(Cluegg.mountEgg($("#avatar-egg")), Math.min(3, solvedCount), solvedCount === CASE_IDS.length);
 
+    // Profil kecil di sidebar (layar PC)
+    if (name) $("#side-name").textContent = name;
+    $("#side-rank").textContent = `Level ${solvedCount + 1} · ${RANKS[solvedCount]}`;
+    Cluegg.setEgg(Cluegg.mountEgg($("#side-egg")), Math.min(3, solvedCount), solvedCount === CASE_IDS.length);
+
     // Tombol "lanjutkan": kasus yang sedang diselidiki, lalu yang belum dibuka
     const next = cases.find((c) => c.status === "active") || cases.find((c) => c.status === "new");
     const cont = $("#continue");
@@ -160,6 +165,39 @@
 
   // Tampilkan dulu dari data di browser, lalu perbarui setelah sinkron dengan cloud
   render(compute());
+
+  // Menu sidebar menyala sesuai bagian yang sedang terlihat di layar
+  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+  const sections = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  function markActive(id) {
+    links.forEach((a) => (a.getAttribute("href") === "#" + id ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current")));
+  }
+  // Bagian terakhir (Akun) tidak bisa digulir sampai atas layar: saat halaman mentok di bawah, dialah yang aktif
+  const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+  const visible = new Map();
+  let clickedUntil = 0; // menu yang baru diklik tetap menyala sejenak (tidak tertimpa saat halaman bergulir)
+  function update() {
+    if (!sections.length || Date.now() < clickedUntil) return;
+    if (atBottom()) return markActive(sections[sections.length - 1].id);
+    // Bagian paling atas yang masih terlihat dianggap aktif
+    const top = sections.find((s) => (visible.get(s.id) || 0) > 0);
+    if (top) markActive(top.id);
+  }
+  if ("IntersectionObserver" in window && sections.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => visible.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
+      update();
+    }, { rootMargin: "-10% 0px -55% 0px", threshold: [0, 0.01, 0.5] });
+    sections.forEach((s) => io.observe(s));
+  }
+  window.addEventListener("scroll", () => { if (atBottom()) update(); }, { passive: true });
+  links.forEach((a) => a.addEventListener("click", () => {
+    clickedUntil = Date.now() + 1200;
+    markActive(a.getAttribute("href").slice(1));
+  }));
+  window.addEventListener("wheel", () => { clickedUntil = 0; }, { passive: true });
+  window.addEventListener("touchmove", () => { clickedUntil = 0; }, { passive: true });
+  markActive("ringkasan");
 
   // Di mode pratinjau tombol ini hanya kembali ke beranda (progres di browser tidak dihapus)
   $("#logout").addEventListener("click", () => (A.enabled ? A.signOut() : (location.href = "index.html")));
