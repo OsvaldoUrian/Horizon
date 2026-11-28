@@ -10,6 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dampak.css">
+  <link rel="stylesheet" href="css/akun.css">
+  <link rel="stylesheet" href="css/permainan.css">
+  <script src="js/config.js"></script>
+  <script src="js/akun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/gelombang.js" defer></script>
 </head>
@@ -18,11 +24,6 @@
   <header class="site-header">
     <nav class="nav container">
       <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
-      <ul class="nav-links">
-        <li><a href="kasus-parabola.html">#01 Fisika</a></li>
-        <li><a href="kasus-gelombang.html" class="yolk">#02 Matematika</a></li>
-        <li><a href="kasus-arsip.html">#03 Informatika</a></li>
-      </ul>
       <a class="btn btn-ghost btn-sm" href="index.html#kasus">Papan Kasus</a>
     </nav>
   </header>
@@ -44,8 +45,7 @@
       <p><b>A (amplitudo)</b> mengatur tinggi puncak. <b>B (frekuensi)</b> mengatur kerapatan gelombang, dengan periode = 2π / B. <b>C (fase)</b> menggeser gelombang ke kiri atau kanan sejauh C / B. Sinyal misterius itu adalah y = 2 · sin(1,5x + π/2). Gelombang suara, cahaya, dan arus listrik bolak-balik dijelaskan dengan pola yang sama.</p>
       <span class="secret-formula">y = A · sin(Bx + C)   ·   T = 2π / B</span>
       <div class="solved-actions">
-        <a class="btn btn-primary" href="kasus-arsip.html">Lanjut ke Berkas #03 →</a>
-        <a class="btn btn-ghost" href="index.html#kasus">Papan Kasus</a>
+        <a class="btn btn-primary" href="index.html#kasus">Kembali ke Papan Kasus →</a>
       </div>
     </section>
 
@@ -62,19 +62,22 @@
           <div class="control">
             <label for="amp">A · Amplitudo <output id="amp-out">1</output></label>
             <input type="range" id="amp" min="0.5" max="3" step="0.5" value="1">
+            <p class="param-status" id="amp-status" aria-live="polite"></p>
           </div>
           <div class="control">
             <label for="freq">B · Frekuensi <output id="freq-out">1</output></label>
             <input type="range" id="freq" min="0.5" max="3" step="0.5" value="1">
+            <p class="param-status" id="freq-status" aria-live="polite"></p>
           </div>
           <div class="control">
             <label for="phase">C · Fase <output id="phase-out">0</output></label>
             <input type="range" id="phase" min="0" max="7" step="1" value="0">
+            <p class="param-status" id="phase-status" aria-live="polite"></p>
           </div>
         </div>
 
         <div class="meter">
-          <div class="meter-top"><span>Kecocokan dengan sinyal</span><b id="score">0%</b></div>
+          <div class="meter-top"><span>Kecocokan total <span id="params-ok">0 dari 3 parameter pas</span></span><b id="score">0%</b></div>
           <div class="meter-bar"><i id="score-bar"></i></div>
         </div>
 
@@ -130,5 +133,6 @@
       <span class="type">Every shell holds a secret. Every clue leads to the truth.</span>
     </div>
   </footer>
+  <script src="js/permainan.js"></script>
 </body>
 </html>

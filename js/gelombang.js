@@ -13,6 +13,38 @@
   const piText = (n) => (num(n) === "1" ? "" : num(n)) + "π"; // "π", bukan "1π"
   let W = 0, H = 0;
 
+  // Indikator per parameter: bandingkan tiap slider dengan target secara terpisah,
+  // supaya A yang sudah benar tetap terlihat "Pas" walau B atau C masih salah.
+  // Hanya arah (terlalu besar/kecil) yang ditampilkan, angka jawabannya tidak.
+  // Teks dibuat pendek agar muat satu baris di kolom slider (lihat css/permainan.css).
+  const PARAMS = [
+    { key: "A", el: "#amp-status", high: "terlalu tinggi", low: "terlalu pendek" },
+    { key: "B", el: "#freq-status", high: "terlalu rapat", low: "terlalu renggang" },
+    { key: "C", el: "#phase-status", high: "terlalu ke kiri", low: "terlalu ke kanan" }
+  ];
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const stateOf = (p, key) => (p[key] === TARGET[key] ? "ok" : p[key] > TARGET[key] ? "high" : "low");
+
+  function updateStatus(p) {
+    let ok = 0;
+    PARAMS.forEach((q) => {
+      const el = $(q.el), state = stateOf(p, q.key);
+      if (state === "ok") ok++;
+      if (el.dataset.state === state) return; // teks sama, jangan dibacakan ulang
+      el.dataset.state = state;
+      // Kalimat lengkap untuk pembaca layar & tooltip; yang terlihat versi ringkas
+      const full = state === "ok"
+        ? `${q.key} pas, cocok dengan sinyal`
+        : `${q.key} ${state === "high" ? "terlalu besar" : "terlalu kecil"}: gelombang ${q[state]}`;
+      el.title = full;
+      el.setAttribute("aria-label", full);
+      el.innerHTML = state === "ok"
+        ? '<span class="pill">✓ Pas</span> cocok'
+        : `<span class="pill">${cap(q[state])}</span> ${state === "high" ? "turunkan" : "naikkan"}`;
+    });
+    $("#params-ok").textContent = `${ok} dari 3 parameter pas`;
+  }
+
   const val = () => ({ A: +amp.value, B: +freq.value, C: +phase.value });
   const f = (p, x) => p.A * Math.sin(p.B * x + (p.C * Math.PI) / 4);
 
@@ -70,14 +102,17 @@
 
   function loop(t) { draw(t); requestAnimationFrame(loop); }
 
+  // Skor = rata-rata kedekatan tiap slider ke jawabannya (masing-masing 0–100%).
+  // Dulu skor dihitung dari selisih seluruh gelombang, sehingga bisa TURUN padahal
+  // slider makin dekat ke jawaban. Sekarang setiap langkah mendekat pasti menaikkan skor.
+  function closeness(p, key) {
+    const el = { A: amp, B: freq, C: phase }[key];
+    const maxGap = Math.max(TARGET[key] - +el.min, +el.max - TARGET[key]);
+    return 1 - Math.abs(p[key] - TARGET[key]) / maxGap;
+  }
   function score(p) {
-    let s = 0;
-    for (let i = 0; i <= 200; i++) {
-      const x = (XMAX * i) / 200, d = f(p, x) - f(TARGET, x);
-      s += d * d;
-    }
-    const rms = Math.sqrt(s / 201);
-    return Math.round(Math.max(0, 1 - rms / 2.2) * 100);
+    const avg = (closeness(p, "A") + closeness(p, "B") + closeness(p, "C")) / 3;
+    return Math.round(avg * 100);
   }
 
   function update(e) {
@@ -92,7 +127,7 @@
     const sc = score(p);
     $("#score").textContent = sc + "%";
     $("#score-bar").style.width = sc + "%";
-    $("#score-bar").style.backgroundPosition = -(300 - sc * 3) + "px 0";
+    updateStatus(p);
 
     if (e) {
       if (p.A !== START.A) game.unlock(0);
@@ -104,10 +139,8 @@
   $("#submit").addEventListener("click", () => {
     if (game.solved) return game.say("Kasus ini sudah terpecahkan. Kerja bagus!");
     if (document.getElementById("final").classList.contains("locked")) return;
-    const p = val(), off = [];
-    if (p.A !== TARGET.A) off.push(p.A > TARGET.A ? "terlalu tinggi" : "terlalu pendek");
-    if (p.B !== TARGET.B) off.push(p.B > TARGET.B ? "terlalu rapat" : "terlalu renggang");
-    if (p.C !== TARGET.C) off.push("posisinya masih bergeser");
+    const p = val();
+    const off = PARAMS.filter((q) => stateOf(p, q.key) !== "ok").map((q) => q[stateOf(p, q.key)]);
     if (!off.length) {
       game.say("✔ Sinyal cocok 100%! Asal sinyal terbukti.");
       game.solve();

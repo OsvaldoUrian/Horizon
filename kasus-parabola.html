@@ -10,6 +10,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/akun.css">
+  <link rel="stylesheet" href="css/permainan.css">
+  <script src="js/config.js"></script>
+  <script src="js/akun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/parabola.js" defer></script>
 </head>
@@ -18,11 +23,6 @@
   <header class="site-header">
     <nav class="nav container">
       <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
-      <ul class="nav-links">
-        <li><a href="kasus-parabola.html" class="yolk">#01 Fisika</a></li>
-        <li><a href="kasus-gelombang.html">#02 Matematika</a></li>
-        <li><a href="kasus-arsip.html">#03 Informatika</a></li>
-      </ul>
       <a class="btn btn-ghost btn-sm" href="index.html#kasus">Papan Kasus</a>
     </nav>
   </header>
@@ -44,8 +44,7 @@
       <p>Jarak tembak ditentukan oleh rumus di bawah. Nilai <b>sin(2θ)</b> paling besar (= 1) saat 2θ = 90°, yaitu θ = 45°. Itu sebabnya sudut yang "berpasangan" (30° dan 60°) memberi jarak yang sama: sin(60°) = sin(120°). Gravitasi ada di penyebut, jadi di Bulan bola terbang sekitar 6 kali lebih jauh.</p>
       <span class="secret-formula">R = v² · sin(2θ) / g</span>
       <div class="solved-actions">
-        <a class="btn btn-primary" href="kasus-gelombang.html">Lanjut ke Berkas #02 →</a>
-        <a class="btn btn-ghost" href="index.html#kasus">Papan Kasus</a>
+        <a class="btn btn-primary" href="index.html#kasus">Kembali ke Papan Kasus →</a>
       </div>
     </section>
 
@@ -139,5 +138,6 @@
       <span class="type">Every shell holds a secret. Every clue leads to the truth.</span>
     </div>
   </footer>
+  <script src="js/permainan.js"></script>
 </body>
 </html>

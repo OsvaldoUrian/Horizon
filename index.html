@@ -10,6 +10,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dampak.css">
+  <link rel="stylesheet" href="css/akun.css">
+  <script src="js/config.js"></script>
+  <script src="js/akun.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body data-page="home">
@@ -19,11 +24,12 @@
       <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
       <ul class="nav-links">
         <li><a href="#masalah">Masalah</a></li>
+        <li><a href="#dampak">Dampak</a></li>
         <li><a href="#cara-kerja">Cara Kerja</a></li>
-        <li><a href="#kasus">Papan Kasus</a></li>
+        <li><a href="#kasus">Coba Demo</a></li>
         <li><a href="#tim">Tim</a></li>
       </ul>
-      <a class="btn btn-primary btn-sm" href="#kasus">Mulai Investigasi</a>
+      <a class="btn btn-ghost btn-sm" href="masuk.html">Masuk</a>
     </nav>
   </header>
 
@@ -37,8 +43,8 @@
           <p class="slogan">"Every shell holds a secret. Every clue leads to the truth."</p>
           <p class="lead">Cluegg mengubah materi abstrak menjadi kasus misteri. Kamu bereksperimen dengan simulasi, mengumpulkan petunjuk, lalu memecahkan cangkangnya untuk menemukan konsep di dalamnya.</p>
           <div class="hero-cta">
-            <a class="btn btn-primary" href="#kasus">Buka Papan Kasus →</a>
-            <a class="btn btn-ghost" href="#cara-kerja">Lihat Cara Kerja</a>
+            <a class="btn btn-primary" href="masuk.html#daftar">Daftar Gratis →</a>
+            <a class="btn btn-ghost" href="#kasus">Coba Demo Dulu</a>
           </div>
           <div class="hero-meta">
             <div><strong>3</strong>kasus simulasi</div>
@@ -87,6 +93,104 @@
       </div>
     </section>
 
+    <!-- ============ DAMPAK · SDG 4 ============
+         Semua angka di bagian ini dikutip dari sumber [1]–[3] di bawah.
+         Jika mengubah angka, cek ulang ke sumber aslinya. -->
+    <section class="section" id="dampak">
+      <div class="container">
+        <p class="eyebrow">Berkas Dampak · SDG 4</p>
+        <h2 class="section-title">Mendukung SDG 4: Pendidikan Berkualitas</h2>
+        <p class="section-lead">Tujuan ke-4 dari Sustainable Development Goals PBB adalah menjamin pendidikan yang inklusif, merata, dan berkualitas, serta kesempatan belajar seumur hidup untuk semua. Target 4.1 menekankan pendidikan yang menghasilkan <b>hasil belajar yang relevan dan efektif</b>, bukan sekadar hadir di kelas.<sup><a href="#sumber-2">[2]</a></sup></p>
+
+        <!-- 1. Masalah -->
+        <div class="impact-block">
+          <h3 class="impact-title"><span class="impact-no">01</span>Masalah yang diangkat</h3>
+          <p class="impact-text">Hasil PISA 2022 menunjukkan sebagian besar siswa Indonesia usia 15 tahun belum mencapai kemampuan minimum (Level 2) di matematika dan sains. OECD menyebut hasil 2022 termasuk yang terendah yang pernah diukur PISA di ketiga bidang.<sup><a href="#sumber-1">[1]</a></sup></p>
+
+          <div class="stats">
+            <figure class="stat">
+              <figcaption>Siswa yang mencapai kemampuan minimum <b>matematika</b></figcaption>
+              <div class="stat-row">
+                <span class="stat-label">Indonesia</span>
+                <span class="stat-bar"><i style="width:18%"></i></span>
+                <b class="stat-num">18%</b>
+              </div>
+              <div class="stat-row is-avg">
+                <span class="stat-label">Rata-rata OECD</span>
+                <span class="stat-bar"><i style="width:69%"></i></span>
+                <b class="stat-num">69%</b>
+              </div>
+            </figure>
+            <figure class="stat">
+              <figcaption>Siswa yang mencapai kemampuan minimum <b>sains</b></figcaption>
+              <div class="stat-row">
+                <span class="stat-label">Indonesia</span>
+                <span class="stat-bar"><i style="width:34%"></i></span>
+                <b class="stat-num">34%</b>
+              </div>
+              <div class="stat-row is-avg">
+                <span class="stat-label">Rata-rata OECD</span>
+                <span class="stat-bar"><i style="width:76%"></i></span>
+                <b class="stat-num">76%</b>
+              </div>
+            </figure>
+            <div class="stat stat-note">
+              <p class="type">Apa arti "kemampuan minimum" matematika?</p>
+              <p>Menurut OECD, siswa di Level 2 setidaknya bisa mengenali bagaimana sebuah situasi sederhana <b>direpresentasikan secara matematis</b>, misalnya membandingkan jarak dua rute.<sup><a href="#sumber-1">[1]</a></sup> Ini tepat jenis kemampuan yang dilatih Cluegg: menghubungkan kejadian nyata dengan rumusnya.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Siapa yang terbantu -->
+        <div class="impact-block">
+          <h3 class="impact-title"><span class="impact-no">02</span>Siapa yang terbantu</h3>
+          <div class="who">
+            <div class="who-card">
+              <h4>Pelajar SMP dan SMA</h4>
+              <p>Yang kesulitan membayangkan konsep fisika, matematika, dan informatika dari buku teks.</p>
+            </div>
+            <div class="who-card">
+              <h4>Mahasiswa tahun pertama</h4>
+              <p>Yang perlu mengulang konsep dasar dengan cara yang lebih cepat dipahami daripada membaca ulang catatan.</p>
+            </div>
+            <div class="who-card">
+              <h4>Guru</h4>
+              <p>Yang butuh alat peraga gratis untuk diputar di kelas atau dibagikan sebagai tugas di rumah.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Bagaimana Cluegg membantu -->
+        <div class="impact-block">
+          <h3 class="impact-title"><span class="impact-no">03</span>Bagaimana Cluegg membantu</h3>
+          <ul class="how">
+            <li>
+              <b>Belajar dengan mencoba, bukan menonton.</b>
+              Riset PhET di jurnal <i>Science</i> melaporkan penguasaan konsep meningkat secara terukur ketika siswa bereksplorasi dengan simulasi interaktif di samping praktikum biasa, dan penggunaan simulasi berkaitan dengan motivasi belajar yang lebih tinggi.<sup><a href="#sumber-3">[3]</a></sup>
+            </li>
+            <li>
+              <b>Akses merata.</b>
+              Gratis, tanpa instalasi, dan bisa dibuka dari browser HP. Satu kasus bisa langsung dicoba tanpa akun. Siswa tanpa laboratorium tetap bisa bereksperimen.
+            </li>
+            <li>
+              <b>Bisa belajar mandiri.</b>
+              Petunjuk muncul bertahap dan menyesuaikan saat siswa berulang kali salah, jadi siswa tidak langsung diberi jawaban tetapi juga tidak dibiarkan buntu.
+            </li>
+            <li>
+              <b>Aman untuk siswa.</b>
+              Akun hanya menyimpan email, nama panggilan, dan progres belajar. Setiap akun hanya bisa membaca datanya sendiri, dan akun bisa dihapus kapan saja. <a href="privasi.html">Kebijakan privasi</a>
+            </li>
+          </ul>
+        </div>
+
+        <ol class="sources" aria-label="Sumber data">
+          <li id="sumber-1">OECD (2023). <i>PISA 2022 Results (Volume I and II) – Country Notes: Indonesia.</i> <a href="https://www.oecd.org/en/publications/pisa-2022-results-volume-i-and-ii-country-notes_ed6fbcc5-en/indonesia_c2e1ae0e-en.html" target="_blank" rel="noopener">oecd.org</a></li>
+          <li id="sumber-2">United Nations. <i>Goal 4: Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.</i> <a href="https://sdgs.un.org/goals/goal4" target="_blank" rel="noopener">sdgs.un.org</a></li>
+          <li id="sumber-3">Wieman, C. E., Adams, W. K., &amp; Perkins, K. K. (2008). PhET: Simulations That Enhance Learning. <i>Science, 322</i>(5902), 682–683. <a href="https://doi.org/10.1126/science.1161948" target="_blank" rel="noopener">doi.org/10.1126/science.1161948</a></li>
+        </ol>
+      </div>
+    </section>
+
     <!-- ============ CARA KERJA ============ -->
     <section class="section" id="cara-kerja">
       <div class="container center">
@@ -119,12 +223,13 @@
       </div>
     </section>
 
-    <!-- ============ PAPAN KASUS ============ -->
+    <!-- ============ COBA DEMO ============
+         Tamu boleh memecahkan SATU kasus. Setelah itu kasus lain terkunci (lihat js/akun.js). -->
     <section class="section" id="kasus">
       <div class="container">
-        <p class="eyebrow">Papan Kasus</p>
-        <h2 class="section-title">Pilih kasus pertamamu, Detektif.</h2>
-        <p class="section-lead">Tiga kasus dari tiga bidang ilmu. Semuanya bisa langsung dimainkan, dan progresmu tersimpan otomatis di browser ini.</p>
+        <p class="eyebrow">Coba Demo</p>
+        <h2 class="section-title">Coba satu kasus. Gratis, tanpa daftar.</h2>
+        <p class="section-lead">Pilih bidang yang paling bikin penasaran. Sebagai tamu kamu bisa memecahkan satu kasus. Daftar gratis untuk membuka semuanya dan menyimpan progresmu.</p>
 
         <div class="board-wrap">
           <div class="cases">
@@ -135,7 +240,7 @@
               <blockquote>"Sudut berapa yang membuat bola meriam terbang paling jauh?"</blockquote>
               <div class="case-foot">
                 <span class="clue-count">Petunjuk <b>0</b>/3</span>
-                <a class="btn btn-primary btn-sm" href="kasus-parabola.html">Buka Berkas</a>
+                <a class="btn btn-primary btn-sm" href="kasus-parabola.html">Coba Gratis</a>
               </div>
               <span class="stamp">TERPECAHKAN</span>
             </article>
@@ -147,7 +252,7 @@
               <blockquote>"Sebuah sinyal rahasia tertangkap radar. Bisakah kamu meniru bentuknya?"</blockquote>
               <div class="case-foot">
                 <span class="clue-count">Petunjuk <b>0</b>/3</span>
-                <a class="btn btn-primary btn-sm" href="kasus-gelombang.html">Buka Berkas</a>
+                <a class="btn btn-primary btn-sm" href="kasus-gelombang.html">Coba Gratis</a>
               </div>
               <span class="stamp">TERPECAHKAN</span>
             </article>
@@ -159,25 +264,48 @@
               <blockquote>"Satu berkas disembunyikan di antara 100 laci. Temukan dengan langkah sesedikit mungkin."</blockquote>
               <div class="case-foot">
                 <span class="clue-count">Petunjuk <b>0</b>/3</span>
-                <a class="btn btn-primary btn-sm" href="kasus-arsip.html">Buka Berkas</a>
+                <a class="btn btn-primary btn-sm" href="kasus-arsip.html">Coba Gratis</a>
               </div>
               <span class="stamp">TERPECAHKAN</span>
             </article>
           </div>
         </div>
 
-        <div class="rank">
-          <div class="rank-head">
-            <h3>Pangkatmu: <span id="rank-name">Detektif Magang</span></h3>
-            <button class="link-reset" id="reset" type="button">Reset progres</button>
+        <p class="trial-note" id="trial-note">Satu kasus untuk tamu. Pilih dengan bijak, Detektif.</p>
+      </div>
+    </section>
+
+    <!-- ============ AKUN / DASHBOARD ============ -->
+    <section class="section" id="akun">
+      <div class="container">
+        <p class="eyebrow">Kartu Anggota</p>
+        <h2 class="section-title">Daftar gratis, buka dashboard detektifmu.</h2>
+        <p class="section-lead">Dengan akun, semua kasus terbuka dan setiap petunjuk tersimpan di cloud. Lanjutkan dari HP atau laptop, kapan saja.</p>
+        <div class="features">
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+            <h3>Level &amp; Pangkat</h3>
+            <p>Kumpulkan XP dari setiap petunjuk dan naik dari Detektif Magang sampai Master Detektif.</p>
           </div>
-          <div class="rank-bar"><i id="rank-bar"></i></div>
-          <div class="rank-levels">
-            <span class="on">Detektif Magang</span>
-            <span>Penyelidik Muda</span>
-            <span>Inspektur Konsep</span>
-            <span>Master Detektif</span>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2zM4 5v16"/></svg></div>
+            <h3>Kursus per Bidang</h3>
+            <p>Kasus dikelompokkan per mata pelajaran: Fisika, Matematika, dan Informatika.</p>
           </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></div>
+            <h3>Misi &amp; Lencana</h3>
+            <p>Misi tercentang otomatis saat kamu bermain, dan setiap misi memberi lencana.</p>
+          </div>
+          <div class="feature">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <h3>Riwayat &amp; Statistik</h3>
+            <p>Lihat kasus yang sudah dibuka, dipecahkan, dan berapa kali kamu mencoba.</p>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="masuk.html#daftar">Buat Akun Gratis →</a>
+          <a class="btn btn-ghost" href="masuk.html">Sudah punya akun? Masuk</a>
         </div>
       </div>
     </section>
@@ -256,9 +384,9 @@
       <div class="cta-band">
         <div>
           <h2>Setiap cangkang menyimpan rahasia.<br>Siap memecahkannya?</h2>
-          <p>Mulai dari Berkas #01. Butuh sekitar 5 menit.</p>
+          <p>Daftar gratis, atau coba satu kasus dulu sebagai tamu.</p>
         </div>
-        <a class="btn" href="kasus-parabola.html">Mulai Kasus Pertama →</a>
+        <a class="btn" href="masuk.html#daftar">Daftar Gratis →</a>
       </div>
     </section>
   </main>
@@ -267,6 +395,7 @@
     <div class="container footer-row">
       <a class="brand" href="index.html"><img src="img/logo.svg" alt=""><span>Clu<b>egg</b></span></a>
       <span class="type">Crack the Egg · Platform Pembelajaran Digital Interaktif</span>
+      <a href="privasi.html">Kebijakan privasi</a>
       <span>© 2026 Tim Cluegg</span>
     </div>
   </footer>
