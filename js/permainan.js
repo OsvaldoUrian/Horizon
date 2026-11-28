@@ -238,8 +238,10 @@
   document.addEventListener("DOMContentLoaded", () => {
     ready = true;
     last = updateNotes();
-    // Briefing otomatis saat pertama kali membuka kasus ini
+    // Laporan misteri otomatis saat pertama kali membuka kasus ini.
+    // Kasus yang punya Ruang Briefing (js/briefing.js) sudah menampilkannya di layar pembuka.
     const locked = document.documentElement.classList.contains("trial-locked");
+    if (window.ClueggBriefingData) return;
     if (!locked && !progress.solved && !read(BRIEF_KEY)[caseId] && dlg.showModal) dlg.showModal();
   });
 })();
