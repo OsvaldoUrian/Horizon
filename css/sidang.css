@@ -73,6 +73,9 @@
 .cf-legend { display: grid; gap: 4px; font-size: .78rem; color: var(--muted); margin-top: auto; }
 .court-body > :first-child { margin-top: auto; }
 .court-body > :last-child { margin-bottom: auto; }
+/* Saat tanya-jawab: rata atas sejak awal, jadi hasil yang muncul di bawah tidak menggeser pertanyaan */
+.court-body.is-ask { padding-top: clamp(22px, 4vh, 40px); }
+.court-body.is-ask > :first-child { margin-top: 0; }
 .court-title { font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -0.03em; }
 .court-title:focus, .court-bubble:focus { outline: none; }
 .court-note { color: var(--muted); font-size: .9rem; }

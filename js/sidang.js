@@ -87,6 +87,7 @@
     phase = "intro";
     speaker("hakim");
     body.innerHTML = "";
+    body.classList.remove("is-ask");
     const best = (read(KEY)[data.id] || {}).best;
     body.append(
       el("p", "eyebrow", "🏛️ Sidang Pembuktian"),
@@ -111,6 +112,7 @@
     const q = Q[idx];
     order = shuffle(q.choices); // urutan pilihan diacak agar jawaban benar tidak selalu di posisi yang sama
     body.innerHTML = "";
+    body.classList.add("is-ask"); // rata atas: pertanyaan tidak bergeser saat hasil muncul
     body.append(progress());
     const bubble = el("div", "court-bubble jaksa-say", `<b>Jaksa · Pertanyaan ${idx + 1} dari ${N}:</b> ${q.q}`);
     bubble.tabIndex = -1;
@@ -173,6 +175,7 @@
     root.classList.add("gavel-hit");
     setTimeout(() => root.classList.remove("gavel-hit"), 900);
     body.innerHTML = "";
+    body.classList.remove("is-ask");
     body.append(progress());
     const card = el("div", "court-verdict");
     card.innerHTML = `

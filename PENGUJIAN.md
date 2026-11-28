@@ -154,6 +154,7 @@ Kontras warna diukur dengan rumus WCAG 2.1 (minimal 4,5 : 1 untuk teks biasa).
 | Kartu briefing menyisakan banyak ruang kosong | Isi menempel di atas kartu | Panel percobaan mengisi tinggi kartu, teks di tengah, ukuran menyesuaikan tinggi layar |
 | Baris "Memecahkan…" di Aktivitas terakhir tidak terbaca | Nama class `solved` bentrok dengan gaya pop-up rahasia | Class diganti `ev-solved` / `ev-opened` |
 | Tombol "Kembali ke lab" ambigu | Kata "lab" tidak sesuai alur | Diganti "Keliling TKP lagi" |
+| Pertanyaan sidang naik setelah dijawab | Kotak hasil yang tersembunyi tetap dihitung sebagai elemen terakhir, sehingga isi turun ke bawah lalu naik ke tengah saat hasil muncul | Saat tanya-jawab isi rata atas; posisi pertanyaan sama sebelum & sesudah menjawab (diukur di 375, 1280, 1820 px) |
 
 ## 8. Console
 
